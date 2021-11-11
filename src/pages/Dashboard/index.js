@@ -132,7 +132,7 @@ const WalletDashboard = () => {
                 </HStack>
                 <HStack spacing={2}>
                     <Text>Saldo:</Text>
-                    <Text>3000,00</Text>
+                    <Text>3.000,00</Text>
                 </HStack>
             </Flex>
         </Stack >
@@ -157,7 +157,7 @@ const CreditCardDashboard = () => {
                 </HStack>
                 <HStack spacing={2}>
                     <Text>Saldo:</Text>
-                    <Text>3000,00</Text>
+                    <Text>3.000,00</Text>
                     <Checkbox />
                 </HStack>
             </Flex>
@@ -211,7 +211,7 @@ const BillsToPay = () => {
                 </HStack>
                 <HStack spacing={2}>
                     <Text>Saldo:</Text>
-                    <Text>3000,00</Text>
+                    <Text>3.000,00</Text>
                     <Checkbox />
                 </HStack>
             </Flex>
@@ -225,7 +225,7 @@ const BillsToPay = () => {
                 </HStack>
                 <HStack spacing={2}>
                     <Text>Saldo:</Text>
-                    <Text>3000,00</Text>
+                    <Text>3.000,00</Text>
                     <Checkbox />
                 </HStack>
             </Flex>
@@ -237,12 +237,23 @@ const BillsToReceive = () => {
     return (
         <Stack w="100%" p={4} spacing={12}>
             <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
-                <Text fontSize={"2xl"}>Contas a Pagar: </Text>
+                <Text fontSize={"2xl"}>Contas a Receber: </Text>
                 <Icon as={FaMoneyBillAlt} fontSize={"4xl"} />
             </Flex>
-            <Stack>
-
-            </Stack>
+            <Flex justify="space-between" color="gray.300">
+                <HStack spacing={2}>
+                    <Icon as={FaReceipt} color="green.300" w="30px" />
+                    <Stack spacing={0}>
+                        <Text fontSize={"lg"}>Salário Kenzie</Text>
+                        <Text fontSize={"xs"}>10-11-21</Text>
+                    </Stack>
+                </HStack>
+                <HStack spacing={2}>
+                    <Text>Saldo:</Text>
+                    <Text>3.500,00</Text>
+                    <Checkbox />
+                </HStack>
+            </Flex>
         </Stack >
     )
 }
