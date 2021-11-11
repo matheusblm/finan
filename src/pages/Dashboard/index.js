@@ -1,5 +1,5 @@
-import { Button, Center, Flex, HStack, Icon, Progress, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react"
-import { FaPlus, FaMinus, FaCalendarAlt, FaWallet, FaMoneyBillAlt, FaLandmark, FaCreditCard } from "react-icons/fa";
+import { Button, Center, Checkbox, Flex, HStack, Icon, Progress, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react"
+import { FaPlus, FaMinus, FaCalendarAlt, FaWallet, FaMoneyBillAlt, FaLandmark, FaCreditCard, FaReceipt, FaFileInvoiceDollar } from "react-icons/fa";
 
 export const Dashboard = () => {
     return (
@@ -148,12 +148,17 @@ const CreditCardDashboard = () => {
             </Flex>
             <Flex justify="space-between" color="gray.300">
                 <HStack spacing={2}>
-                    <Icon as={FaCreditCard} color="red.300" />
-                    <Text>Conta Caixa</Text>
+                    <Icon as={FaCreditCard} color="red.300" w="30px" />
+                    <Stack spacing={0}>
+                        <Text fontSize={"lg"}>Conta Caixa</Text>
+                        <Text fontSize={"xs"}>Data Vencimento</Text>
+                        <Text fontSize={"xs"}>10-11-21</Text>
+                    </Stack>
                 </HStack>
                 <HStack spacing={2}>
                     <Text>Saldo:</Text>
                     <Text>3000,00</Text>
+                    <Checkbox />
                 </HStack>
             </Flex>
         </Stack >
@@ -196,9 +201,34 @@ const BillsToPay = () => {
                 <Text fontSize={"2xl"}>Contas a Pagar: </Text>
                 <Icon as={FaMoneyBillAlt} fontSize={"4xl"} />
             </Flex>
-            <Stack>
-
-            </Stack>
+            <Flex justify="space-between" color="gray.300">
+                <HStack spacing={2}>
+                    <Icon as={FaFileInvoiceDollar} color="red.300" w="30px" />
+                    <Stack spacing={0}>
+                        <Text fontSize={"lg"}>Água</Text>
+                        <Text fontSize={"xs"}>10-11-21</Text>
+                    </Stack>
+                </HStack>
+                <HStack spacing={2}>
+                    <Text>Saldo:</Text>
+                    <Text>3000,00</Text>
+                    <Checkbox />
+                </HStack>
+            </Flex>
+            <Flex justify="space-between" color="gray.300">
+                <HStack spacing={2}>
+                    <Icon as={FaFileInvoiceDollar} color="red.300" w="30px" />
+                    <Stack spacing={0}>
+                        <Text fontSize={"lg"}>Água</Text>
+                        <Text fontSize={"xs"}>10-11-21</Text>
+                    </Stack>
+                </HStack>
+                <HStack spacing={2}>
+                    <Text>Saldo:</Text>
+                    <Text>3000,00</Text>
+                    <Checkbox />
+                </HStack>
+            </Flex>
         </Stack >
     )
 }
