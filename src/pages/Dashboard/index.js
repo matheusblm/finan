@@ -89,11 +89,11 @@ const HeaderDashboard = () => {
                     </Stack>
                 </HStack>
             </Flex>
-            <Flex direction="column" flex="1" px={4} borderX="2px solid #9e9ea7">
-                <Stack bg="white" borderRadius="lg" py={4} px={8} >
+            <Flex direction="column" align="center" flex="1" px={4} borderX="2px solid #9e9ea7">
+                <Flex direction="column" align="center" bg="white" borderRadius="lg" py={4} px={6} >
                     <Text fontSize="sm" color="gray.600">Saldo Total:</Text>
                     <Text fontSize="sm">R$ 1.000.000,00</Text>
-                </Stack>
+                </Flex>
             </Flex>
             <Flex direction="column" flex="1" justify="center">
                 <Stack py={4} px={8} spacing={12} >
