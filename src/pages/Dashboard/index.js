@@ -1,5 +1,5 @@
-import { Button, Center, Flex, HStack, Icon, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react"
-import { FaPlus, FaMinus } from "react-icons/fa";
+import { Button, Center, Flex, HStack, Icon, Progress, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react"
+import { FaPlus, FaMinus, FaCalendarAlt, FaWallet } from "react-icons/fa";
 
 export const Dashboard = () => {
     return (
@@ -13,10 +13,10 @@ export const Dashboard = () => {
                     <HStack>
                         <Stack w="45%" h="548px">
                             <Flex w="100%" h="270px" flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
-                                Teste
+                                <WalletDashboard />
                             </Flex>
                             <Flex w="100%" h="270px" flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
-                                Teste
+                                <CreditCardDashboard />
                             </Flex>
                         </Stack>
                         <Flex w="100%" h="548px" flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
@@ -29,7 +29,7 @@ export const Dashboard = () => {
                         </Flex>
                         <Stack w="45%" h="548px">
                             <Flex w="100%" h="270px" flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
-                                Teste
+                                <ProgressBar />
                             </Flex>
                             <Flex w="100%" h="270px" flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
                                 Teste
@@ -115,5 +115,48 @@ const HeaderDashboard = () => {
                 </Stack>
             </Flex>
         </Flex >
+    )
+}
+
+const ProgressBar = () => {
+    return (
+        <Stack w="100%" p={4} spacing={12}>
+            <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
+                <Text fontSize={"2xl"}>Balanço do mês: </Text>
+                <Icon as={FaCalendarAlt} />
+            </Flex>
+            <Stack>
+                <Progress value={20} colorScheme=" red.300" size="lg" /> 20,00
+                <Progress value={80} colorScheme="green.300" size="lg" /> 80,00
+            </Stack>
+        </Stack >
+    )
+}
+
+const WalletDashboard = () => {
+    return (
+        <Stack w="100%" p={4} spacing={12}>
+            <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
+                <Text fontSize={"2xl"}>Carteira: </Text>
+                <Icon as={FaWallet} fontSize={"4xl"} />
+            </Flex>
+            <Stack>
+
+            </Stack>
+        </Stack >
+    )
+}
+
+const CreditCardDashboard = () => {
+    return (
+        <Stack w="100%" p={4} spacing={12}>
+            <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
+                <Text fontSize={"2xl"}>Carteira: </Text>
+                <Icon as={FaWallet} fontSize={"4xl"} />
+            </Flex>
+            <Stack>
+
+            </Stack>
+        </Stack >
     )
 }
