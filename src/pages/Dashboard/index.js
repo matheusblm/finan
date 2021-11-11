@@ -1,4 +1,5 @@
 import { Button, Center, Checkbox, Flex, HStack, Icon, Progress, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react"
+import { Doughnut } from "react-chartjs-2";
 import { FaPlus, FaMinus, FaCalendarAlt, FaWallet, FaMoneyBillAlt, FaLandmark, FaCreditCard, FaReceipt, FaFileInvoiceDollar } from "react-icons/fa";
 
 export const Dashboard = () => {
@@ -173,7 +174,7 @@ const SpendingOfTheMonth = () => {
                 <Icon as={FaCalendarAlt} fontSize={"4xl"} />
             </Flex>
             <Stack>
-
+                <Doughnut data={data} />
             </Stack>
         </Stack >
     )
@@ -187,7 +188,7 @@ const ProgressBar = () => {
                 <Icon as={FaCalendarAlt} fontSize={"4xl"} />
             </Flex>
             <Stack spacing={2}>
-                {/* <Progress value={20} colorScheme="red.300" size="lg" /> 20,00 */}
+                <Progress value={20} colorScheme="red.300" size="lg" /> 20,00
                 <Progress value={80} colorScheme="green.300" size="lg" /> 80,00
             </Stack>
         </Stack >
@@ -258,3 +259,29 @@ const BillsToReceive = () => {
     )
 }
 
+const data = {
+    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    datasets: [
+        {
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+            ],
+            borderWidth: 1,
+        },
+    ],
+};
