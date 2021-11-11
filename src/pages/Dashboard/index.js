@@ -1,5 +1,5 @@
 import { Button, Center, Flex, HStack, Icon, Progress, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react"
-import { FaPlus, FaMinus, FaCalendarAlt, FaWallet, FaMoneyBillAlt } from "react-icons/fa";
+import { FaPlus, FaMinus, FaCalendarAlt, FaWallet, FaMoneyBillAlt, FaLandmark, FaCreditCard } from "react-icons/fa";
 
 export const Dashboard = () => {
     return (
@@ -118,21 +118,6 @@ const HeaderDashboard = () => {
     )
 }
 
-const ProgressBar = () => {
-    return (
-        <Stack w="100%" p={4} spacing={12}>
-            <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
-                <Text fontSize={"2xl"}>Balanço do mês: </Text>
-                <Icon as={FaCalendarAlt} fontSize={"4xl"} />
-            </Flex>
-            <Stack>
-                <Progress value={20} colorScheme=" red.300" size="lg" /> 20,00
-                <Progress value={80} colorScheme="green.300" size="lg" /> 80,00
-            </Stack>
-        </Stack >
-    )
-}
-
 const WalletDashboard = () => {
     return (
         <Stack w="100%" p={4} spacing={12}>
@@ -140,9 +125,16 @@ const WalletDashboard = () => {
                 <Text fontSize={"2xl"}>Carteira: </Text>
                 <Icon as={FaWallet} fontSize={"4xl"} />
             </Flex>
-            <Stack>
-
-            </Stack>
+            <Flex justify="space-between" color="gray.300">
+                <HStack spacing={2}>
+                    <Icon as={FaLandmark} />
+                    <Text>Conta Caixa</Text>
+                </HStack>
+                <HStack spacing={2}>
+                    <Text>Saldo:</Text>
+                    <Text>3000,00</Text>
+                </HStack>
+            </Flex>
         </Stack >
     )
 }
@@ -152,11 +144,18 @@ const CreditCardDashboard = () => {
         <Stack w="100%" p={4} spacing={12}>
             <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
                 <Text fontSize={"2xl"}>Cartão de Crédito: </Text>
-                <Icon as={FaWallet} fontSize={"4xl"} />
+                <Icon as={FaCreditCard} fontSize={"4xl"} />
             </Flex>
-            <Stack>
-
-            </Stack>
+            <Flex justify="space-between" color="gray.300">
+                <HStack spacing={2}>
+                    <Icon as={FaCreditCard} color="red.300" />
+                    <Text>Conta Caixa</Text>
+                </HStack>
+                <HStack spacing={2}>
+                    <Text>Saldo:</Text>
+                    <Text>3000,00</Text>
+                </HStack>
+            </Flex>
         </Stack >
     )
 }
@@ -170,6 +169,21 @@ const SpendingOfTheMonth = () => {
             </Flex>
             <Stack>
 
+            </Stack>
+        </Stack >
+    )
+}
+
+const ProgressBar = () => {
+    return (
+        <Stack w="100%" p={4} spacing={12}>
+            <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
+                <Text fontSize={"2xl"}>Balanço do mês: </Text>
+                <Icon as={FaCalendarAlt} fontSize={"4xl"} />
+            </Flex>
+            <Stack>
+                <Progress value={20} colorScheme=" red.300" size="lg" /> 20,00
+                <Progress value={80} colorScheme="green.300" size="lg" /> 80,00
             </Stack>
         </Stack >
     )
