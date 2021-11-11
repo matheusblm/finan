@@ -1,5 +1,5 @@
 import { Button, Center, Flex, HStack, Icon, Progress, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react"
-import { FaPlus, FaMinus, FaCalendarAlt, FaWallet } from "react-icons/fa";
+import { FaPlus, FaMinus, FaCalendarAlt, FaWallet, FaMoneyBillAlt } from "react-icons/fa";
 
 export const Dashboard = () => {
     return (
@@ -20,19 +20,19 @@ export const Dashboard = () => {
                             </Flex>
                         </Stack>
                         <Flex w="100%" h="548px" flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
-                            Teste
+                            <SpendingOfTheMonth />
                         </Flex>
                     </HStack>
                     <HStack>
                         <Flex w="100%" h="548px" flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
-                            Teste
+                            <BillsToPay />
                         </Flex>
                         <Stack w="45%" h="548px">
                             <Flex w="100%" h="270px" flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
                                 <ProgressBar />
                             </Flex>
                             <Flex w="100%" h="270px" flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
-                                Teste
+                                <BillsToReceive />
                             </Flex>
                         </Stack>
                     </HStack>
@@ -123,7 +123,7 @@ const ProgressBar = () => {
         <Stack w="100%" p={4} spacing={12}>
             <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
                 <Text fontSize={"2xl"}>Balanço do mês: </Text>
-                <Icon as={FaCalendarAlt} />
+                <Icon as={FaCalendarAlt} fontSize={"4xl"} />
             </Flex>
             <Stack>
                 <Progress value={20} colorScheme=" red.300" size="lg" /> 20,00
@@ -151,7 +151,7 @@ const CreditCardDashboard = () => {
     return (
         <Stack w="100%" p={4} spacing={12}>
             <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
-                <Text fontSize={"2xl"}>Carteira: </Text>
+                <Text fontSize={"2xl"}>Cartão de Crédito: </Text>
                 <Icon as={FaWallet} fontSize={"4xl"} />
             </Flex>
             <Stack>
@@ -160,3 +160,46 @@ const CreditCardDashboard = () => {
         </Stack >
     )
 }
+
+const SpendingOfTheMonth = () => {
+    return (
+        <Stack w="100%" p={4} spacing={12}>
+            <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
+                <Text fontSize={"2xl"}>Gastos do mês: </Text>
+                <Icon as={FaCalendarAlt} fontSize={"4xl"} />
+            </Flex>
+            <Stack>
+
+            </Stack>
+        </Stack >
+    )
+}
+
+const BillsToPay = () => {
+    return (
+        <Stack w="100%" p={4} spacing={12}>
+            <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
+                <Text fontSize={"2xl"}>Contas a Pagar: </Text>
+                <Icon as={FaMoneyBillAlt} fontSize={"4xl"} />
+            </Flex>
+            <Stack>
+
+            </Stack>
+        </Stack >
+    )
+}
+
+const BillsToReceive = () => {
+    return (
+        <Stack w="100%" p={4} spacing={12}>
+            <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
+                <Text fontSize={"2xl"}>Contas a Pagar: </Text>
+                <Icon as={FaMoneyBillAlt} fontSize={"4xl"} />
+            </Flex>
+            <Stack>
+
+            </Stack>
+        </Stack >
+    )
+}
+
