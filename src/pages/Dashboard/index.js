@@ -174,7 +174,7 @@ const SpendingOfTheMonth = () => {
                 <Icon as={FaCalendarAlt} fontSize={"4xl"} />
             </Flex>
             <Stack>
-                <Doughnut data={data} />
+                <Doughnut data={dataGrafico} />
             </Stack>
         </Stack >
     )
@@ -188,8 +188,8 @@ const ProgressBar = () => {
                 <Icon as={FaCalendarAlt} fontSize={"4xl"} />
             </Flex>
             <Stack spacing={2}>
-                <Progress value={20} size="lg" colorScheme="red" /> <Text as="span">20,00</Text>
-                <Progress value={80} size="lg" colorScheme="green" /> <Text as="span">80,00</Text>
+                <Progress value={20} size="lg" colorScheme="green" w="70%" /> <Text as="span" w="30%">20,00</Text>
+                <Progress value={80} size="lg" colorScheme="red" w="70%" /> <Text as="span">80,00</Text>
             </Stack>
         </Stack >
     )
@@ -259,7 +259,7 @@ const BillsToReceive = () => {
     )
 }
 
-const data = {
+const dataGrafico = {
     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
     datasets: [
         {
