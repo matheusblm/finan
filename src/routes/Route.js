@@ -5,7 +5,7 @@ export const Route = ({ isPrivate = false, component: Component, ...rest }) => {
     <ReactRoute
       {...rest}
       render={() =>
-        isPrivate === !!false ? (
+        isPrivate === false ? (
           <Component />
         ) : (
           <Redirect to={isPrivate ? "/" : "/dashboard"} />
