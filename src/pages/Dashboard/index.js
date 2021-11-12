@@ -1,4 +1,4 @@
-import { Button, Center, Checkbox, Flex, HStack, Icon, Progress, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react"
+import { Box, Button, Center, Checkbox, Flex, HStack, Icon, Progress, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react"
 import { Doughnut } from "react-chartjs-2";
 import { FaPlus, FaMinus, FaCalendarAlt, FaWallet, FaMoneyBillAlt, FaLandmark, FaCreditCard, FaReceipt, FaFileInvoiceDollar } from "react-icons/fa";
 
@@ -173,9 +173,9 @@ const SpendingOfTheMonth = () => {
                 <Text fontSize={"2xl"}>Gastos do mês: </Text>
                 <Icon as={FaCalendarAlt} fontSize={"4xl"} />
             </Flex>
-            <Stack>
+            <Center w="290px" h="350px">
                 <Doughnut data={dataGrafico} />
-            </Stack>
+            </Center>
         </Stack >
     )
 }
