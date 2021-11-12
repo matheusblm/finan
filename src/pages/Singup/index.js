@@ -24,7 +24,7 @@ export const SignUp = () => {
   
     const {register,handleSubmit,formState:{errors}} = useForm({resolver:yupResolver(schema)})
   
-    const onSignin = (data)=>{
+    const onSignup = (data)=>{
   
       axios.post()
     }
@@ -69,7 +69,7 @@ export const SignUp = () => {
             <Box bg={["#FEFEFE","#FEFEFE","#FEFEFE"]} w={["100%","100%","60%"]} height="100%" display="flex" alignItems="center" justifyContent="center">
                 <FormControl as="form" w={["90%","90%","75%","50%"]} padding="15px" 
                 borderRadius="5px" display="flex" flexDirection="column" alignItems="center" 
-                justifyContent="center" color="#80807E" isInvalid={false}>
+                justifyContent="center" color="#80807E" isInvalid={false} onSubmit={handleSubmit(onSignup)}>
                     <Image h="100px"
                     src="https://s3-alpha-sig.figma.com/img/44a9/8893/fad81878ee4881059dc97e15eb6c5bdf?Expires=1637539200&Signature=Yg26wPlf7-zg6SOzn8mvaqGMwBN-sSv-LiHRcKjVK~yk-RJOoh~3AYqUpws5S~sYMo4fvH95iTJyYS5maMpsXSd5aw4VOFF8gbzqGNqPzDEBOCA1Q0h4eV2zxEBGwjm0VhvnSoYzpo5Zb6~Ze-eo7iWA0naKRGqhx0XRdcnvxSi4Wqqr3zu7QsjQ0fxfDSnWewyT-Jb2Qm9HEZsaAlDiFzTOFKQkL8fVidgRQqyLv36Ai8dQYIQRjrKeJFHIeFyOAsfkRS7MRTJudBdLjt0CleMJ2q49f6pF4J4cNZJKEOtnjuwBUpEqpWj0XLCTYPKXOnWLHdyeUSEDfikH4CvhcQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"/>
                     <FormLabel textAlign="left" w="100%" paddingLeft="2" fontSize="14px">Nome de usuário</FormLabel>
@@ -97,7 +97,8 @@ export const SignUp = () => {
                     <Text as="p" h="10px" paddingLeft="2" marginBottom="5px" fontSize="xs"></Text>
                     </InputGroup>
                     
-                    <Button bg={"blue.900"} color="white" w="80%" fontSize="20px" marginBottom="4" marginTop="4">Login</Button>
+                    <Button bg={"blue.900"} color="white" w="80%" fontSize="20px" marginBottom="4"
+                     marginTop="4" type="submit">Login</Button>
                     <Box h={["60px","60px","20px"]} w="100%" textAlign="center" fontSize="xs">
                         Já possui uma conta?<Text as="span" onClick={()=>history.push("/")} cursor="pointer" color={"blue.900"}> Clique aqui!</Text>
                     </Box>
