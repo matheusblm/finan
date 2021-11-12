@@ -173,7 +173,7 @@ const SpendingOfTheMonth = () => {
                 <Text fontSize={"2xl"}>Gastos do mês: </Text>
                 <Icon as={FaCalendarAlt} fontSize={"4xl"} />
             </Flex>
-            <Center w="290px" h="350px">
+            <Center h="290px" w="400px">
                 <Doughnut data={dataGrafico} />
             </Center>
         </Stack >
@@ -267,18 +267,23 @@ const BillsToReceive = () => {
 
 const dataGrafico = {
     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
+    options: {
+        plugins: {
+            legend: {
+                responsive: true,
+                position: 'right',
+            },
+        }
+    },
     datasets: [
         {
-            // width: "20px",
-            // height: "40px",
-            label: '# of Votes',
             data: [12, 19, 3, 5, 2],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
@@ -290,4 +295,5 @@ const dataGrafico = {
             borderWidth: 1,
         },
     ],
+
 };
