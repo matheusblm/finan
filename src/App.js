@@ -1,7 +1,8 @@
+import SpendLimit from "./pages/Limit";
 import { Routes } from "./routes";
 
 function App() {
-  return <Routes />;
+  return <SpendLimit />;
 }
 
 export default App;
