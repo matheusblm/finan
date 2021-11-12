@@ -1,4 +1,4 @@
-import { Box, Button, Center, Checkbox, Flex, HStack, Icon, Progress, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react"
+import { Button, Center, Checkbox, Flex, HStack, Icon, Progress, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react"
 import { Doughnut } from "react-chartjs-2";
 import { FaPlus, FaMinus, FaCalendarAlt, FaWallet, FaMoneyBillAlt, FaLandmark, FaCreditCard, FaReceipt, FaFileInvoiceDollar } from "react-icons/fa";
 
@@ -7,16 +7,16 @@ export const Dashboard = () => {
         <>
             <Flex h="106px" bg="#16425B">Header</Flex>
             <Center>
-                <Stack py={4} w={"1047px"}>
-                    <Flex h="230px" bgGradient="linear(to-l, blue.500 0%, gray.50 99.65%)" p={2} borderRadius="lg" overflow="auto" boxShadow="lg" >
+                <Stack py={4} w={"80%"}>
+                    <Flex h={{ xs: "500px", sm: "500px", base: "230px" }} bgGradient="linear(to-l, blue.500 0%, gray.50 99.65%)" p={2} borderRadius="lg" overflow="auto" boxShadow="lg" >
                         <HeaderDashboard />
                     </Flex>
                     <HStack>
                         <Stack w="45%" h="548px">
-                            <Flex w="100%" h="270px" flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
+                            <Flex w="100%" h={{ sm: "270px", base: "75px" }} flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
                                 <WalletDashboard />
                             </Flex>
-                            <Flex w="100%" h="270px" flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
+                            <Flex w="100%" h={{ sm: "270px", base: "75px" }} flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
                                 <CreditCardDashboard />
                             </Flex>
                         </Stack>
@@ -29,10 +29,10 @@ export const Dashboard = () => {
                             <BillsToPay />
                         </Flex>
                         <Stack w="45%" h="548px">
-                            <Flex w="100%" h="270px" flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
+                            <Flex w="100%" h={{ sm: "270px", base: "75px" }} flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
                                 <ProgressBar />
                             </Flex>
-                            <Flex w="100%" h="270px" flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
+                            <Flex w="100%" h={{ sm: "270px", base: "75px" }} flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
                                 <BillsToReceive />
                             </Flex>
                         </Stack>
@@ -76,19 +76,19 @@ export const Dashboard = () => {
 
 const HeaderDashboard = () => {
     return (
-        <Flex justify="space-between" w="100%">
-            <Flex direction="column" flex="2" justify="space-around" px={4}>
+        <Flex direction={{ md: "row", base: "column" }} justify="space-between" w="100%" >
+            <Flex direction="column" flex="2" justify="space-around" px={4} align={{ lg: "flex-start", base: "center" }}>
                 <Text color="gray.600" fontSize="lg">Bem Vindo,<br /> Usuário</Text>
-                <HStack spacing={4}>
-                    <Stack bg="white" borderRadius="lg" py={2} px={6}>
+                <Flex direction={{ lg: "row", base: "column" }} >
+                    <Stack bg="white" borderRadius="lg" py={2} px={6} m={2}>
                         <Text fontSize="sm" color="gray.600">Receita Mensal:</Text>
                         <Text color="green.300" fontSize="sm">R$ 1.000.000,00</Text>
                     </Stack>
-                    <Stack bg="white" borderRadius="lg" py={2} px={6}>
+                    <Stack bg="white" borderRadius="lg" py={2} px={6} m={2}>
                         <Text fontSize="sm" color="gray.600">Despesa Mensal:</Text>
                         <Text color="red.300" fontSize="sm">R$ 1.000,00</Text>
                     </Stack>
-                </HStack>
+                </Flex>
             </Flex>
             <Flex direction="column" align="center" justify="center" flex="1" px={4} borderX="2px solid #9e9ea7">
                 <Flex direction="column" align="center" bg="white" borderRadius="lg" py={4} px={6} >
@@ -99,7 +99,7 @@ const HeaderDashboard = () => {
             <Flex direction="column" flex="1" justify="center">
                 <Stack py={4} px={8} spacing={12} >
                     <Text color="gray.600" fontSize="lg" fontWeight="bold">Acesso Rápido:</Text>
-                    <HStack>
+                    <Flex justify="space-around">
                         <Button bg="white" w="94px" h="70">
                             <Flex direction="column" align="center" justify="center">
                                 <Icon bg="green.300" color="white" w="40px" h="40px" p={2} borderRadius="lg" as={FaPlus} mb="4px" />
@@ -112,7 +112,7 @@ const HeaderDashboard = () => {
                                 <Text fontWeight="medium" fontSize="sm" color="gray.600">Despesa</Text>
                             </Flex>
                         </Button>
-                    </HStack>
+                    </Flex>
                 </Stack>
             </Flex>
         </Flex >
