@@ -11,8 +11,8 @@ export const Dashboard = () => {
                     <Flex h={{ xs: "500px", sm: "500px", base: "230px" }} bgGradient="linear(to-l, blue.500 0%, gray.50 99.65%)" p={2} borderRadius="lg" overflow="auto" boxShadow="lg" >
                         <HeaderDashboard />
                     </Flex>
-                    <HStack>
-                        <Stack w="45%" h="548px">
+                    <Flex direction={{ md: "row", base: "column" }}>
+                        <Stack w={{ md: "45%", base: "100%" }} h="548px">
                             <Flex w="100%" h={{ sm: "270px", base: "75px" }} flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
                                 <WalletDashboard />
                             </Flex>
@@ -23,12 +23,12 @@ export const Dashboard = () => {
                         <Flex w="100%" h="548px" flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
                             <SpendingOfTheMonth />
                         </Flex>
-                    </HStack>
-                    <HStack>
+                    </Flex>
+                    <Flex direction={{ md: "row", base: "column" }}>
                         <Flex w="100%" h="548px" flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
                             <BillsToPay />
                         </Flex>
-                        <Stack w="45%" h="548px">
+                        <Stack w={{ md: "45%", base: "100%" }} h="548px">
                             <Flex w="100%" h={{ sm: "270px", base: "75px" }} flex={1} p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
                                 <ProgressBar />
                             </Flex>
@@ -36,39 +36,8 @@ export const Dashboard = () => {
                                 <BillsToReceive />
                             </Flex>
                         </Stack>
-                    </HStack>
-                </Stack>
-                {/* <Stack py={4}>
-                    <Flex h="230px" bgGradient="linear(to-l, #B7C5DE 0%, rgba(255, 255, 255, 0.44) 99.65%)" p={2} borderRadius="lg" overflow="auto" boxShadow="lg" >
-                        Teste
                     </Flex>
-                    <Wrap justify={"center"}>
-                        <Stack>
-                            <Flex w="540px" h="270px" p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
-                                Teste
-                            </Flex>
-                            <Flex w="540px" h="270px" p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
-                                Teste
-                            </Flex>
-                        </Stack>
-                        <WrapItem w="540px" h="548px" p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
-                            Teste
-                        </WrapItem>
-                    </Wrap>
-                    <Wrap justify={"center"} >
-                        <WrapItem w="540px" h="548px" p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
-                            Teste
-                        </WrapItem>
-                        <Stack>
-                            <WrapItem maxW="540px" h="270px" p={2} borderRadius="lg" overflow="auto" boxShadow="lg" bg="green">
-                                Teste
-                            </WrapItem>
-                            <WrapItem w="540px" h="270px" p={2} borderRadius="lg" overflow="auto" boxShadow="lg">
-                                Teste
-                            </WrapItem>
-                        </Stack>
-                    </Wrap>
-                </Stack> */}
+                </Stack>
             </Center>
         </>
     )
@@ -174,7 +143,7 @@ const SpendingOfTheMonth = () => {
                 <Icon as={FaCalendarAlt} fontSize={"4xl"} />
             </Flex>
             <Center>
-                <Flex h="290px" w={{ base: "290px", md: "400px" }}>
+                <Flex h="290px" w={{ base: "250px", md: "400px" }}>
                     <Doughnut data={dataGrafico} />
                 </Flex>
             </Center>
