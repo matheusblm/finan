@@ -1,11 +1,11 @@
 import Header from "./components/Header";
-import { Route } from "./routes/Route";
+import { Routes } from "./routes";
 
 function App() {
   return (
     <div>
       <Header />
-      <Route />
+      <Routes />
     </div>
   );
 }
