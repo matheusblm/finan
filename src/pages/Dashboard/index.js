@@ -100,13 +100,13 @@ const HeaderDashboard = () => {
                 <Stack py={4} px={8} spacing={12} >
                     <Text color="gray.600" fontSize="lg" fontWeight="bold">Acesso Rápido:</Text>
                     <Flex justify="space-around">
-                        <Button bg="white" w="94px" h="70">
+                        <Button bg="white" w="94px" h="70" mx={1}>
                             <Flex direction="column" align="center" justify="center">
                                 <Icon bg="green.300" color="white" w="40px" h="40px" p={2} borderRadius="lg" as={FaPlus} mb="4px" />
                                 <Text fontWeight="medium" fontSize="sm" color="gray.600">Receita</Text>
                             </Flex>
                         </Button>
-                        <Button bg="white" w="94px" h="70">
+                        <Button bg="white" w="94px" h="70" mx={1}>
                             <Flex direction="column" align="center" justify="center">
                                 <Icon bg="red.300" color="white" w="40px" h="40px" p={2} borderRadius="lg" as={FaMinus} mb="4px" />
                                 <Text fontWeight="medium" fontSize="sm" color="gray.600">Despesa</Text>
