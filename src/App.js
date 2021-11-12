@@ -1,7 +1,15 @@
-import { Dashboard } from "./pages/Dashboard";
+
+
+import Header from "./components/Header";
+import { Routes } from "./routes";
 
 function App() {
-  return <Dashboard />;
+  return (
+    <div>
+      <Header />
+      <Routes />
+    </div>
+  );
 }
 
 export default App;
