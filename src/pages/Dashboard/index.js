@@ -145,7 +145,7 @@ const SpendingOfTheMonth = () => {
                 <Icon as={FaCalendarAlt} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
             </Flex>
             <Center>
-                <Flex h="290px" w={{ base: "250px", md: "400px" }}>
+                <Flex h="290px" w={{ base: "250px", md: "300px", lg: "400px" }}>
                     <Doughnut data={dataGrafico} />
                 </Flex>
             </Center>
