@@ -1,8 +1,11 @@
-import SpendLimit from "./pages/Limit";
-import { Routes } from "./routes";
+
+import Header from './components/Header'
 
 function App() {
-  return <SpendLimit />;
+  return <div>
+    <Header />
+  </div>;
+
 }
 
 export default App;
