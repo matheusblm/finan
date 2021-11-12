@@ -90,7 +90,7 @@ const HeaderDashboard = () => {
 
 const WalletDashboard = () => {
     return (
-        <Stack w="100%" p={4} spacing={12}>
+        <Stack w="100%" p={4} spacing={2}>
             <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
                 <Text fontSize={"2xl"}>Carteira: </Text>
                 <Icon as={FaWallet} fontSize={"4xl"} />
@@ -111,7 +111,7 @@ const WalletDashboard = () => {
 
 const CreditCardDashboard = () => {
     return (
-        <Stack w="100%" p={4} spacing={12}>
+        <Stack w="100%" p={4} spacing={2}>
             <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
                 <Text fontSize={"2xl"}>Cartão de Crédito: </Text>
                 <Icon as={FaCreditCard} fontSize={"4xl"} />
@@ -137,7 +137,7 @@ const CreditCardDashboard = () => {
 
 const SpendingOfTheMonth = () => {
     return (
-        <Stack w="100%" p={4} spacing={12}>
+        <Stack w="100%" p={4} spacing={2}>
             <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
                 <Text fontSize={"2xl"}>Gastos do mês: </Text>
                 <Icon as={FaCalendarAlt} fontSize={"4xl"} />
@@ -174,7 +174,7 @@ const ProgressBar = () => {
 
 const BillsToPay = () => {
     return (
-        <Stack w="100%" p={4} spacing={12}>
+        <Stack w="100%" p={4} spacing={2}>
             <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
                 <Text fontSize={"2xl"}>Contas a Pagar: </Text>
                 <Icon as={FaMoneyBillAlt} fontSize={"4xl"} />
@@ -213,7 +213,7 @@ const BillsToPay = () => {
 
 const BillsToReceive = () => {
     return (
-        <Stack w="100%" p={4} spacing={12}>
+        <Stack w="100%" p={4} spacing={2}>
             <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
                 <Text fontSize={"2xl"}>Contas a Receber: </Text>
                 <Icon as={FaMoneyBillAlt} fontSize={"4xl"} />
