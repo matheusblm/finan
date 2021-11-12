@@ -51,7 +51,7 @@ const HeaderDashboard = () => {
                 <Flex direction={{ lg: "row", base: "column" }} >
                     <Stack bg="white" borderRadius="lg" py={2} px={6} m={2}>
                         <Text fontSize="sm" color="gray.600">Receita Mensal:</Text>
-                        <Text color="green.300" fontSize="sm">R$ 1.000.000,00</Text>
+                        <Text color="green" fontSize="sm">R$ 1.000.000,00</Text>
                     </Stack>
                     <Stack bg="white" borderRadius="lg" py={2} px={6} m={2}>
                         <Text fontSize="sm" color="gray.600">Despesa Mensal:</Text>
@@ -73,7 +73,7 @@ const HeaderDashboard = () => {
                     <Flex justify="space-around">
                         <Button bg="white" w="94px" h="70" mx={1}>
                             <Flex direction="column" align="center" justify="center">
-                                <Icon bg="green.300" color="white" w="40px" h="40px" p={2} borderRadius="lg" as={FaPlus} mb="4px" />
+                                <Icon bg="green" color="white" w="40px" h="40px" p={2} borderRadius="lg" as={FaPlus} mb="4px" />
                                 <Text fontWeight="medium" fontSize="sm" color="gray.600">Receita</Text>
                             </Flex>
                         </Button>
@@ -220,9 +220,9 @@ const BillsToReceive = () => {
                 <Text fontSize={{ md: "2xl", base: "sm" }}>Contas a Receber: </Text>
                 <Icon as={FaMoneyBillAlt} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
             </Flex>
-            <Flex justify="space-between" color="gray.300">
+            <Flex justify="space-between" color="gray">
                 <HStack spacing={2}>
-                    <Icon as={FaReceipt} color="green.300" w="30px" />
+                    <Icon as={FaReceipt} color="green" w="30px" />
                     <Stack spacing={0}>
                         <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Salário Kenzie</Text>
                         <Text display={["none", "none", "none", "block"]} fontSize={{ md: "sm", lg: "md" }}>10-11-21</Text>
