@@ -92,17 +92,17 @@ const WalletDashboard = () => {
     return (
         <Stack w="100%" p={4} spacing={2}>
             <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
-                <Text fontSize={"2xl"}>Carteira: </Text>
-                <Icon as={FaWallet} fontSize={"4xl"} />
+                <Text fontSize={{ md: "2xl", base: "sm" }}>Carteira: </Text>
+                <Icon as={FaWallet} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
             </Flex>
             <Flex justify="space-between" color="gray.300">
                 <HStack spacing={2}>
                     <Icon as={FaLandmark} />
-                    <Text>Conta Caixa</Text>
+                    <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Conta Caixa</Text>
                 </HStack>
                 <HStack spacing={2}>
-                    <Text>Saldo:</Text>
-                    <Text>3.000,00</Text>
+                    <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
+                    <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
                 </HStack>
             </Flex>
         </Stack >
@@ -113,21 +113,21 @@ const CreditCardDashboard = () => {
     return (
         <Stack w="100%" p={4} spacing={2}>
             <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
-                <Text fontSize={"2xl"}>Cartão de Crédito: </Text>
-                <Icon as={FaCreditCard} fontSize={"4xl"} />
+                <Text fontSize={{ md: "2xl", base: "sm" }}>Cartão de Crédito: </Text>
+                <Icon as={FaCreditCard} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
             </Flex>
             <Flex justify="space-between" color="gray.300">
                 <HStack spacing={2}>
                     <Icon as={FaCreditCard} color="red.300" w="30px" />
                     <Stack spacing={0}>
-                        <Text fontSize={"lg"}>Conta Caixa</Text>
-                        <Text fontSize={"xs"}>Data Vencimento</Text>
-                        <Text fontSize={"xs"}>10-11-21</Text>
+                        <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Conta Caixa</Text>
+                        <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>Data Vencimento</Text>
+                        <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>10-11-21</Text>
                     </Stack>
                 </HStack>
                 <HStack spacing={2}>
-                    <Text>Saldo:</Text>
-                    <Text>3.000,00</Text>
+                    <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
+                    <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
                     <Checkbox />
                 </HStack>
             </Flex>
@@ -139,8 +139,8 @@ const SpendingOfTheMonth = () => {
     return (
         <Stack w="100%" p={4} spacing={2}>
             <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
-                <Text fontSize={"2xl"}>Gastos do mês: </Text>
-                <Icon as={FaCalendarAlt} fontSize={"4xl"} />
+                <Text fontSize={{ md: "2xl", base: "sm" }}>Gastos do mês: </Text>
+                <Icon as={FaCalendarAlt} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
             </Flex>
             <Center>
                 <Flex h="290px" w={{ base: "250px", md: "400px" }}>
@@ -155,17 +155,17 @@ const ProgressBar = () => {
     return (
         <Stack w="100%" p={4} spacing={12}>
             <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
-                <Text fontSize={"2xl"}>Balanço do mês: </Text>
-                <Icon as={FaCalendarAlt} fontSize={"4xl"} />
+                <Text fontSize={{ md: "2xl", base: "sm" }}>Balanço do mês: </Text>
+                <Icon as={FaCalendarAlt} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
             </Flex>
             <Stack spacing={2}>
                 <HStack>
                     <Progress value={20} size="lg" colorScheme="green" w="80%" />
-                    <Text as="span">20,00</Text>
+                    <Text as="span" fontSize={{ lg: "md", md: "sm", base: "xs" }} color="gray.300">20,00</Text>
                 </HStack>
                 <HStack>
                     <Progress value={80} size="lg" colorScheme="red" w="80%" />
-                    <Text as="span">80,00</Text>
+                    <Text as="span" fontSize={{ lg: "md", md: "sm", base: "xs" }} color="gray.300">80,00</Text>
                 </HStack>
             </Stack>
         </Stack >
@@ -176,20 +176,20 @@ const BillsToPay = () => {
     return (
         <Stack w="100%" p={4} spacing={2}>
             <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
-                <Text fontSize={"2xl"}>Contas a Pagar: </Text>
-                <Icon as={FaMoneyBillAlt} fontSize={"4xl"} />
+                <Text fontSize={{ md: "2xl", base: "sm" }}>Contas a Pagar: </Text>
+                <Icon as={FaMoneyBillAlt} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
             </Flex>
             <Flex justify="space-between" color="gray.300">
                 <HStack spacing={2}>
                     <Icon as={FaFileInvoiceDollar} color="red.300" w="30px" />
                     <Stack spacing={0}>
-                        <Text fontSize={"lg"}>Água</Text>
-                        <Text fontSize={"xs"}>10-11-21</Text>
+                        <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Água</Text>
+                        <Text fontSize={{ md: "lg", base: "xs" }}>10-11-21</Text>
                     </Stack>
                 </HStack>
                 <HStack spacing={2}>
-                    <Text>Saldo:</Text>
-                    <Text>3.000,00</Text>
+                    <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
+                    <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
                     <Checkbox />
                 </HStack>
             </Flex>
@@ -197,13 +197,13 @@ const BillsToPay = () => {
                 <HStack spacing={2}>
                     <Icon as={FaFileInvoiceDollar} color="red.300" w="30px" />
                     <Stack spacing={0}>
-                        <Text fontSize={"lg"}>Água</Text>
-                        <Text fontSize={"xs"}>10-11-21</Text>
+                        <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Água</Text>
+                        <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>10-11-21</Text>
                     </Stack>
                 </HStack>
                 <HStack spacing={2}>
-                    <Text>Saldo:</Text>
-                    <Text>3.000,00</Text>
+                    <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
+                    <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
                     <Checkbox />
                 </HStack>
             </Flex>
@@ -215,20 +215,20 @@ const BillsToReceive = () => {
     return (
         <Stack w="100%" p={4} spacing={2}>
             <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
-                <Text fontSize={"2xl"}>Contas a Receber: </Text>
-                <Icon as={FaMoneyBillAlt} fontSize={"4xl"} />
+                <Text fontSize={{ md: "2xl", base: "sm" }}>Contas a Receber: </Text>
+                <Icon as={FaMoneyBillAlt} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
             </Flex>
             <Flex justify="space-between" color="gray.300">
                 <HStack spacing={2}>
                     <Icon as={FaReceipt} color="green.300" w="30px" />
                     <Stack spacing={0}>
-                        <Text fontSize={"lg"}>Salário Kenzie</Text>
-                        <Text fontSize={"xs"}>10-11-21</Text>
+                        <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Salário Kenzie</Text>
+                        <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>10-11-21</Text>
                     </Stack>
                 </HStack>
                 <HStack spacing={2}>
-                    <Text>Saldo:</Text>
-                    <Text>3.500,00</Text>
+                    <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
+                    <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.500,00</Text>
                     <Checkbox />
                 </HStack>
             </Flex>
