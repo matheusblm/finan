@@ -1,4 +1,4 @@
-import { Button, Center, Checkbox, Flex, HStack, Icon, Progress, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react"
+import { Button, Center, Checkbox, Flex, HStack, Icon, Progress, Stack, Text } from "@chakra-ui/react"
 import { Doughnut } from "react-chartjs-2";
 import { FaPlus, FaMinus, FaCalendarAlt, FaWallet, FaMoneyBillAlt, FaLandmark, FaCreditCard, FaReceipt, FaFileInvoiceDollar } from "react-icons/fa";
 
@@ -123,8 +123,8 @@ const CreditCardDashboard = () => {
                     <Icon as={FaCreditCard} color="red.300" w="30px" />
                     <Stack spacing={0}>
                         <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Conta Caixa</Text>
-                        <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>Data Vencimento</Text>
-                        <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>10-11-21</Text>
+                        <Text display={["none", "none", "none", "block"]} fontSize={{ md: "sm", lg: "md" }}>Data Vencimento</Text>
+                        <Text display={["none", "none", "none", "block"]} fontSize={{ md: "sm", lg: "md" }}>10-11-21</Text>
                     </Stack>
                 </HStack>
                 <HStack spacing={2}>
@@ -162,11 +162,11 @@ const ProgressBar = () => {
             </Flex>
             <Stack spacing={2}>
                 <HStack>
-                    <Progress value={20} size="lg" colorScheme="green" w="80%" />
+                    <Progress value={20} size="lg" colorScheme="red" w="80%" />
                     <Text as="span" fontSize={{ lg: "md", md: "sm", base: "xs" }} color="gray.300">20,00</Text>
                 </HStack>
                 <HStack>
-                    <Progress value={80} size="lg" colorScheme="red" w="80%" />
+                    <Progress value={80} size="lg" colorScheme="green" w="80%" />
                     <Text as="span" fontSize={{ lg: "md", md: "sm", base: "xs" }} color="gray.300">80,00</Text>
                 </HStack>
             </Stack>
@@ -186,7 +186,7 @@ const BillsToPay = () => {
                     <Icon as={FaFileInvoiceDollar} color="red.300" w="30px" />
                     <Stack spacing={0}>
                         <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Água</Text>
-                        <Text fontSize={{ md: "lg", base: "xs" }}>10-11-21</Text>
+                        <Text display={["none", "none", "none", "block"]} fontSize={{ md: "sm", lg: "md" }}>10-11-21</Text>
                     </Stack>
                 </HStack>
                 <HStack spacing={2}>
@@ -200,7 +200,7 @@ const BillsToPay = () => {
                     <Icon as={FaFileInvoiceDollar} color="red.300" w="30px" />
                     <Stack spacing={0}>
                         <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Água</Text>
-                        <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>10-11-21</Text>
+                        <Text display={["none", "none", "none", "block"]} fontSize={{ md: "sm", lg: "md" }}>10-11-21</Text>
                     </Stack>
                 </HStack>
                 <HStack spacing={2}>
@@ -225,7 +225,7 @@ const BillsToReceive = () => {
                     <Icon as={FaReceipt} color="green.300" w="30px" />
                     <Stack spacing={0}>
                         <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Salário Kenzie</Text>
-                        <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>10-11-21</Text>
+                        <Text display={["none", "none", "none", "block"]} fontSize={{ md: "sm", lg: "md" }}>10-11-21</Text>
                     </Stack>
                 </HStack>
                 <HStack spacing={2}>
