@@ -173,8 +173,10 @@ const SpendingOfTheMonth = () => {
                 <Text fontSize={"2xl"}>Gastos do mês: </Text>
                 <Icon as={FaCalendarAlt} fontSize={"4xl"} />
             </Flex>
-            <Center h="290px" w="400px">
-                <Doughnut data={dataGrafico} />
+            <Center>
+                <Flex h="290px" w={{ base: "290px", md: "400px" }}>
+                    <Doughnut data={dataGrafico} />
+                </Flex>
             </Center>
         </Stack >
     )
@@ -269,7 +271,7 @@ const dataGrafico = {
     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
     options: {
         plugins: {
-            legend: {
+            labels: {
                 responsive: true,
                 position: 'right',
             },
