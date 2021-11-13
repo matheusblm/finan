@@ -15,21 +15,26 @@ import {
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { BsPerson } from "react-icons/bs";
 import { HiOutlineMail } from "react-icons/hi";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { Users } from "../../providers/Users";
 
 export const Signup = () => {
+
   const history = useHistory();
+
+  const {token,errorSign,SignUp} = Users()
 
   const schema = yup.object().shape({
     username: yup.string().required("Item obrigatório"),
     email: yup.string().required("Item obrigatório"),
-    password: yup.string().required("Item obrigatório"),
+    password: yup.string().required("Item obrigatório")
+              .matches(/^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+              "Senha deve ter letras maíuscula, mínuscula, numero e caracter"),
     passwordConfirm: yup
       .string()
       .required("Item obrigatório")
@@ -43,7 +48,7 @@ export const Signup = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSignup = (data) => {
-    axios.post();
+    SignUp(data)
   };
 
   const [text, setText] = useState("");
@@ -191,7 +196,7 @@ export const Signup = () => {
                 paddingLeft="2"
                 marginBottom="5px"
                 fontSize="xs"
-              ></Text>
+              >{errors.username?.message}</Text>
             </InputGroup>
             <FormLabel
               textAlign="left"
@@ -218,7 +223,7 @@ export const Signup = () => {
                 paddingLeft="2"
                 marginBottom="5px"
                 fontSize="xs"
-              ></Text>
+              >{errors.email?.message}</Text>
             </InputGroup>
             <FormLabel
               textAlign="left"
@@ -245,7 +250,7 @@ export const Signup = () => {
                 paddingLeft="2"
                 marginBottom="5px"
                 fontSize="xs"
-              ></Text>
+              >{errors.password?.message}</Text>
             </InputGroup>
             <FormLabel
               textAlign="left"
@@ -272,7 +277,7 @@ export const Signup = () => {
                 paddingLeft="2"
                 marginBottom="5px"
                 fontSize="xs"
-              ></Text>
+              >{errors.passwordConfirm?.message}</Text>
             </InputGroup>
 
             <Button
