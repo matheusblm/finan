@@ -8,6 +8,7 @@ import {
   Progress,
   Stack,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { Doughnut } from "react-chartjs-2";
 import {
@@ -21,8 +22,22 @@ import {
   FaReceipt,
   FaFileInvoiceDollar,
 } from "react-icons/fa";
+import { ModalCreateRecive } from "../../components/ModalCreateRecive";
+import { ModalCreateSpend } from "../../components/ModalCreateSpend";
 
 export const Dashboard = () => {
+
+  const {
+    isOpen: isOpenCreateRecive,
+    onOpen: onOpenCreateRecive,
+    onClose: onCloseCreateRecive,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenCreateSpend,
+    onOpen: onOpenCreateSpend,
+    onClose: onCloseCreateSpend,
+  } = useDisclosure();
+
   return (
     <>
       <Center>
@@ -35,7 +50,7 @@ export const Dashboard = () => {
             overflow="auto"
             boxShadow="lg"
           >
-            <HeaderDashboard />
+            <HeaderDashboard onOpenCreateRecive={onOpenCreateRecive} onOpenCreateSpend={onOpenCreateSpend} />
           </Flex>
           <Flex direction={{ md: "row", base: "column" }}>
             <Stack w={{ md: "45%", base: "100%" }} h="548px" mx={2}>
@@ -115,11 +130,19 @@ export const Dashboard = () => {
           </Flex>
         </Stack>
       </Center>
+      <ModalCreateRecive
+        isOpen={isOpenCreateRecive}
+        onClose={onCloseCreateRecive}
+      />
+      <ModalCreateSpend
+        isOpen={isOpenCreateSpend}
+        onClose={onCloseCreateSpend}
+      />
     </>
   );
 };
 
-const HeaderDashboard = () => {
+const HeaderDashboard = ({ onOpenCreateRecive, onOpenCreateSpend }) => {
   return (
     <Flex
       direction={{ md: "row", base: "column" }}
@@ -187,8 +210,8 @@ const HeaderDashboard = () => {
             </Text>
           </Flex>
           <Flex justify="space-around">
-            <Button bg="white" w="94px" h="70" mx={1}>
-              <Flex direction="column" align="center" justify="center">
+            <Button bg="white" w="94px" h="70" mx={1} >
+              <Flex direction="column" align="center" justify="center" onClick={onOpenCreateRecive}>
                 <Icon
                   bg="green"
                   color="white"
@@ -204,7 +227,7 @@ const HeaderDashboard = () => {
                 </Text>
               </Flex>
             </Button>
-            <Button bg="white" w="94px" h="70" mx={1}>
+            <Button bg="white" w="94px" h="70" mx={1} onClick={onOpenCreateSpend}>
               <Flex direction="column" align="center" justify="center">
                 <Icon
                   bg="red.300"
