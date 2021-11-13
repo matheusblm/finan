@@ -38,7 +38,7 @@ export const Dashboard = () => {
             <HeaderDashboard />
           </Flex>
           <Flex direction={{ md: "row", base: "column" }}>
-            <Stack w={{ md: "45%", base: "100%" }} h="548px">
+            <Stack w={{ md: "45%", base: "100%" }} h="548px" mx={2}>
               <Flex
                 w="100%"
                 h={{ sm: "270px", base: "75px" }}
@@ -70,6 +70,7 @@ export const Dashboard = () => {
               borderRadius="lg"
               overflow="auto"
               boxShadow="lg"
+              mx={2}
             >
               <SpendingOfTheMonth />
             </Flex>
@@ -83,10 +84,11 @@ export const Dashboard = () => {
               borderRadius="lg"
               overflow="auto"
               boxShadow="lg"
+              mx={2}
             >
               <BillsToPay />
             </Flex>
-            <Stack w={{ md: "45%", base: "100%" }} h="548px">
+            <Stack w={{ md: "45%", base: "100%" }} h="548px" mx={2}>
               <Flex
                 w="100%"
                 h={{ sm: "270px", base: "75px" }}
