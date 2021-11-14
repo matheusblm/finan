@@ -3,7 +3,7 @@ import Logo from '../../assets/logo.png';
 import { FaUserCircle } from 'react-icons/fa';
 import { LinkDesktop, SuspenseMenu } from '../LinksHeader';
 import { LogoutDrawer } from '../LogoutDrawer';
-import { useHistory } from 'react-router';
+import { Users } from '../../providers/Users';
 
 const Header = () => {
 
@@ -11,7 +11,7 @@ const Header = () => {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const history = useHistory()
+    const { Logout } = Users()
 
 
     const callLinks = () => {
@@ -41,7 +41,7 @@ const Header = () => {
             h={["60px", "80px", "106px"]}
             padding="20px"
         >
-            <Img cursor="pointer" onClick={() => history.push("/dashboard")} src={Logo} w={["70px", "75px", '80px']} borderRadius='8px' backgroundColor='gray.50' />
+            <Img cursor="pointer" src={Logo} w={["70px", "75px", '80px']} borderRadius='8px' backgroundColor='gray.50' />
 
             {callLinks()}
 
