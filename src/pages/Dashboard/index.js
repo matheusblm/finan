@@ -18,7 +18,6 @@ import {
   FaWallet,
   FaMoneyBillAlt,
   FaLandmark,
-  FaCreditCard,
   FaReceipt,
   FaFileInvoiceDollar,
   FaExclamationCircle,
@@ -26,17 +25,17 @@ import {
 import { ModalCreateRecive } from "../../components/ModalCreateRecive";
 import { ModalCreateSpend } from "../../components/ModalCreateSpend";
 import { useListDashboard } from "../../providers/Dashboard";
+import { formatValue } from "../../utils/formatValue";
 
 
 export const Dashboard = () => {
   const { receive, spend } = useListDashboard()
 
-  const loan = spend.filter((card) => card.account === "Empréstimos")
-  const creditCard = spend.filter((card) => card.account === "Catão de Crédito")
+  // const loan = spend.filter((card) => card.account === "Empréstimos")
+  // const creditCard = spend.filter((card) => card.account === "Catão de Crédito")
 
   const spendTotal = spend.reduce((acc, bill) => acc + bill.value, 0)
-
-  console.log({ creditCard, loan, spend })
+  const receiveTotal = receive.reduce((acc, bill) => acc + bill.value, 0)
 
   const {
     isOpen: isOpenCreateRecive,
@@ -61,10 +60,15 @@ export const Dashboard = () => {
             overflow="auto"
             boxShadow="lg"
           >
-            <HeaderDashboard onOpenCreateRecive={onOpenCreateRecive} onOpenCreateSpend={onOpenCreateSpend} spendTotal={spendTotal} />
+            <HeaderDashboard
+              onOpenCreateRecive={onOpenCreateRecive}
+              onOpenCreateSpend={onOpenCreateSpend}
+              spendTotal={spendTotal}
+              receiveTotal={receiveTotal}
+            />
           </Flex>
           <Flex direction={{ md: "row", base: "column" }}>
-            <Stack w={{ md: "45%", base: "100%" }} h="548px" mx={2}>
+            <Stack w={{ md: "45%", base: "100%" }} h="548px" mx={[0, 0, 2]}>
               <Flex
                 w="100%"
                 h={{ sm: "270px", base: "75px" }}
@@ -107,7 +111,7 @@ export const Dashboard = () => {
               borderRadius="lg"
               overflow="auto"
               boxShadow="lg"
-              mx={2}
+              mx={[0, 0, 2]}
             >
               <SpendingOfTheMonth />
             </Flex>
@@ -121,7 +125,7 @@ export const Dashboard = () => {
               borderRadius="lg"
               overflow="auto"
               boxShadow="lg"
-              mx={2}
+              mx={[0, 0, 2]}
             >
               <BillsToPay spend={spend} />
             </Flex>
@@ -134,6 +138,7 @@ export const Dashboard = () => {
               borderRadius="lg"
               overflow="auto"
               boxShadow="lg"
+              mx={[0, 0, 2]}
             >
               <BillsToReceive />
             </Flex>
@@ -152,7 +157,10 @@ export const Dashboard = () => {
   );
 };
 
-const HeaderDashboard = ({ onOpenCreateRecive, onOpenCreateSpend, spendTotal }) => {
+const HeaderDashboard = ({ onOpenCreateRecive, onOpenCreateSpend, spendTotal, receiveTotal }) => {
+
+  const totalBalance = receiveTotal - spendTotal
+
   return (
     <Flex
       direction={{ md: "row", base: "column" }}
@@ -176,7 +184,7 @@ const HeaderDashboard = ({ onOpenCreateRecive, onOpenCreateSpend, spendTotal }) 
               Receita Mensal:
             </Text>
             <Text color="green" fontSize="sm">
-              R$ 1.000.000,00
+              {formatValue(receiveTotal)}
             </Text>
           </Stack>
           <Stack bg="white" borderRadius="lg" py={2} px={6} m={2}>
@@ -184,7 +192,7 @@ const HeaderDashboard = ({ onOpenCreateRecive, onOpenCreateSpend, spendTotal }) 
               Despesa Mensal:
             </Text>
             <Text color="red.300" fontSize="sm">
-              R$ {spendTotal.toFixed(2)}
+              {formatValue(spendTotal)}
             </Text>
           </Stack>
         </Flex>
@@ -209,7 +217,7 @@ const HeaderDashboard = ({ onOpenCreateRecive, onOpenCreateSpend, spendTotal }) 
           <Text fontSize="sm" color="gray.600">
             Saldo Total:
           </Text>
-          <Text fontSize="sm">R$ 1.000.000,00</Text>
+          <Text fontSize="sm" color={(totalBalance > 0) ? "green" : "red"}>{formatValue(totalBalance)}</Text>
         </Flex>
       </Flex>
       <Flex direction="column" flex="1" justify="center">
@@ -404,17 +412,16 @@ const BillsToPay = ({ spend }) => {
               </Stack>
             </HStack>
             <HStack spacing={2}>
-              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>{item.value}</Text>
+              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>{formatValue(item.value)}</Text>
               <Checkbox />
             </HStack>
           </Flex>
         ))
         :
         <Center h="100%">
-          <Flex direction="column" align="center" color="gray.300">
+          <Flex direction="column" align="center" color="gray.300" >
             <Text>Você não tem contas a pagar</Text>
-            <Icon as={FaExclamationCircle} />
+            <Icon as={FaExclamationCircle} my={2} fontSize="lg" />
           </Flex>
         </Center>
       }
