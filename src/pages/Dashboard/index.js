@@ -75,7 +75,7 @@ export const Dashboard = () => {
               >
                 <WalletDashboard />
               </Flex>
-              <Flex
+              {/* <Flex
                 w="100%"
                 h={{ sm: "270px", base: "75px" }}
                 flex={1}
@@ -85,6 +85,17 @@ export const Dashboard = () => {
                 boxShadow="lg"
               >
                 <CreditCardDashboard />
+              </Flex> */}
+              <Flex
+                w="100%"
+                h={{ sm: "270px", base: "75px" }}
+                flex={1}
+                p={2}
+                borderRadius="lg"
+                overflow="auto"
+                boxShadow="lg"
+              >
+                <ProgressBar />
               </Flex>
             </Stack>
             <Flex
@@ -111,32 +122,20 @@ export const Dashboard = () => {
               boxShadow="lg"
               mx={2}
             >
-              <BillsToPay />
+              <BillsToPay spend={spend} />
             </Flex>
-            <Stack w={{ md: "45%", base: "100%" }} h="548px" mx={2}>
-              <Flex
-                w="100%"
-                h={{ sm: "270px", base: "75px" }}
-                flex={1}
-                p={2}
-                borderRadius="lg"
-                overflow="auto"
-                boxShadow="lg"
-              >
-                <ProgressBar />
-              </Flex>
-              <Flex
-                w="100%"
-                h={{ sm: "270px", base: "75px" }}
-                flex={1}
-                p={2}
-                borderRadius="lg"
-                overflow="auto"
-                boxShadow="lg"
-              >
-                <BillsToReceive />
-              </Flex>
-            </Stack>
+
+            <Flex
+              w="100%"
+              h="548px"
+              flex={1}
+              p={2}
+              borderRadius="lg"
+              overflow="auto"
+              boxShadow="lg"
+            >
+              <BillsToReceive />
+            </Flex>
           </Flex>
         </Stack>
       </Center>
@@ -282,46 +281,46 @@ const WalletDashboard = () => {
   );
 };
 
-const CreditCardDashboard = () => {
-  return (
-    <Stack w="100%" p={4} spacing={2}>
-      <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
-        <Text fontSize={{ md: "2xl", base: "sm" }}>Cartão de Crédito: </Text>
-        <Icon
-          as={FaCreditCard}
-          fontSize={{ lg: "4xl", md: "2xl", base: "md" }}
-        />
-      </Flex>
-      <Flex justify="space-between" color="gray.300">
-        <HStack spacing={2}>
-          <Icon as={FaCreditCard} color="red.300" w="30px" />
-          <Stack spacing={0}>
-            <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
-              Conta Caixa
-            </Text>
-            <Text
-              display={["none", "none", "none", "block"]}
-              fontSize={{ md: "sm", lg: "md" }}
-            >
-              Data Vencimento
-            </Text>
-            <Text
-              display={["none", "none", "none", "block"]}
-              fontSize={{ md: "sm", lg: "md" }}
-            >
-              10-11-21
-            </Text>
-          </Stack>
-        </HStack>
-        <HStack spacing={2}>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
-          <Checkbox />
-        </HStack>
-      </Flex>
-    </Stack>
-  );
-};
+// const CreditCardDashboard = () => {
+//   return (
+//     <Stack w="100%" p={4} spacing={2}>
+//       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
+//         <Text fontSize={{ md: "2xl", base: "sm" }}>Cartão de Crédito: </Text>
+//         <Icon
+//           as={FaCreditCard}
+//           fontSize={{ lg: "4xl", md: "2xl", base: "md" }}
+//         />
+//       </Flex>
+//       <Flex justify="space-between" color="gray.300">
+//         <HStack spacing={2}>
+//           <Icon as={FaCreditCard} color="red.300" w="30px" />
+//           <Stack spacing={0}>
+//             <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
+//               Conta Caixa
+//             </Text>
+//             <Text
+//               display={["none", "none", "none", "block"]}
+//               fontSize={{ md: "sm", lg: "md" }}
+//             >
+//               Data Vencimento
+//             </Text>
+//             <Text
+//               display={["none", "none", "none", "block"]}
+//               fontSize={{ md: "sm", lg: "md" }}
+//             >
+//               10-11-21
+//             </Text>
+//           </Stack>
+//         </HStack>
+//         <HStack spacing={2}>
+//           <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
+//           <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
+//           <Checkbox />
+//         </HStack>
+//       </Flex>
+//     </Stack>
+//   );
+// };
 
 const SpendingOfTheMonth = () => {
   return (
@@ -378,7 +377,7 @@ const ProgressBar = () => {
   );
 };
 
-const BillsToPay = () => {
+const BillsToPay = ({ spend }) => {
   return (
     <Stack w="100%" p={4} spacing={2}>
       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
@@ -388,44 +387,28 @@ const BillsToPay = () => {
           fontSize={{ lg: "4xl", md: "2xl", base: "md" }}
         />
       </Flex>
-      <Flex justify="space-between" color="gray.300">
-        <HStack spacing={2}>
-          <Icon as={FaFileInvoiceDollar} color="red.300" w="30px" />
-          <Stack spacing={0}>
-            <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Água</Text>
-            <Text
-              display={["none", "none", "none", "block"]}
-              fontSize={{ md: "sm", lg: "md" }}
-            >
-              10-11-21
-            </Text>
-          </Stack>
-        </HStack>
-        <HStack spacing={2}>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
-          <Checkbox />
-        </HStack>
-      </Flex>
-      <Flex justify="space-between" color="gray.300">
-        <HStack spacing={2}>
-          <Icon as={FaFileInvoiceDollar} color="red.300" w="30px" />
-          <Stack spacing={0}>
-            <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Água</Text>
-            <Text
-              display={["none", "none", "none", "block"]}
-              fontSize={{ md: "sm", lg: "md" }}
-            >
-              10-11-21
-            </Text>
-          </Stack>
-        </HStack>
-        <HStack spacing={2}>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
-          <Checkbox />
-        </HStack>
-      </Flex>
+      {spend.map((item, idx) => (
+        <Flex key={idx} justify="space-between" color="gray.300">
+          <HStack spacing={2}>
+            <Icon as={FaFileInvoiceDollar} color="red.300" w="30px" />
+            <Stack spacing={0}>
+              <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>{item.account}</Text>
+              <Text
+                display={["none", "none", "none", "block"]}
+                fontSize={{ md: "sm", lg: "md" }}
+              >
+                {item.date}
+              </Text>
+            </Stack>
+          </HStack>
+          <HStack spacing={2}>
+            <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
+            <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>{item.value}</Text>
+            <Checkbox />
+          </HStack>
+        </Flex>
+      ))
+      }
     </Stack>
   );
 };
