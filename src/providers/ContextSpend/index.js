@@ -50,20 +50,19 @@ export const SpendProvider = ({children}) => {
 
     //Filtro de receitas do mês atual
 
-    const filterMesAtual = () => {
-        const filterPorMesSpend = spended.filter((item)=>item.data.split("-"[1]===mes)
-        )
+    const filterActualMonthSpend = () => {
+        const filterPorMesSpend = spended.filter((item)=>item.data.split("-")[1]===mes && item.type===true)
         setFilterPorMesSpendAtual(filterPorMesSpend)
     }
 
     useEffect(()=>{
-        filterMesAtual()
+        filterActualMonthSpend()
     },[])
 
     //Filtrar por mes escolhido pelo usuário
-    const filterMonthReceived = (mes) => {
-        const filterPorMesSpend = spended.filter((item)=>item.data.split("-"[1]===mes)
-        )
+    const filterMonthSpend = (mes,ano) => {
+        const filterPorAnoSpend = spended.filter((item)=>item.data.split("-")[0]===ano && item.type===true)
+        const filterPorMesSpend = filterPorAnoSpend.filter((item)=>item.data.split("-")[1]===mes && item.type===true)
         setFilterPorMesSpend(filterPorMesSpend)
     }
 
@@ -91,7 +90,20 @@ export const SpendProvider = ({children}) => {
     }
 
     return (
-        <SpendContext.Provider value={{}}>
+        <SpendContext.Provider value={{
+            spended,
+            noSpend,
+            allSpends,
+            filterPorMesSpend,
+            filterPorMesSpendAtual,
+            Spends,
+            filterReceived,
+            filterNoReceived,
+            filterActualMonthSpend,
+            filterMonthSpend,
+            editSpend,
+            lancSpend
+        }}>
             {children}
         </SpendContext.Provider>
     )

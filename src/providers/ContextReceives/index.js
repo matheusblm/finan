@@ -51,25 +51,24 @@ export const ReceiveProvider = ({children})=> {
 
     //Filtro de receitas do mês atual
 
-    const filterMesAtual = () => {
-        const filterPorMesReceive = received.filter((item)=>item.data.split("-"[1]===mes)
-        )
+    const filterActualMonthReceive = () => {
+        const filterPorMesReceive = received.filter((item)=>item.data.split("-")[1]===mes && item.type===true)
         setFilterPorMesReceiveAtual(filterPorMesReceive)
     }
 
     useEffect(()=>{
-        filterMesAtual()
+        filterActualMonthReceive()
     },[])
 
     //Filtrar por mes escolhido pelo usuário
-    const filterMonthReceived = (mes) => {
-        const filterPorMesReceive = received.filter((item)=>item.data.split("-"[1]===mes)
-        )
+    const filterMonthReceived = (mes,ano) => {
+        const filterPorAnoReceive = received.filter((item)=>item.data.split("-")[0]===ano && item.type===true)
+        const filterPorMesReceive = filterPorAnoReceive.filter((item)=>item.data.split("-")[0]===ano && item.type===true)
         setFilterPorMesReceive(filterPorMesReceive)
     }
 
     //Transforma receives não recebidas em recebidas.
-    const editSpend = (id) => {
+    const editReceive = (id) => {
         api.patch(`receives/${id}`,
         {
             "type": true
@@ -91,7 +90,19 @@ export const ReceiveProvider = ({children})=> {
     }
 
     return (
-        <ReceivesContext.Provider value={{}}>
+        <ReceivesContext.Provider value={{
+        received,
+        noReceived,
+        allReceives,
+        filterPorMesReceive,
+        filterPorMesReceiveAtual,
+        filterReceived,
+        filterNoReceived,
+        filterActualMonthReceive,
+        filterMonthReceived,
+        editReceive,
+        lancReceive
+        }}>
             {children}
         </ReceivesContext.Provider>
     )
