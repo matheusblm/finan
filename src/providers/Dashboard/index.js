@@ -1,17 +1,17 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import api from '../../service/api'
+import { api } from './../../service/api.js'
 
 export const DashboardContext = createContext({});
 
 export const DashboardProvider = ({ children }) => {
     const [receive, setReceive] = useState([]);
     const [spend, setSpend] = useState([]);
-    const { token } = 'Users()'
-
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZlbGlwZUBtYWlsLmNvbSIsImlhdCI6MTYzNjk4MjY2NSwiZXhwIjoxNjM2OTg2MjY1LCJzdWIiOiIzIn0.8Z8Zv1EQgFnwU2mC9UeUqnaaHuvj4Towr-ELW3pzv2M"
+    const id = 3
 
     const getAllReceive = () => {
         api
-            .get("/receive/", {
+            .get(`/receive/?userId=${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
@@ -24,7 +24,7 @@ export const DashboardProvider = ({ children }) => {
 
     const getAllSpend = () => {
         api
-            .get("/spend/", {
+            .get(`/spend/?userId=${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }

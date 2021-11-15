@@ -10,7 +10,6 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import {
   FaPlus,
@@ -29,9 +28,14 @@ import { useListDashboard } from "../../providers/Dashboard";
 
 
 export const Dashboard = () => {
-  const { receive, spend, getAllReceive, getAllSpend } = useListDashboard()
+  const { receive, spend } = useListDashboard()
 
-  const [creditCard] = useState(spend.filter((card) => card.category === "cartão de crédito"))
+  const loan = spend.filter((card) => card.account === "Empréstimos")
+  const creditCard = spend.filter((card) => card.account === "Catão de Crédito")
+
+  const spendTotal = spend.reduce((acc, bill) => acc + bill.value, 0)
+
+  console.log({ creditCard, loan, spend })
 
   const {
     isOpen: isOpenCreateRecive,
@@ -56,7 +60,7 @@ export const Dashboard = () => {
             overflow="auto"
             boxShadow="lg"
           >
-            <HeaderDashboard onOpenCreateRecive={onOpenCreateRecive} onOpenCreateSpend={onOpenCreateSpend} />
+            <HeaderDashboard onOpenCreateRecive={onOpenCreateRecive} onOpenCreateSpend={onOpenCreateSpend} spendTotal={spendTotal} />
           </Flex>
           <Flex direction={{ md: "row", base: "column" }}>
             <Stack w={{ md: "45%", base: "100%" }} h="548px" mx={2}>
@@ -80,7 +84,7 @@ export const Dashboard = () => {
                 overflow="auto"
                 boxShadow="lg"
               >
-                <CreditCardDashboard creditCard={creditCard} />
+                <CreditCardDashboard />
               </Flex>
             </Stack>
             <Flex
@@ -148,7 +152,7 @@ export const Dashboard = () => {
   );
 };
 
-const HeaderDashboard = ({ onOpenCreateRecive, onOpenCreateSpend }) => {
+const HeaderDashboard = ({ onOpenCreateRecive, onOpenCreateSpend, spendTotal }) => {
   return (
     <Flex
       direction={{ md: "row", base: "column" }}
@@ -180,7 +184,7 @@ const HeaderDashboard = ({ onOpenCreateRecive, onOpenCreateSpend }) => {
               Despesa Mensal:
             </Text>
             <Text color="red.300" fontSize="sm">
-              R$ 1.000,00
+              R$ {spendTotal.toFixed(2)}
             </Text>
           </Stack>
         </Flex>
