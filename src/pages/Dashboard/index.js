@@ -24,8 +24,11 @@ import {
 } from "react-icons/fa";
 import { ModalCreateRecive } from "../../components/ModalCreateRecive";
 import { ModalCreateSpend } from "../../components/ModalCreateSpend";
+import { useListDashboard } from "../../providers/Dashboard";
+
 
 export const Dashboard = () => {
+  const { receive, spend, getAllReceive, getAllSpend } = useListDashboard()
 
   const {
     isOpen: isOpenCreateRecive,
