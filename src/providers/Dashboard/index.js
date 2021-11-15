@@ -6,14 +6,14 @@ export const DashboardContext = createContext({});
 export const DashboardProvider = ({ children }) => {
     const [receive, setReceive] = useState([]);
     const [spend, setSpend] = useState([]);
-    const { authToken } = 'useAuth()'
+    const { token } = 'Users()'
 
 
     const getAllReceive = () => {
         api
             .get("/receive/", {
                 headers: {
-                    Authorization: `Bearer ${authToken}`,
+                    Authorization: `Bearer ${token}`,
                 }
             })
             .then((res) => {
@@ -26,7 +26,7 @@ export const DashboardProvider = ({ children }) => {
         api
             .get("/spend/", {
                 headers: {
-                    Authorization: `Bearer ${authToken}`,
+                    Authorization: `Bearer ${token}`,
                 }
             })
             .then((res) => {
