@@ -140,7 +140,7 @@ export const Dashboard = () => {
               boxShadow="lg"
               mx={[0, 0, 2]}
             >
-              <BillsToReceive />
+              <BillsToReceive receive={receive} />
             </Flex>
           </Flex>
         </Stack>
@@ -429,7 +429,7 @@ const BillsToPay = ({ spend }) => {
   );
 };
 
-const BillsToReceive = () => {
+const BillsToReceive = ({ receive }) => {
   return (
     <Stack w="100%" p={4} spacing={2}>
       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
@@ -439,27 +439,37 @@ const BillsToReceive = () => {
           fontSize={{ lg: "4xl", md: "2xl", base: "md" }}
         />
       </Flex>
-      <Flex justify="space-between" color="gray">
-        <HStack spacing={2}>
-          <Icon as={FaReceipt} color="green" w="30px" />
-          <Stack spacing={0}>
-            <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
-              Salário Kenzie
-            </Text>
-            <Text
-              display={["none", "none", "none", "block"]}
-              fontSize={{ md: "sm", lg: "md" }}
-            >
-              10-11-21
-            </Text>
-          </Stack>
-        </HStack>
-        <HStack spacing={2}>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.500,00</Text>
-          <Checkbox />
-        </HStack>
-      </Flex>
+      {!!receive.length ?
+        receive.map((item, idx) => (
+          <Flex justify="space-between" color="gray">
+            <HStack spacing={2}>
+              <Icon as={FaReceipt} color="green" w="30px" />
+              <Stack spacing={0}>
+                <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
+                  {item.account}
+                </Text>
+                <Text
+                  display={["none", "none", "none", "block"]}
+                  fontSize={{ md: "sm", lg: "md" }}
+                >
+                  {item.date}
+                </Text>
+              </Stack>
+            </HStack>
+            <HStack spacing={2}>
+              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>{formatValue(item.value)}</Text>
+              <Checkbox />
+            </HStack>
+          </Flex>
+        ))
+        :
+        <Center h="100%">
+          <Flex direction="column" align="center" color="gray.300" >
+            <Text>Você não tem contas a receber</Text>
+            <Icon as={FaExclamationCircle} my={2} fontSize="lg" />
+          </Flex>
+        </Center>
+      }
     </Stack>
   );
 };
