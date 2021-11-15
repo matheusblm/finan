@@ -10,6 +10,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import {
   FaPlus,
@@ -29,6 +30,8 @@ import { useListDashboard } from "../../providers/Dashboard";
 
 export const Dashboard = () => {
   const { receive, spend, getAllReceive, getAllSpend } = useListDashboard()
+
+  const [creditCard] = useState(spend.filter((card) => card.category === "cartão de crédito"))
 
   const {
     isOpen: isOpenCreateRecive,
@@ -77,7 +80,7 @@ export const Dashboard = () => {
                 overflow="auto"
                 boxShadow="lg"
               >
-                <CreditCardDashboard />
+                <CreditCardDashboard creditCard={creditCard} />
               </Flex>
             </Stack>
             <Flex
