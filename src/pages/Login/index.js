@@ -172,7 +172,7 @@ export const Login = () => {
               Ainda não possui uma conta?
               <Text
                 as="span"
-                onClick={() => history.push("/")}
+                onClick={() => history.push("/register")}
                 cursor="pointer"
                 color={"blue.900"}
               >

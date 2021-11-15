@@ -281,7 +281,7 @@ export const Signup = () => {
               Já possui uma conta?
               <Text
                 as="span"
-                onClick={() => history.push("/")}
+                onClick={() => history.push("/login")}
                 cursor="pointer"
                 color={"blue.900"}
               >
