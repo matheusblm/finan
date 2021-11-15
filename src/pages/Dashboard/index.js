@@ -100,7 +100,7 @@ export const Dashboard = () => {
                 overflow="auto"
                 boxShadow="lg"
               >
-                <ProgressBar />
+                <ProgressBar spendTotal={spendTotal} receiveTotal={receiveTotal} />
               </Flex>
             </Stack>
             <Flex
@@ -350,7 +350,13 @@ const SpendingOfTheMonth = () => {
   );
 };
 
-const ProgressBar = () => {
+const ProgressBar = ({ receiveTotal, spendTotal }) => {
+
+  const total = receiveTotal + spendTotal
+
+  const spendProgress = spendTotal !== 0 ? (total / spendTotal) * 100 : 0
+  const receiveProgress = receiveTotal !== 0 ? (total / receiveTotal) * 100 : 0
+
   return (
     <Stack w="100%" p={4} spacing={12}>
       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
@@ -362,23 +368,23 @@ const ProgressBar = () => {
       </Flex>
       <Stack spacing={2}>
         <HStack>
-          <Progress value={20} size="lg" colorScheme="red" w="80%" />
+          <Progress value={spendProgress} size="lg" colorScheme="red" w="80%" />
           <Text
             as="span"
             fontSize={{ lg: "md", md: "sm", base: "xs" }}
             color="gray.300"
           >
-            20,00
+            {spendProgress}
           </Text>
         </HStack>
         <HStack>
-          <Progress value={80} size="lg" colorScheme="green" w="80%" />
+          <Progress value={receiveProgress} size="lg" colorScheme="green" w="80%" />
           <Text
             as="span"
             fontSize={{ lg: "md", md: "sm", base: "xs" }}
             color="gray.300"
           >
-            80,00
+            {receiveProgress}
           </Text>
         </HStack>
       </Stack>
