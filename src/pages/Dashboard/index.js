@@ -21,6 +21,7 @@ import {
   FaCreditCard,
   FaReceipt,
   FaFileInvoiceDollar,
+  FaExclamationCircle,
 } from "react-icons/fa";
 import { ModalCreateRecive } from "../../components/ModalCreateRecive";
 import { ModalCreateSpend } from "../../components/ModalCreateSpend";
@@ -387,27 +388,35 @@ const BillsToPay = ({ spend }) => {
           fontSize={{ lg: "4xl", md: "2xl", base: "md" }}
         />
       </Flex>
-      {spend.map((item, idx) => (
-        <Flex key={idx} justify="space-between" color="gray.300">
-          <HStack spacing={2}>
-            <Icon as={FaFileInvoiceDollar} color="red.300" w="30px" />
-            <Stack spacing={0}>
-              <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>{item.account}</Text>
-              <Text
-                display={["none", "none", "none", "block"]}
-                fontSize={{ md: "sm", lg: "md" }}
-              >
-                {item.date}
-              </Text>
-            </Stack>
-          </HStack>
-          <HStack spacing={2}>
-            <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-            <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>{item.value}</Text>
-            <Checkbox />
-          </HStack>
-        </Flex>
-      ))
+      {!!spend.length ?
+        spend.map((item, idx) => (
+          <Flex key={idx} justify="space-between" color="gray.300">
+            <HStack spacing={2}>
+              <Icon as={FaFileInvoiceDollar} color="red.300" w="30px" />
+              <Stack spacing={0}>
+                <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>{item.account}</Text>
+                <Text
+                  display={["none", "none", "none", "block"]}
+                  fontSize={{ md: "sm", lg: "md" }}
+                >
+                  {item.date}
+                </Text>
+              </Stack>
+            </HStack>
+            <HStack spacing={2}>
+              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
+              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>{item.value}</Text>
+              <Checkbox />
+            </HStack>
+          </Flex>
+        ))
+        :
+        <Center h="100%">
+          <Flex direction="column" align="center" color="gray.300">
+            <Text>Você não tem contas a pagar</Text>
+            <Icon as={FaExclamationCircle} />
+          </Flex>
+        </Center>
       }
     </Stack>
   );
