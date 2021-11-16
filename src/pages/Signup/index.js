@@ -60,21 +60,7 @@ export const Signup = () => {
     SignUp(data)
   };
 
-  // const [text, setText] = useState("");
   const texts = [Img1,Img2,Img6];
-
-  // const carrossel = () => {
-  //   let cont = 0;
-  //   setInterval(function () {
-  //     setText(texts[cont]);
-  //     cont++;
-  //     if (cont === texts.length) {
-  //       cont = 0;
-  //     }
-  //   }, 4000);
-  // };
-
-  // useEffect(() => carrossel(), []);
 
   return (
     <Flex
@@ -118,13 +104,11 @@ export const Signup = () => {
             h={["80%","90%","80%","80%"]}
             bg="gray.50"
             borderRadius="50%"
-            //borderRadius="147.5px 147.5px 5px 5px"
             overflow="hidden"
             display="flex"
             justifyContent="center"
             alignContent="center"
           >
-            {/* <Carrossel data={texts}/> */}
             <Img src={Gif}/>
           </Box>
         </Flex>
