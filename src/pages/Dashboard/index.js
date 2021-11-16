@@ -6,8 +6,10 @@ import {
   HStack,
   Icon,
   Progress,
+  SkeletonCircle,
   Stack,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { Doughnut } from "react-chartjs-2";
 import {
@@ -17,12 +19,30 @@ import {
   FaWallet,
   FaMoneyBillAlt,
   FaLandmark,
-  FaCreditCard,
   FaReceipt,
   FaFileInvoiceDollar,
+  FaExclamationCircle,
 } from "react-icons/fa";
+import { ModalCreateRecive } from "../../components/ModalCreateRecive";
+import { ModalCreateSpend } from "../../components/ModalCreateSpend";
+import { useListDashboard } from "../../providers/Dashboard";
+import { formatValue } from "../../utils/formatValue";
+
 
 export const Dashboard = () => {
+  const { newReceive, newSpend, spendTotal, receiveTotal, arraySpend, arrayNameSpend } = useListDashboard()
+
+  const {
+    isOpen: isOpenCreateRecive,
+    onOpen: onOpenCreateRecive,
+    onClose: onCloseCreateRecive,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenCreateSpend,
+    onOpen: onOpenCreateSpend,
+    onClose: onCloseCreateSpend,
+  } = useDisclosure();
+
   return (
     <>
       <Center>
@@ -35,10 +55,15 @@ export const Dashboard = () => {
             overflow="auto"
             boxShadow="lg"
           >
-            <HeaderDashboard />
+            <HeaderDashboard
+              onOpenCreateRecive={onOpenCreateRecive}
+              onOpenCreateSpend={onOpenCreateSpend}
+              spendTotal={spendTotal}
+              receiveTotal={receiveTotal}
+            />
           </Flex>
           <Flex direction={{ md: "row", base: "column" }}>
-            <Stack w={{ md: "45%", base: "100%" }} h="548px">
+            <Stack w={{ md: "45%", base: "100%" }} h="548px" mx={[0, 0, 2]}>
               <Flex
                 w="100%"
                 h={{ sm: "270px", base: "75px" }}
@@ -50,7 +75,7 @@ export const Dashboard = () => {
               >
                 <WalletDashboard />
               </Flex>
-              <Flex
+              {/* <Flex
                 w="100%"
                 h={{ sm: "270px", base: "75px" }}
                 flex={1}
@@ -60,6 +85,17 @@ export const Dashboard = () => {
                 boxShadow="lg"
               >
                 <CreditCardDashboard />
+              </Flex> */}
+              <Flex
+                w="100%"
+                h={{ sm: "270px", base: "75px" }}
+                flex={1}
+                p={2}
+                borderRadius="lg"
+                overflow="auto"
+                boxShadow="lg"
+              >
+                <ProgressBar spendTotal={spendTotal} receiveTotal={receiveTotal} />
               </Flex>
             </Stack>
             <Flex
@@ -70,8 +106,9 @@ export const Dashboard = () => {
               borderRadius="lg"
               overflow="auto"
               boxShadow="lg"
+              mx={[0, 0, 2]}
             >
-              <SpendingOfTheMonth />
+              <SpendingOfTheMonth arraySpend={arraySpend} arrayNameSpend={arrayNameSpend} />
             </Flex>
           </Flex>
           <Flex direction={{ md: "row", base: "column" }}>
@@ -83,41 +120,42 @@ export const Dashboard = () => {
               borderRadius="lg"
               overflow="auto"
               boxShadow="lg"
+              mx={[0, 0, 2]}
             >
-              <BillsToPay />
+              <BillsToPay newSpend={newSpend} />
             </Flex>
-            <Stack w={{ md: "45%", base: "100%" }} h="548px">
-              <Flex
-                w="100%"
-                h={{ sm: "270px", base: "75px" }}
-                flex={1}
-                p={2}
-                borderRadius="lg"
-                overflow="auto"
-                boxShadow="lg"
-              >
-                <ProgressBar />
-              </Flex>
-              <Flex
-                w="100%"
-                h={{ sm: "270px", base: "75px" }}
-                flex={1}
-                p={2}
-                borderRadius="lg"
-                overflow="auto"
-                boxShadow="lg"
-              >
-                <BillsToReceive />
-              </Flex>
-            </Stack>
+
+            <Flex
+              w="100%"
+              h="548px"
+              flex={1}
+              p={2}
+              borderRadius="lg"
+              overflow="auto"
+              boxShadow="lg"
+              mx={[0, 0, 2]}
+            >
+              <BillsToReceive newReceive={newReceive} />
+            </Flex>
           </Flex>
         </Stack>
       </Center>
+      <ModalCreateRecive
+        isOpen={isOpenCreateRecive}
+        onClose={onCloseCreateRecive}
+      />
+      <ModalCreateSpend
+        isOpen={isOpenCreateSpend}
+        onClose={onCloseCreateSpend}
+      />
     </>
   );
 };
 
-const HeaderDashboard = () => {
+const HeaderDashboard = ({ onOpenCreateRecive, onOpenCreateSpend, spendTotal, receiveTotal }) => {
+
+  const totalBalance = receiveTotal - spendTotal
+
   return (
     <Flex
       direction={{ md: "row", base: "column" }}
@@ -141,7 +179,7 @@ const HeaderDashboard = () => {
               Receita Mensal:
             </Text>
             <Text color="green" fontSize="sm">
-              R$ 1.000.000,00
+              {formatValue(receiveTotal)}
             </Text>
           </Stack>
           <Stack bg="white" borderRadius="lg" py={2} px={6} m={2}>
@@ -149,7 +187,7 @@ const HeaderDashboard = () => {
               Despesa Mensal:
             </Text>
             <Text color="red.300" fontSize="sm">
-              R$ 1.000,00
+              {formatValue(spendTotal)}
             </Text>
           </Stack>
         </Flex>
@@ -174,7 +212,7 @@ const HeaderDashboard = () => {
           <Text fontSize="sm" color="gray.600">
             Saldo Total:
           </Text>
-          <Text fontSize="sm">R$ 1.000.000,00</Text>
+          <Text fontSize="sm" color={(totalBalance > 0) ? "green" : "red"}>{formatValue(totalBalance)}</Text>
         </Flex>
       </Flex>
       <Flex direction="column" flex="1" justify="center">
@@ -185,8 +223,8 @@ const HeaderDashboard = () => {
             </Text>
           </Flex>
           <Flex justify="space-around">
-            <Button bg="white" w="94px" h="70" mx={1}>
-              <Flex direction="column" align="center" justify="center">
+            <Button bg="white" w="94px" h="70" mx={1} >
+              <Flex direction="column" align="center" justify="center" onClick={onOpenCreateRecive}>
                 <Icon
                   bg="green"
                   color="white"
@@ -202,7 +240,7 @@ const HeaderDashboard = () => {
                 </Text>
               </Flex>
             </Button>
-            <Button bg="white" w="94px" h="70" mx={1}>
+            <Button bg="white" w="94px" h="70" mx={1} onClick={onOpenCreateSpend}>
               <Flex direction="column" align="center" justify="center">
                 <Icon
                   bg="red.300"
@@ -233,62 +271,106 @@ const WalletDashboard = () => {
         <Text fontSize={{ md: "2xl", base: "sm" }}>Carteira: </Text>
         <Icon as={FaWallet} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
       </Flex>
-      <Flex justify="space-between" color="gray.300">
-        <HStack spacing={2}>
-          <Icon as={FaLandmark} />
-          <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Conta Caixa</Text>
-        </HStack>
-        <HStack spacing={2}>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
-        </HStack>
-      </Flex>
+      {
+        false ?
+          <Flex justify="space-between" color="gray.300">
+            <HStack spacing={2}>
+              <Icon as={FaLandmark} />
+              <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Conta Caixa</Text>
+            </HStack>
+            <HStack spacing={2}>
+              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
+              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
+            </HStack>
+          </Flex>
+          :
+          <Center h="100%">
+            <SkeletonCircle size="50px" />
+          </Center>
+        // <Center h="100%">
+        //   <Flex direction="column" align="center" color="gray.300" >
+        //     <Text>Você não tem contas a receber</Text>
+        //     <Icon as={FaExclamationCircle} my={2} fontSize="lg" />
+        //   </Flex>
+        // </Center>
+      }
     </Stack>
   );
 };
 
-const CreditCardDashboard = () => {
-  return (
-    <Stack w="100%" p={4} spacing={2}>
-      <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
-        <Text fontSize={{ md: "2xl", base: "sm" }}>Cartão de Crédito: </Text>
-        <Icon
-          as={FaCreditCard}
-          fontSize={{ lg: "4xl", md: "2xl", base: "md" }}
-        />
-      </Flex>
-      <Flex justify="space-between" color="gray.300">
-        <HStack spacing={2}>
-          <Icon as={FaCreditCard} color="red.300" w="30px" />
-          <Stack spacing={0}>
-            <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
-              Conta Caixa
-            </Text>
-            <Text
-              display={["none", "none", "none", "block"]}
-              fontSize={{ md: "sm", lg: "md" }}
-            >
-              Data Vencimento
-            </Text>
-            <Text
-              display={["none", "none", "none", "block"]}
-              fontSize={{ md: "sm", lg: "md" }}
-            >
-              10-11-21
-            </Text>
-          </Stack>
-        </HStack>
-        <HStack spacing={2}>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
-          <Checkbox />
-        </HStack>
-      </Flex>
-    </Stack>
-  );
-};
+// const CreditCardDashboard = () => {
+//   return (
+//     <Stack w="100%" p={4} spacing={2}>
+//       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
+//         <Text fontSize={{ md: "2xl", base: "sm" }}>Cartão de Crédito: </Text>
+//         <Icon
+//           as={FaCreditCard}
+//           fontSize={{ lg: "4xl", md: "2xl", base: "md" }}
+//         />
+//       </Flex>
+//       <Flex justify="space-between" color="gray.300">
+//         <HStack spacing={2}>
+//           <Icon as={FaCreditCard} color="red.300" w="30px" />
+//           <Stack spacing={0}>
+//             <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
+//               Conta Caixa
+//             </Text>
+//             <Text
+//               display={["none", "none", "none", "block"]}
+//               fontSize={{ md: "sm", lg: "md" }}
+//             >
+//               Data Vencimento
+//             </Text>
+//             <Text
+//               display={["none", "none", "none", "block"]}
+//               fontSize={{ md: "sm", lg: "md" }}
+//             >
+//               10-11-21
+//             </Text>
+//           </Stack>
+//         </HStack>
+//         <HStack spacing={2}>
+//           <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
+//           <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
+//           <Checkbox />
+//         </HStack>
+//       </Flex>
+//     </Stack>
+//   );
+// };
 
-const SpendingOfTheMonth = () => {
+const SpendingOfTheMonth = ({ arraySpend, arrayNameSpend }) => {
+  const dataGrafico = {
+    labels: arrayNameSpend,
+    options: {
+      plugins: {
+        labels: {
+          responsive: true,
+          position: "right",
+        },
+      },
+    },
+    datasets: [
+      {
+        data: arraySpend,
+        backgroundColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
+        ],
+        borderColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
   return (
     <Stack w="100%" p={4} spacing={2}>
       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
@@ -300,14 +382,25 @@ const SpendingOfTheMonth = () => {
       </Flex>
       <Center>
         <Flex h="290px" w={{ base: "250px", md: "300px", lg: "400px" }}>
-          <Doughnut data={dataGrafico} />
+          {
+            arraySpend.length !== 0 ?
+              <Doughnut data={dataGrafico} />
+              :
+              <SkeletonCircle size={{ base: "250px", md: "300px", lg: "400px" }} />
+          }
         </Flex>
       </Center>
     </Stack>
   );
 };
 
-const ProgressBar = () => {
+const ProgressBar = ({ receiveTotal, spendTotal }) => {
+
+  const total = receiveTotal + spendTotal
+
+  const spendProgress = spendTotal !== 0 ? (spendTotal / total) * 100 : 0
+  const receiveProgress = receiveTotal !== 0 ? (receiveTotal / total) * 100 : 0
+
   return (
     <Stack w="100%" p={4} spacing={12}>
       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
@@ -319,23 +412,29 @@ const ProgressBar = () => {
       </Flex>
       <Stack spacing={2}>
         <HStack>
-          <Progress value={20} size="lg" colorScheme="red" w="80%" />
+          <Progress value={spendProgress.toFixed(2)} size="lg" colorScheme="red" w="80%" />
           <Text
             as="span"
             fontSize={{ lg: "md", md: "sm", base: "xs" }}
             color="gray.300"
           >
-            20,00
+            {
+              !!spendProgress &&
+              spendProgress.toFixed(2) + ' %'
+            }
           </Text>
         </HStack>
         <HStack>
-          <Progress value={80} size="lg" colorScheme="green" w="80%" />
+          <Progress value={receiveProgress.toFixed(2)} size="lg" colorScheme="green" w="80%" />
           <Text
             as="span"
             fontSize={{ lg: "md", md: "sm", base: "xs" }}
             color="gray.300"
           >
-            80,00
+            {
+              !!receiveProgress &&
+              receiveProgress.toFixed(2) + ' %'
+            }
           </Text>
         </HStack>
       </Stack>
@@ -343,7 +442,7 @@ const ProgressBar = () => {
   );
 };
 
-const BillsToPay = () => {
+const BillsToPay = ({ newSpend }) => {
   return (
     <Stack w="100%" p={4} spacing={2}>
       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
@@ -353,49 +452,40 @@ const BillsToPay = () => {
           fontSize={{ lg: "4xl", md: "2xl", base: "md" }}
         />
       </Flex>
-      <Flex justify="space-between" color="gray.300">
-        <HStack spacing={2}>
-          <Icon as={FaFileInvoiceDollar} color="red.300" w="30px" />
-          <Stack spacing={0}>
-            <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Água</Text>
-            <Text
-              display={["none", "none", "none", "block"]}
-              fontSize={{ md: "sm", lg: "md" }}
-            >
-              10-11-21
-            </Text>
-          </Stack>
-        </HStack>
-        <HStack spacing={2}>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
-          <Checkbox />
-        </HStack>
-      </Flex>
-      <Flex justify="space-between" color="gray.300">
-        <HStack spacing={2}>
-          <Icon as={FaFileInvoiceDollar} color="red.300" w="30px" />
-          <Stack spacing={0}>
-            <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Água</Text>
-            <Text
-              display={["none", "none", "none", "block"]}
-              fontSize={{ md: "sm", lg: "md" }}
-            >
-              10-11-21
-            </Text>
-          </Stack>
-        </HStack>
-        <HStack spacing={2}>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
-          <Checkbox />
-        </HStack>
-      </Flex>
+      {!!newSpend.length ?
+        newSpend.map((item, idx) => (
+          <Flex key={idx} justify="space-between" color="gray.300">
+            <HStack spacing={2}>
+              <Icon as={FaFileInvoiceDollar} color="red.300" w="30px" />
+              <Stack spacing={0}>
+                <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>{item.account}</Text>
+                <Text
+                  display={["none", "none", "none", "block"]}
+                  fontSize={{ md: "sm", lg: "md" }}
+                >
+                  {item.date}
+                </Text>
+              </Stack>
+            </HStack>
+            <HStack spacing={2}>
+              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>{formatValue(item.value)}</Text>
+              <Checkbox />
+            </HStack>
+          </Flex>
+        ))
+        :
+        <Center h="100%">
+          <Flex direction="column" align="center" color="gray.300" >
+            <Text>Você não tem contas a pagar</Text>
+            <Icon as={FaExclamationCircle} my={2} fontSize="lg" />
+          </Flex>
+        </Center>
+      }
     </Stack>
   );
 };
 
-const BillsToReceive = () => {
+const BillsToReceive = ({ newReceive }) => {
   return (
     <Stack w="100%" p={4} spacing={2}>
       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
@@ -405,59 +495,38 @@ const BillsToReceive = () => {
           fontSize={{ lg: "4xl", md: "2xl", base: "md" }}
         />
       </Flex>
-      <Flex justify="space-between" color="gray">
-        <HStack spacing={2}>
-          <Icon as={FaReceipt} color="green" w="30px" />
-          <Stack spacing={0}>
-            <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
-              Salário Kenzie
-            </Text>
-            <Text
-              display={["none", "none", "none", "block"]}
-              fontSize={{ md: "sm", lg: "md" }}
-            >
-              10-11-21
-            </Text>
-          </Stack>
-        </HStack>
-        <HStack spacing={2}>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.500,00</Text>
-          <Checkbox />
-        </HStack>
-      </Flex>
+      {!!newReceive.length ?
+        newReceive.map((item, idx) => (
+          <Flex justify="space-between" color="gray" key={idx}>
+            <HStack spacing={2}>
+              <Icon as={FaReceipt} color="green" w="30px" />
+              <Stack spacing={0}>
+                <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
+                  {item.account}
+                </Text>
+                <Text
+                  display={["none", "none", "none", "block"]}
+                  fontSize={{ md: "sm", lg: "md" }}
+                >
+                  {item.date}
+                </Text>
+              </Stack>
+            </HStack>
+            <HStack spacing={2}>
+              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>{formatValue(item.value)}</Text>
+              <Checkbox />
+            </HStack>
+          </Flex>
+        ))
+        :
+        <Center h="100%">
+          <Flex direction="column" align="center" color="gray.300" >
+            <Text>Você não tem contas a receber</Text>
+            <Icon as={FaExclamationCircle} my={2} fontSize="lg" />
+          </Flex>
+        </Center>
+      }
     </Stack>
   );
 };
 
-const dataGrafico = {
-  labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
-  options: {
-    plugins: {
-      labels: {
-        responsive: true,
-        position: "right",
-      },
-    },
-  },
-  datasets: [
-    {
-      data: [12, 19, 3, 5, 2],
-      backgroundColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-      ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
