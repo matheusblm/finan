@@ -1,60 +1,60 @@
-import {useContext,createContext,useState} from "react";
+import { useContext, createContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import {api} from "../../service/api";
+import { api } from "../../service/api";
 
 const UsersContext = createContext()
 
-export const UserProvider = ({children}) => {
+export const UserProvider = ({ children }) => {
 
     const history = useHistory()
 
-    const [token,setToken] = useState(localStorage.getItem("@tokenfinan") || "")
+    const [token, setToken] = useState(localStorage.getItem("@tokenfinan") || "")
 
-    const [id,setId] = useState(localStorage.getItem("@idfinan") || "")
+    const [id, setId] = useState(localStorage.getItem("@idfinan") || "")
 
-    const [errorSign,setErrorSign] = useState("")
+    const [errorSign, setErrorSign] = useState("")
 
-    const [errorLogin,setErrorLogin] = useState("")
-
-
+    const [errorLogin, setErrorLogin] = useState("")
 
 
-    const SignUp = (data)=>{
-        api.post("/signup",data)
-        .then(_=>{
-            history.push("/login")
-        })
-        .catch(resp=>{
-            setErrorSign(resp.message)
-        })
+
+
+    const SignUp = (data) => {
+        api.post("/signup", data)
+            .then(_ => {
+                history.push("/login")
+            })
+            .catch(resp => {
+                setErrorSign(resp.message)
+            })
     }
 
     const Login = (data) => {
-        api.post("/login",data)
-        .then(resp => {
+        api.post("/login", data)
+            .then(resp => {
 
-            setToken(resp.data.accessToken)
+                setToken(resp.data.accessToken)
 
-            localStorage.setItem("@tokenfinan",resp.data.accessToken)
+                localStorage.setItem("@tokenfinan", resp.data.accessToken)
 
-            setId(resp.data.user.id)
+                setId(resp.data.user.id)
 
-            localStorage.setItem("idfinan",resp.data.user.id)
+                localStorage.setItem("idfinan", resp.data.user.id)
 
-            history.push("/dashboard")
-        })
-        .catch(resp=>{
-            setErrorLogin(resp.message)
-        })
+                history.push("/dashboard")
+            })
+            .catch(resp => {
+                setErrorLogin(resp.message)
+            })
     }
 
-    const Logout =() => {
+    const Logout = () => {
         localStorage.clear()
-        window.location.href="/login"
+        window.location.href = "/login"
     }
 
     return (
-        <UsersContext.Provider value={{token,id,errorSign,errorLogin,Login,SignUp,Logout}}>
+        <UsersContext.Provider value={{ token, id, errorSign, errorLogin, Login, SignUp, Logout }}>
             {children}
         </UsersContext.Provider>
     )

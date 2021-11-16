@@ -1,44 +1,59 @@
-import { createContext, useEffect, useState } from "react";
-import api from '../../services/api'
+import { createContext, useContext, useEffect, useState } from "react";
+import { api } from './../../service/api.js'
 
-export const DashboardContext = createContext()
+export const DashboardContext = createContext({});
 
 export const DashboardProvider = ({ children }) => {
-    const [listReceive, setListReceive] = useState([])
-    const [listSpend, setListSpend] = useState([])
-
-    const { authToken } = '1234556'
+    const [receive, setReceive] = useState([]);
+    const [spend, setSpend] = useState([]);
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZlbGlwZUBtYWlsLmNvbSIsImlhdCI6MTYzNzA2NjI0MSwiZXhwIjoxNjM3MDY5ODQxLCJzdWIiOiIzIn0.sgGwMUp65lycdkAWUm2FJN8tFBJRchGISeK2EPRhoPU"
+    const id = 3
 
     const getAllReceive = () => {
         api
-            .get('/receive/', {
+            .get(`/receive/?userId=${id}`, {
                 headers: {
-                    Authorization: `Bearer ${authToken}`,
+                    Authorization: `Bearer ${token}`,
                 }
             })
-            .then(res => setListReceive(res.data))
-            .catch(console.log)
+            .then((res) => {
+                res.data.length !== 0 && setReceive(res.data)
+            })
+            .catch(err => console.log(err.message))
     }
 
     const getAllSpend = () => {
         api
-            .get('/spend/', {
+            .get(`/spend/?userId=${id}`, {
                 headers: {
-                    Authorization: `Bearer ${authToken}`,
+                    Authorization: `Bearer ${token}`,
                 }
             })
-            .then(res => setListSpend(res.data))
-            .catch(console.log)
+            .then((res) => {
+                res.data.length !== 0 && setSpend(res.data)
+            })
+            .catch(err => console.log(err.message))
     }
+
+    const newReceive = receive.filter(item => item.type === false)
+    const newSpend = spend.filter(item => item.type === false)
+
+    const spendTotal = newSpend.reduce((acc, bill) => acc + bill.value, 0)
+    const receiveTotal = newReceive.reduce((acc, bill) => acc + bill.value, 0)
+    const arraySpend = newSpend.map(item => item.value)
+    const arrayNameSpend = newSpend.map(item => item.account)
 
     useEffect(() => {
         getAllReceive()
         getAllSpend()
+        // eslint-disable-next-line
     }, [])
 
     return (
-        <DashboardContext.Provider value={{ listReceive, listSpend, getAllReceive, getAllSpend }}>
+        <DashboardContext.Provider value={{ newReceive, newSpend, spendTotal, receiveTotal, arraySpend, arrayNameSpend }}>
             {children}
         </DashboardContext.Provider>
     )
 }
+
+export const useListDashboard = () => useContext(DashboardContext);

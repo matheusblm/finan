@@ -10,7 +10,12 @@ import {
     Heading,
 } from "@chakra-ui/react";
 import { FiLogOut } from "react-icons/fi";
+import { useContext } from "react-router/node_modules/@types/react";
+import { UsersContext } from '../../providers/Users'
 export const LogoutDrawer = ({ isOpen, onClose }) => {
+
+    const { Logout } = useContext(UsersContext);
+
     return (
         <Drawer placement="top" onClose={onClose} isOpen={isOpen}>
             <DrawerOverlay mt={["13vh", "0vh"]} />
@@ -22,7 +27,7 @@ export const LogoutDrawer = ({ isOpen, onClose }) => {
                 >
                     NomeDoUsuario
                 </DrawerHeader>
-                <DrawerBody>
+                <DrawerBody onClick={() => Logout()} >
                     <Flex align="center" _hover={{ cursor: "pointer" }}>
                         <Center
                             w="60px"
