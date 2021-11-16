@@ -1,17 +1,13 @@
 import {
-    Box,
-    Center,
     Drawer,
     DrawerBody,
     DrawerContent,
     DrawerHeader,
     DrawerOverlay,
     Flex,
-    Heading,
     Input,
     Button
 } from "@chakra-ui/react";
-import { FiLogOut } from "react-icons/fi";
 export const Menu = ({ isOpen, onClose }) => {
     return (
         <Drawer placement="top" onClose={onClose} isOpen={isOpen}>
