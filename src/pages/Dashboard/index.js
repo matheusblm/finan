@@ -6,6 +6,8 @@ import {
   HStack,
   Icon,
   Progress,
+  Skeleton,
+  SkeletonCircle,
   Stack,
   Text,
   useDisclosure,
@@ -29,16 +31,7 @@ import { formatValue } from "../../utils/formatValue";
 
 
 export const Dashboard = () => {
-  const { receive, spend } = useListDashboard()
-
-  const newReceive = receive.filter(item => item.type === true)
-  const newSpend = spend.filter(item => item.type === true)
-
-  const spendTotal = newSpend.reduce((acc, bill) => acc + bill.value, 0)
-  const receiveTotal = newReceive.reduce((acc, bill) => acc + bill.value, 0)
-  const arraySpend = newSpend.map(item => item.value)
-  const arrayNameSpend = newSpend.map(item => item.account)
-
+  const { newReceive, newSpend, spendTotal, receiveTotal, arraySpend, arrayNameSpend } = useListDashboard()
 
   const {
     isOpen: isOpenCreateRecive,
@@ -377,7 +370,12 @@ const SpendingOfTheMonth = ({ arraySpend, arrayNameSpend }) => {
       </Flex>
       <Center>
         <Flex h="290px" w={{ base: "250px", md: "300px", lg: "400px" }}>
-          <Doughnut data={dataGrafico} />
+          {
+            arraySpend.length !== 0 ?
+              <Doughnut data={dataGrafico} />
+              :
+              <SkeletonCircle size={{ base: "250px", md: "300px", lg: "400px" }} />
+          }
         </Flex>
       </Center>
     </Stack>
@@ -408,7 +406,12 @@ const ProgressBar = ({ receiveTotal, spendTotal }) => {
             fontSize={{ lg: "md", md: "sm", base: "xs" }}
             color="gray.300"
           >
-            {spendProgress.toFixed(2)} %
+            {
+              !!spendProgress ?
+                spendProgress.toFixed(2) + ' %'
+                :
+                <Skeleton height="20px" />
+            }
           </Text>
         </HStack>
         <HStack>
@@ -418,7 +421,12 @@ const ProgressBar = ({ receiveTotal, spendTotal }) => {
             fontSize={{ lg: "md", md: "sm", base: "xs" }}
             color="gray.300"
           >
-            {receiveProgress.toFixed(2)} %
+            {
+              !!receiveProgress ?
+                receiveProgress.toFixed(2) + ' %'
+                :
+                <Skeleton height="20px" />
+            }
           </Text>
         </HStack>
       </Stack>

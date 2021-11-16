@@ -35,6 +35,14 @@ export const DashboardProvider = ({ children }) => {
             .catch(err => console.log(err.message))
     }
 
+    const newReceive = receive.filter(item => item.type === true)
+    const newSpend = spend.filter(item => item.type === true)
+
+    const spendTotal = newSpend.reduce((acc, bill) => acc + bill.value, 0)
+    const receiveTotal = newReceive.reduce((acc, bill) => acc + bill.value, 0)
+    const arraySpend = newSpend.map(item => item.value)
+    const arrayNameSpend = newSpend.map(item => item.account)
+
     useEffect(() => {
         getAllReceive()
         getAllSpend()
@@ -42,7 +50,7 @@ export const DashboardProvider = ({ children }) => {
     }, [])
 
     return (
-        <DashboardContext.Provider value={{ receive, spend, getAllReceive, getAllSpend }}>
+        <DashboardContext.Provider value={{ newReceive, newSpend, spendTotal, receiveTotal, arraySpend, arrayNameSpend }}>
             {children}
         </DashboardContext.Provider>
     )
