@@ -20,9 +20,10 @@ import { FaTimes } from "react-icons/fa";
 
 import * as yup from "yup";
 import { useReceive } from "../../providers/ContextReceives";
+import { Users } from "../../providers/Users";
 
 const createTaskSchema = yup.object().shape({
-  title: yup.string().required("Campo obrigatório"),
+  account: yup.string().required("Campo obrigatório"),
   description: yup
     .string()
     .required("Campo obrigatório")
@@ -34,6 +35,7 @@ const createTaskSchema = yup.object().shape({
 
 export const ModalCreateRecive = ({ isOpen, onClose }) => {
   const { lancReceive } = useReceive();
+  const { token, id } = Users();
   const {
     formState: { errors },
     register,
@@ -43,7 +45,8 @@ export const ModalCreateRecive = ({ isOpen, onClose }) => {
   });
 
   const handleCreateEntry = (data) => {
-    lancReceive(data);
+    const userId = id | localStorage.getItem("idfinan");
+    lancReceive(data, token, userId);
     onClose();
   };
 
@@ -77,13 +80,13 @@ export const ModalCreateRecive = ({ isOpen, onClose }) => {
 
         <ModalBody textAlign="center">
           <VStack spacing="5">
-            <Input {...register("title")} placeholder="Digite o título" />
+            <Input {...register("account")} placeholder="Digite o título" />
             <Textarea
               {...register("description")}
               placeholder="Digite o Descrição"
             />
             <Input {...register("value")} placeholder="Valor da Receita" />
-            <Input {...register("data")} placeholder="00/00/0000" />
+            <Input {...register("data")} placeholder="00/00/0000" type="date" />
             <Select
               placeholder="Categorias"
               color="gray.300"

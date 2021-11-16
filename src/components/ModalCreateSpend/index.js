@@ -80,7 +80,7 @@ export const ModalCreateSpend = ({ isOpen, onClose }) => {
               placeholder="Digite o Descrição"
             />
             <Input {...register("value")} placeholder="Valor da Receita" />
-            <Input {...register("data")} placeholder="00/00/0000" />
+            <Input {...register("data")} type="date" />
             <Select
               placeholder="Categorias"
               color="gray.300"

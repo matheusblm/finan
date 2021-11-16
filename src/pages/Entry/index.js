@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/layout";
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
 import { FaPlusSquare, FaSearch, FaExclamationCircle } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CardEntry } from "../../components/CardEntry";
 import { ModalCreateRecive } from "../../components/ModalCreateRecive";
 import { ModalCreateSpend } from "../../components/ModalCreateSpend";
@@ -21,15 +21,17 @@ import { useSpend } from "../../providers/ContextSpend";
 import Lottie from "react-lottie";
 import animationData from "../../animations/animate-loading.json";
 import Header from "../../components/Header";
+import { Users } from "../../providers/Users";
 
 export const Entry = () => {
-  const { allReceives } = useReceive();
+  const { allReceives, loadReceives } = useReceive();
   const newAllReceives = allReceives.map((item) => ({ ...item, entry: true }));
-  const { allSpends } = useSpend();
+  const { allSpends, loadSpends } = useSpend();
   const newAllSpends = allSpends.map((item) => ({ ...item, entry: false }));
   const allEntry = [...newAllReceives, ...newAllSpends];
+  const [loading, setLoading] = useState(true);
+  const { token, id } = Users();
 
-  const loading = false;
   const {
     isOpen: isOpenCreateRecive,
     onOpen: onOpenCreateRecive,
@@ -53,6 +55,13 @@ export const Entry = () => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
+
+  useEffect(() => {
+    const userId = id | localStorage.getItem("idfinan");
+    loadReceives(userId, token).then((res) => {
+      setLoading(false);
+    });
+  });
 
   return (
     <>

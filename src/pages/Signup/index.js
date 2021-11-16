@@ -21,16 +21,13 @@ import { BsPerson } from "react-icons/bs";
 import { HiOutlineMail } from "react-icons/hi";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
-import { useEffect, useState } from "react";
 import { Users } from "../../providers/Users";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Carrossel } from "../../components/Carrossel";
 import Img1 from "../../assets/signupimg/img1.jpg";
 import Img2 from "../../assets/signupimg/img2.jpg";
 import Img6 from "../../assets/signupimg/img6.jpg";
-import Gif from "../../assets/signupimg/Personal finance-pana.png"
-
+import Gif from "../../assets/signupimg/Personal finance-pana.png";
 
 export const Signup = () => {
   const history = useHistory();
@@ -63,7 +60,7 @@ export const Signup = () => {
     SignUp(data);
   };
 
-  const texts = [Img1,Img2,Img6];
+  const texts = [Img1, Img2, Img6];
 
   return (
     <Flex
@@ -96,15 +93,15 @@ export const Signup = () => {
       >
         <Flex
           bg="#9BADD0"
-          w={["0%", "0%", "40%","40%"]}
+          w={["0%", "0%", "40%", "40%"]}
           h="100%"
           as="div"
           justifyContent="center"
           alignItems="center"
         >
           <Box
-            w={["80%","90%","80%","80%"]}
-            h={["80%","90%","80%","80%"]}
+            w={["80%", "90%", "80%", "80%"]}
+            h={["80%", "90%", "80%", "80%"]}
             bg="gray.50"
             borderRadius="50%"
             overflow="hidden"
@@ -112,7 +109,7 @@ export const Signup = () => {
             justifyContent="center"
             alignContent="center"
           >
-            <Img src={Gif}/>
+            <Img src={Gif} />
           </Box>
         </Flex>
         <Box

@@ -4,8 +4,6 @@ import {
   FormControl,
   Input,
   FormLabel,
-  FormErrorMessage,
-  ChakraInputProps,
   InputLeftElement,
   InputGroup,
   Box,

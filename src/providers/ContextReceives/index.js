@@ -1,4 +1,10 @@
-import { useContext, createContext, useState, useEffect } from "react";
+import {
+  useContext,
+  createContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import { api } from "../../service/api";
 
 const ReceivesContext = createContext();
@@ -20,25 +26,17 @@ export const ReceiveProvider = ({ children }) => {
 
   //Pega todos os receber.
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hdGhldXNAZW1haWwuY29tIiwiaWF0IjoxNjM3MDY1MjMzLCJleHAiOjE2MzcwNjg4MzMsInN1YiI6IjQifQ.F3S55mq_JWB93bH5SkjALp7hDD0tZtZSI33KT9LBxpU";
-  const userId = 4;
-
-  const Receives = () => {
-    api
-      .get(`/receive/?userId=${userId}`, {
+  const loadReceives = useCallback(async (userId, accessToken) => {
+    try {
+      const response = await api.get(`/receive/?userId=${userId}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
-      })
-      .then((resp) => {
-        resp.data.length > 0 && setAllReceives(resp.data);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  useEffect(() => {
-    Receives();
+      });
+      setAllReceives(response.data);
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   // Todos os recebidos.
@@ -80,7 +78,7 @@ export const ReceiveProvider = ({ children }) => {
   };
 
   //Transforma receives não recebidas em recebidas.
-  const editReceive = (id) => {
+  const editReceive = (id, token) => {
     api
       .patch(
         `receives/${id}`,
@@ -96,9 +94,11 @@ export const ReceiveProvider = ({ children }) => {
       .catch((resp) => console.log(resp));
   };
 
-  const lancReceive = (data) => {
+  const lancReceive = (data, token, id) => {
+    console.log(data);
+    const newData = { ...data, userId: id };
     api
-      .post(`/receive`, data, {
+      .post(`/receive`, newData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -120,6 +120,7 @@ export const ReceiveProvider = ({ children }) => {
         filterMonthReceived,
         editReceive,
         lancReceive,
+        loadReceives,
       }}
     >
       {children}
