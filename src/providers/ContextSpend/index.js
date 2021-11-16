@@ -90,9 +90,10 @@ export const SpendProvider = ({ children }) => {
       .catch((resp) => console.log(resp));
   };
 
-  const lancSpend = (data, token) => {
+  const lancSpend = (data, token, id) => {
+    const newData = { ...data, userId: id };
     api
-      .post(`spend`, data, {
+      .post(`spend`, newData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

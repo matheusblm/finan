@@ -35,7 +35,7 @@ export const ReceiveProvider = ({ children }) => {
       });
       setAllReceives(response.data);
     } catch (err) {
-      console.log(err);
+      console.log("err");
     }
   }, []);
 
@@ -95,7 +95,6 @@ export const ReceiveProvider = ({ children }) => {
   };
 
   const lancReceive = (data, token, id) => {
-    console.log(data);
     const newData = { ...data, userId: id };
     api
       .post(`/receive`, newData, {

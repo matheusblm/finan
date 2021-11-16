@@ -55,13 +55,34 @@ export const Entry = () => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
+  const totalReceive =
+    allReceives.length > 0
+      ? allReceives.reduce(
+          (acumulador, valorAtual) => acumulador + valorAtual.value,
+          0
+        )
+      : 0;
+
+  const totalSpend =
+    allSpends.length > 0
+      ? allSpends.reduce(
+          (acumulador, valorAtual) => acumulador + valorAtual.value,
+          0
+        )
+      : 0;
 
   useEffect(() => {
     const userId = id | localStorage.getItem("idfinan");
     loadReceives(userId, token).then((res) => {
       setLoading(false);
     });
-  });
+  }, []);
+  useEffect(() => {
+    const userId = id | localStorage.getItem("idfinan");
+    loadSpends(userId, token).then((res) => {
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <>
@@ -164,11 +185,9 @@ export const Entry = () => {
             >
               <Flex flexDirection="column">
                 <Text>Saldo</Text>
-                <Text>Previsto</Text>
               </Flex>
               <Flex flexDirection="column" fontWeight="bold">
-                <Text>R$ 1000</Text>
-                <Text>R$ 800</Text>
+                <Text>R$ {totalReceive - totalSpend}</Text>
               </Flex>
             </Flex>
           </VStack>
