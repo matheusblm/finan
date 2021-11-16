@@ -33,12 +33,14 @@ export const Dashboard = () => {
 
   // const loan = spend.filter((card) => card.account === "Empréstimos")
   // const creditCard = spend.filter((card) => card.account === "Catão de Crédito")
+  const newReceive = receive.filter(item => item.type === true)
+  const newSpend = spend.filter(item => item.type === true)
 
-  const spendTotal = spend.reduce((acc, bill) => acc + bill.value, 0)
-  const receiveTotal = receive.reduce((acc, bill) => acc + bill.value, 0)
-  const arraySpend = spend.map(item => item.value)
-  const arrayNameSpend = spend.map(item => item.account)
-  console.log(arrayNameSpend)
+  const spendTotal = newSpend.reduce((acc, bill) => acc + bill.value, 0)
+  const receiveTotal = newReceive.reduce((acc, bill) => acc + bill.value, 0)
+  const arraySpend = newSpend.map(item => item.value)
+  const arrayNameSpend = newSpend.map(item => item.account)
+
 
   const {
     isOpen: isOpenCreateRecive,
@@ -130,7 +132,7 @@ export const Dashboard = () => {
               boxShadow="lg"
               mx={[0, 0, 2]}
             >
-              <BillsToPay spend={spend} />
+              <BillsToPay newSpend={newSpend} />
             </Flex>
 
             <Flex
@@ -143,7 +145,7 @@ export const Dashboard = () => {
               boxShadow="lg"
               mx={[0, 0, 2]}
             >
-              <BillsToReceive receive={receive} />
+              <BillsToReceive newReceive={newReceive} />
             </Flex>
           </Flex>
         </Stack>
@@ -426,7 +428,7 @@ const ProgressBar = ({ receiveTotal, spendTotal }) => {
   );
 };
 
-const BillsToPay = ({ spend }) => {
+const BillsToPay = ({ newSpend }) => {
   return (
     <Stack w="100%" p={4} spacing={2}>
       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
@@ -436,8 +438,8 @@ const BillsToPay = ({ spend }) => {
           fontSize={{ lg: "4xl", md: "2xl", base: "md" }}
         />
       </Flex>
-      {!!spend.length ?
-        spend.map((item, idx) => (
+      {!!newSpend.length ?
+        newSpend.map((item, idx) => (
           <Flex key={idx} justify="space-between" color="gray.300">
             <HStack spacing={2}>
               <Icon as={FaFileInvoiceDollar} color="red.300" w="30px" />
@@ -469,7 +471,7 @@ const BillsToPay = ({ spend }) => {
   );
 };
 
-const BillsToReceive = ({ receive }) => {
+const BillsToReceive = ({ newReceive }) => {
   return (
     <Stack w="100%" p={4} spacing={2}>
       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
@@ -479,8 +481,8 @@ const BillsToReceive = ({ receive }) => {
           fontSize={{ lg: "4xl", md: "2xl", base: "md" }}
         />
       </Flex>
-      {!!receive.length ?
-        receive.map((item, idx) => (
+      {!!newReceive.length ?
+        newReceive.map((item, idx) => (
           <Flex justify="space-between" color="gray" key={idx}>
             <HStack spacing={2}>
               <Icon as={FaReceipt} color="green" w="30px" />
