@@ -11,6 +11,7 @@ import {
   Box,
   Image,
   Text,
+  Img,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -22,6 +23,14 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { Users } from "../../providers/Users";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+import { Carrossel } from "../../components/Carrossel";
+import Img1 from "../../assets/signupimg/img1.jpg";
+import Img2 from "../../assets/signupimg/img2.jpg";
+import Img6 from "../../assets/signupimg/img6.jpg";
+import Gif from "../../assets/signupimg/Personal finance-pana.png"
+
 
 export const Signup = () => {
   const history = useHistory();
@@ -54,36 +63,7 @@ export const Signup = () => {
     SignUp(data);
   };
 
-  const [text, setText] = useState("");
-  const texts = [
-    {
-      frase:
-        "Cuidado com as pequenas despesas;um pequeno vazamento afundará um grande navio",
-      autor: "Benjamin Franklin",
-    },
-    {
-      frase: "Riqueza é o que você acumula, não o que você gasta.",
-      autor: "Thomas J. Stanley",
-    },
-    {
-      frase:
-        "Se você não pode controlar suas emoções, você não pode controlar seu dinheiro.",
-      autor: "Warren Buffet",
-    },
-  ];
-
-  const carrossel = () => {
-    let cont = 0;
-    setInterval(function () {
-      setText(texts[cont]);
-      cont++;
-      if (cont === texts.length) {
-        cont = 0;
-      }
-    }, 4000);
-  };
-
-  useEffect(() => carrossel(), []);
+  const texts = [Img1,Img2,Img6];
 
   return (
     <Flex
@@ -116,43 +96,28 @@ export const Signup = () => {
       >
         <Flex
           bg="#9BADD0"
-          w={["0%", "0%", "40%"]}
+          w={["0%", "0%", "40%","40%"]}
           h="100%"
           as="div"
           justifyContent="center"
           alignItems="center"
         >
           <Box
-            as="div"
-            w="190px"
-            h="300px"
-            bg="#FEFEFE"
-            borderRadius="147.5px 147.5px 5px 5px"
+            w={["80%","90%","80%","80%"]}
+            h={["80%","90%","80%","80%"]}
+            bg="gray.50"
+            borderRadius="50%"
             overflow="hidden"
             display="flex"
             justifyContent="center"
-            alignItems="center"
+            alignContent="center"
           >
-            {console.log(text.autor)}
-            <Flex
-              color={"blue.900"}
-              flexDirection="column"
-              w="100%"
-              h="100%"
-              justifyContent="center"
-              alignItems="center"
-              paddingTop="30px"
-            >
-              <Text textAlign="justify" padding="6px">
-                {text.frase}
-              </Text>
-              <Text padding="3px">{text.autor}</Text>
-            </Flex>
+            <Img src={Gif}/>
           </Box>
         </Flex>
         <Box
           bg={["#FEFEFE", "#FEFEFE", "#FEFEFE"]}
-          w={["100%", "100%", "60%"]}
+          w={["100%", "80%", "60%"]}
           height="100%"
           display="flex"
           alignItems="center"
@@ -160,7 +125,7 @@ export const Signup = () => {
         >
           <FormControl
             as="form"
-            w={["90%", "90%", "75%", "50%"]}
+            w={["90%", "60%", "75%", "50%"]}
             padding="15px"
             borderRadius="5px"
             display="flex"
@@ -300,7 +265,7 @@ export const Signup = () => {
               marginTop="4"
               type="submit"
             >
-              Login
+              Cadastrar
             </Button>
             <Box
               h={["60px", "60px", "20px"]}
