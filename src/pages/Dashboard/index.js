@@ -36,6 +36,9 @@ export const Dashboard = () => {
 
   const spendTotal = spend.reduce((acc, bill) => acc + bill.value, 0)
   const receiveTotal = receive.reduce((acc, bill) => acc + bill.value, 0)
+  const arraySpend = spend.map(item => item.value)
+  const arrayNameSpend = spend.map(item => item.account)
+  console.log(arrayNameSpend)
 
   const {
     isOpen: isOpenCreateRecive,
@@ -113,7 +116,7 @@ export const Dashboard = () => {
               boxShadow="lg"
               mx={[0, 0, 2]}
             >
-              <SpendingOfTheMonth />
+              <SpendingOfTheMonth arraySpend={arraySpend} arrayNameSpend={arrayNameSpend} />
             </Flex>
           </Flex>
           <Flex direction={{ md: "row", base: "column" }}>
@@ -331,7 +334,38 @@ const WalletDashboard = () => {
 //   );
 // };
 
-const SpendingOfTheMonth = () => {
+const SpendingOfTheMonth = ({ arraySpend, arrayNameSpend }) => {
+  const dataGrafico = {
+    labels: arrayNameSpend,
+    options: {
+      plugins: {
+        labels: {
+          responsive: true,
+          position: "right",
+        },
+      },
+    },
+    datasets: [
+      {
+        data: arraySpend,
+        backgroundColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
+        ],
+        borderColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
   return (
     <Stack w="100%" p={4} spacing={2}>
       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
@@ -447,7 +481,7 @@ const BillsToReceive = ({ receive }) => {
       </Flex>
       {!!receive.length ?
         receive.map((item, idx) => (
-          <Flex justify="space-between" color="gray">
+          <Flex justify="space-between" color="gray" key={idx}>
             <HStack spacing={2}>
               <Icon as={FaReceipt} color="green" w="30px" />
               <Stack spacing={0}>
@@ -480,34 +514,3 @@ const BillsToReceive = ({ receive }) => {
   );
 };
 
-const dataGrafico = {
-  labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
-  options: {
-    plugins: {
-      labels: {
-        responsive: true,
-        position: "right",
-      },
-    },
-  },
-  datasets: [
-    {
-      data: [12, 19, 3, 5, 2],
-      backgroundColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-      ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
