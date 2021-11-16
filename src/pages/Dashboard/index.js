@@ -31,8 +31,6 @@ import { formatValue } from "../../utils/formatValue";
 export const Dashboard = () => {
   const { receive, spend } = useListDashboard()
 
-  // const loan = spend.filter((card) => card.account === "Empréstimos")
-  // const creditCard = spend.filter((card) => card.account === "Catão de Crédito")
   const newReceive = receive.filter(item => item.type === true)
   const newSpend = spend.filter(item => item.type === true)
 
