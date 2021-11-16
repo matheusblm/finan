@@ -24,17 +24,20 @@ import { useEffect, useState } from "react";
 import { Users } from "../../providers/Users";
 
 export const Signup = () => {
-
   const history = useHistory();
 
-  const {token,errorSign,SignUp} = Users()
+  const { token, errorSign, SignUp } = Users();
 
   const schema = yup.object().shape({
     username: yup.string().required("Item obrigatório"),
     email: yup.string().required("Item obrigatório"),
-    password: yup.string().required("Item obrigatório")
-              .matches(/^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-              "Senha deve ter letras maíuscula, mínuscula, numero e caracter"),
+    password: yup
+      .string()
+      .required("Item obrigatório")
+      .matches(
+        /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+        "Senha deve ter letras maíuscula, mínuscula, numero e caracter"
+      ),
     passwordConfirm: yup
       .string()
       .required("Item obrigatório")
@@ -48,7 +51,7 @@ export const Signup = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSignup = (data) => {
-    SignUp(data)
+    SignUp(data);
   };
 
   const [text, setText] = useState("");
@@ -196,7 +199,9 @@ export const Signup = () => {
                 paddingLeft="2"
                 marginBottom="5px"
                 fontSize="xs"
-              >{errors.username?.message}</Text>
+              >
+                {errors.username?.message}
+              </Text>
             </InputGroup>
             <FormLabel
               textAlign="left"
@@ -223,7 +228,9 @@ export const Signup = () => {
                 paddingLeft="2"
                 marginBottom="5px"
                 fontSize="xs"
-              >{errors.email?.message}</Text>
+              >
+                {errors.email?.message}
+              </Text>
             </InputGroup>
             <FormLabel
               textAlign="left"
@@ -250,7 +257,9 @@ export const Signup = () => {
                 paddingLeft="2"
                 marginBottom="5px"
                 fontSize="xs"
-              >{errors.password?.message}</Text>
+              >
+                {errors.password?.message}
+              </Text>
             </InputGroup>
             <FormLabel
               textAlign="left"
@@ -277,7 +286,9 @@ export const Signup = () => {
                 paddingLeft="2"
                 marginBottom="5px"
                 fontSize="xs"
-              >{errors.passwordConfirm?.message}</Text>
+              >
+                {errors.passwordConfirm?.message}
+              </Text>
             </InputGroup>
 
             <Button
@@ -300,7 +311,7 @@ export const Signup = () => {
               Já possui uma conta?
               <Text
                 as="span"
-                onClick={() => history.push("/")}
+                onClick={() => history.push("/login")}
                 cursor="pointer"
                 color={"blue.900"}
               >

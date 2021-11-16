@@ -19,13 +19,12 @@ import { useHistory } from "react-router-dom";
 import { HiOutlineMail } from "react-icons/hi";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
-import {Users} from "../../providers/Users"
+import { Users } from "../../providers/Users";
 
 export const Login = () => {
-
   const history = useHistory();
 
-  const {token,errorLogin,Login} = Users()
+  const { token, errorLogin, Login } = Users();
 
   const schema = yup.object().shape({
     email: yup.string().required("Item obrigatório"),
@@ -122,7 +121,9 @@ export const Login = () => {
                 paddingLeft="2"
                 marginBottom="5px"
                 fontSize="xs"
-              >{errors.email?.message}</Text>
+              >
+                {errors.email?.message}
+              </Text>
             </InputGroup>
             <FormLabel
               textAlign="left"
@@ -149,7 +150,9 @@ export const Login = () => {
                 paddingLeft="2"
                 marginBottom="5px"
                 fontSize="xs"
-              >{errors.password?.message}</Text>
+              >
+                {errors.password?.message}
+              </Text>
             </InputGroup>
 
             <Button
@@ -172,7 +175,7 @@ export const Login = () => {
               Ainda não possui uma conta?
               <Text
                 as="span"
-                onClick={() => history.push("/")}
+                onClick={() => history.push("/register")}
                 cursor="pointer"
                 color={"blue.900"}
               >

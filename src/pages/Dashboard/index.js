@@ -27,10 +27,17 @@ import { ModalCreateRecive } from "../../components/ModalCreateRecive";
 import { ModalCreateSpend } from "../../components/ModalCreateSpend";
 import { useListDashboard } from "../../providers/Dashboard";
 import { formatValue } from "../../utils/formatValue";
-
+import Header from "../../components/Header";
 
 export const Dashboard = () => {
-  const { newReceive, newSpend, spendTotal, receiveTotal, arraySpend, arrayNameSpend } = useListDashboard()
+  const {
+    newReceive,
+    newSpend,
+    spendTotal,
+    receiveTotal,
+    arraySpend,
+    arrayNameSpend,
+  } = useListDashboard();
 
   const {
     isOpen: isOpenCreateRecive,
@@ -45,6 +52,7 @@ export const Dashboard = () => {
 
   return (
     <>
+      <Header />
       <Center>
         <Stack py={4} w={"80%"}>
           <Flex
@@ -95,7 +103,10 @@ export const Dashboard = () => {
                 overflow="auto"
                 boxShadow="lg"
               >
-                <ProgressBar spendTotal={spendTotal} receiveTotal={receiveTotal} />
+                <ProgressBar
+                  spendTotal={spendTotal}
+                  receiveTotal={receiveTotal}
+                />
               </Flex>
             </Stack>
             <Flex
@@ -108,7 +119,10 @@ export const Dashboard = () => {
               boxShadow="lg"
               mx={[0, 0, 2]}
             >
-              <SpendingOfTheMonth arraySpend={arraySpend} arrayNameSpend={arrayNameSpend} />
+              <SpendingOfTheMonth
+                arraySpend={arraySpend}
+                arrayNameSpend={arrayNameSpend}
+              />
             </Flex>
           </Flex>
           <Flex direction={{ md: "row", base: "column" }}>
@@ -152,9 +166,13 @@ export const Dashboard = () => {
   );
 };
 
-const HeaderDashboard = ({ onOpenCreateRecive, onOpenCreateSpend, spendTotal, receiveTotal }) => {
-
-  const totalBalance = receiveTotal - spendTotal
+const HeaderDashboard = ({
+  onOpenCreateRecive,
+  onOpenCreateSpend,
+  spendTotal,
+  receiveTotal,
+}) => {
+  const totalBalance = receiveTotal - spendTotal;
 
   return (
     <Flex
@@ -212,7 +230,9 @@ const HeaderDashboard = ({ onOpenCreateRecive, onOpenCreateSpend, spendTotal, re
           <Text fontSize="sm" color="gray.600">
             Saldo Total:
           </Text>
-          <Text fontSize="sm" color={(totalBalance > 0) ? "green" : "red"}>{formatValue(totalBalance)}</Text>
+          <Text fontSize="sm" color={totalBalance > 0 ? "green" : "red"}>
+            {formatValue(totalBalance)}
+          </Text>
         </Flex>
       </Flex>
       <Flex direction="column" flex="1" justify="center">
@@ -223,8 +243,13 @@ const HeaderDashboard = ({ onOpenCreateRecive, onOpenCreateSpend, spendTotal, re
             </Text>
           </Flex>
           <Flex justify="space-around">
-            <Button bg="white" w="94px" h="70" mx={1} >
-              <Flex direction="column" align="center" justify="center" onClick={onOpenCreateRecive}>
+            <Button bg="white" w="94px" h="70" mx={1}>
+              <Flex
+                direction="column"
+                align="center"
+                justify="center"
+                onClick={onOpenCreateRecive}
+              >
                 <Icon
                   bg="green"
                   color="white"
@@ -240,7 +265,13 @@ const HeaderDashboard = ({ onOpenCreateRecive, onOpenCreateSpend, spendTotal, re
                 </Text>
               </Flex>
             </Button>
-            <Button bg="white" w="94px" h="70" mx={1} onClick={onOpenCreateSpend}>
+            <Button
+              bg="white"
+              w="94px"
+              h="70"
+              mx={1}
+              onClick={onOpenCreateSpend}
+            >
               <Flex direction="column" align="center" justify="center">
                 <Icon
                   bg="red.300"
@@ -272,21 +303,26 @@ const WalletDashboard = () => {
         <Icon as={FaWallet} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
       </Flex>
       {
-        false ?
+        false ? (
           <Flex justify="space-between" color="gray.300">
             <HStack spacing={2}>
               <Icon as={FaLandmark} />
-              <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Conta Caixa</Text>
+              <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
+                Conta Caixa
+              </Text>
             </HStack>
             <HStack spacing={2}>
               <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
+              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>
+                3.000,00
+              </Text>
             </HStack>
           </Flex>
-          :
+        ) : (
           <Center h="100%">
             <SkeletonCircle size="50px" />
           </Center>
+        )
         // <Center h="100%">
         //   <Flex direction="column" align="center" color="gray.300" >
         //     <Text>Você não tem contas a receber</Text>
@@ -382,12 +418,13 @@ const SpendingOfTheMonth = ({ arraySpend, arrayNameSpend }) => {
       </Flex>
       <Center>
         <Flex h="290px" w={{ base: "250px", md: "300px", lg: "400px" }}>
-          {
-            arraySpend.length !== 0 ?
-              <Doughnut data={dataGrafico} />
-              :
-              <SkeletonCircle size={{ base: "250px", md: "300px", lg: "400px" }} />
-          }
+          {arraySpend.length !== 0 ? (
+            <Doughnut data={dataGrafico} />
+          ) : (
+            <SkeletonCircle
+              size={{ base: "250px", md: "300px", lg: "400px" }}
+            />
+          )}
         </Flex>
       </Center>
     </Stack>
@@ -395,11 +432,10 @@ const SpendingOfTheMonth = ({ arraySpend, arrayNameSpend }) => {
 };
 
 const ProgressBar = ({ receiveTotal, spendTotal }) => {
+  const total = receiveTotal + spendTotal;
 
-  const total = receiveTotal + spendTotal
-
-  const spendProgress = spendTotal !== 0 ? (spendTotal / total) * 100 : 0
-  const receiveProgress = receiveTotal !== 0 ? (receiveTotal / total) * 100 : 0
+  const spendProgress = spendTotal !== 0 ? (spendTotal / total) * 100 : 0;
+  const receiveProgress = receiveTotal !== 0 ? (receiveTotal / total) * 100 : 0;
 
   return (
     <Stack w="100%" p={4} spacing={12}>
@@ -412,29 +448,33 @@ const ProgressBar = ({ receiveTotal, spendTotal }) => {
       </Flex>
       <Stack spacing={2}>
         <HStack>
-          <Progress value={spendProgress.toFixed(2)} size="lg" colorScheme="red" w="80%" />
+          <Progress
+            value={spendProgress.toFixed(2)}
+            size="lg"
+            colorScheme="red"
+            w="80%"
+          />
           <Text
             as="span"
             fontSize={{ lg: "md", md: "sm", base: "xs" }}
             color="gray.300"
           >
-            {
-              !!spendProgress &&
-              spendProgress.toFixed(2) + ' %'
-            }
+            {!!spendProgress && spendProgress.toFixed(2) + " %"}
           </Text>
         </HStack>
         <HStack>
-          <Progress value={receiveProgress.toFixed(2)} size="lg" colorScheme="green" w="80%" />
+          <Progress
+            value={receiveProgress.toFixed(2)}
+            size="lg"
+            colorScheme="green"
+            w="80%"
+          />
           <Text
             as="span"
             fontSize={{ lg: "md", md: "sm", base: "xs" }}
             color="gray.300"
           >
-            {
-              !!receiveProgress &&
-              receiveProgress.toFixed(2) + ' %'
-            }
+            {!!receiveProgress && receiveProgress.toFixed(2) + " %"}
           </Text>
         </HStack>
       </Stack>
@@ -452,13 +492,15 @@ const BillsToPay = ({ newSpend }) => {
           fontSize={{ lg: "4xl", md: "2xl", base: "md" }}
         />
       </Flex>
-      {!!newSpend.length ?
+      {!!newSpend.length ? (
         newSpend.map((item, idx) => (
           <Flex key={idx} justify="space-between" color="gray.300">
             <HStack spacing={2}>
               <Icon as={FaFileInvoiceDollar} color="red.300" w="30px" />
               <Stack spacing={0}>
-                <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>{item.account}</Text>
+                <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
+                  {item.account}
+                </Text>
                 <Text
                   display={["none", "none", "none", "block"]}
                   fontSize={{ md: "sm", lg: "md" }}
@@ -468,19 +510,21 @@ const BillsToPay = ({ newSpend }) => {
               </Stack>
             </HStack>
             <HStack spacing={2}>
-              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>{formatValue(item.value)}</Text>
+              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>
+                {formatValue(item.value)}
+              </Text>
               <Checkbox />
             </HStack>
           </Flex>
         ))
-        :
+      ) : (
         <Center h="100%">
-          <Flex direction="column" align="center" color="gray.300" >
+          <Flex direction="column" align="center" color="gray.300">
             <Text>Você não tem contas a pagar</Text>
             <Icon as={FaExclamationCircle} my={2} fontSize="lg" />
           </Flex>
         </Center>
-      }
+      )}
     </Stack>
   );
 };
@@ -495,7 +539,7 @@ const BillsToReceive = ({ newReceive }) => {
           fontSize={{ lg: "4xl", md: "2xl", base: "md" }}
         />
       </Flex>
-      {!!newReceive.length ?
+      {!!newReceive.length ? (
         newReceive.map((item, idx) => (
           <Flex justify="space-between" color="gray" key={idx}>
             <HStack spacing={2}>
@@ -513,20 +557,21 @@ const BillsToReceive = ({ newReceive }) => {
               </Stack>
             </HStack>
             <HStack spacing={2}>
-              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>{formatValue(item.value)}</Text>
+              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>
+                {formatValue(item.value)}
+              </Text>
               <Checkbox />
             </HStack>
           </Flex>
         ))
-        :
+      ) : (
         <Center h="100%">
-          <Flex direction="column" align="center" color="gray.300" >
+          <Flex direction="column" align="center" color="gray.300">
             <Text>Você não tem contas a receber</Text>
             <Icon as={FaExclamationCircle} my={2} fontSize="lg" />
           </Flex>
         </Center>
-      }
+      )}
     </Stack>
   );
 };
-

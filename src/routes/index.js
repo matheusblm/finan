@@ -11,8 +11,8 @@ export const Routes = () => (
     <Route exact path="/" component={Initial} />
     <Route exact path="/login" component={Login} />
     <Route exact path="/register" component={Signup} />
-    <Route exact path="/dashboard" component={Dashboard} />
-    <Route exact path="/lancamentos" component={Entry} />
-    <Route exact path="/limites" component={SpendLimit} />
+    <Route exact path="/dashboard" component={Dashboard} isPrivate />
+    <Route exact path="/lancamentos" component={Entry} isPrivate />
+    <Route exact path="/limites" component={SpendLimit} isPrivate />
   </Switch>
 );

@@ -45,7 +45,7 @@ const Initial = () => {
             >
               Caso voce ja faz parte da nossa comunidade apenas faça{" "}
               <Link
-                to="/inicial"
+                to="/login"
                 style={{ color: "#1A3747", fontWeight: "bold" }}
               >
                 o Login
@@ -71,7 +71,7 @@ const Initial = () => {
               fontWeight="bold"
             >
               <Link
-                to="/inicial"
+                to="/register"
                 style={{ color: "#1A3747", fontWeight: "bold" }}
               >
                 Cadastre-se
