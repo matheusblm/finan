@@ -354,8 +354,8 @@ const ProgressBar = ({ receiveTotal, spendTotal }) => {
 
   const total = receiveTotal + spendTotal
 
-  const spendProgress = spendTotal !== 0 ? (total / spendTotal) * 100 : 0
-  const receiveProgress = receiveTotal !== 0 ? (total / receiveTotal) * 100 : 0
+  const spendProgress = spendTotal !== 0 ? (spendTotal / total) * 100 : 0
+  const receiveProgress = receiveTotal !== 0 ? (receiveTotal / total) * 100 : 0
 
   return (
     <Stack w="100%" p={4} spacing={12}>
@@ -368,23 +368,23 @@ const ProgressBar = ({ receiveTotal, spendTotal }) => {
       </Flex>
       <Stack spacing={2}>
         <HStack>
-          <Progress value={spendProgress} size="lg" colorScheme="red" w="80%" />
+          <Progress value={spendProgress.toFixed(2)} size="lg" colorScheme="red" w="80%" />
           <Text
             as="span"
             fontSize={{ lg: "md", md: "sm", base: "xs" }}
             color="gray.300"
           >
-            {spendProgress}
+            {spendProgress.toFixed(2)} %
           </Text>
         </HStack>
         <HStack>
-          <Progress value={receiveProgress} size="lg" colorScheme="green" w="80%" />
+          <Progress value={receiveProgress.toFixed(2)} size="lg" colorScheme="green" w="80%" />
           <Text
             as="span"
             fontSize={{ lg: "md", md: "sm", base: "xs" }}
             color="gray.300"
           >
-            {receiveProgress}
+            {receiveProgress.toFixed(2)} %
           </Text>
         </HStack>
       </Stack>

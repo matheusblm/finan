@@ -6,7 +6,7 @@ export const DashboardContext = createContext({});
 export const DashboardProvider = ({ children }) => {
     const [receive, setReceive] = useState([]);
     const [spend, setSpend] = useState([]);
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZlbGlwZUBtYWlsLmNvbSIsImlhdCI6MTYzNjk5NzQ5NiwiZXhwIjoxNjM3MDAxMDk2LCJzdWIiOiIzIn0.3dCp7nlegd1BA30OoUZZboCylbNztnHf6CLhRmu19c8"
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZlbGlwZUBtYWlsLmNvbSIsImlhdCI6MTYzNzA1MzMwOCwiZXhwIjoxNjM3MDU2OTA4LCJzdWIiOiIzIn0.WiP4_8UkGbw_dVPTYOnGmb_45tUoHorC3cVVPcKVFH0"
     const id = 3
 
     const getAllReceive = () => {
