@@ -25,7 +25,7 @@ import {
   FaTrash,
 } from "react-icons/fa";
 
-export const ModalEntry = ({ isOpen, onClose, task }) => {
+export const ModalEntry = ({ isOpen, onClose, item }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -44,7 +44,7 @@ export const ModalEntry = ({ isOpen, onClose, task }) => {
               <FaFunnelDollar />
             </Center>
             <Text fontWeight="bold" ml="2">
-              Lancamento
+              {item.category}
             </Text>
           </Flex>
 
@@ -84,16 +84,18 @@ export const ModalEntry = ({ isOpen, onClose, task }) => {
 
         <ModalBody>
           <Heading as="h1" fontSize="2xl">
-            Titulo
+            {item.account}
           </Heading>
-          <Text color="gray.400">Descricao</Text>
-          <Text color="gray.400">Valor</Text>
-          <Text color="gray.400">Categoria</Text>
+          <Text color="gray.400">
+            Descricao:
+            {item.description}
+          </Text>
+          <Text color="gray.400"> R$ {item.value} </Text>
         </ModalBody>
 
         <Box padding="6">
           <Text color="gray.300" mt="3">
-            11 Outubro 2021
+            {item.date}
           </Text>
         </Box>
       </ModalContent>

@@ -13,7 +13,7 @@ export const CardEntry = ({ item }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <ModalEntry isOpen={isOpen} onClose={onClose} />
+      <ModalEntry isOpen={isOpen} onClose={onClose} item={item} />
       {item.entry ? (
         <Box
           h="40px"
@@ -36,19 +36,19 @@ export const CardEntry = ({ item }) => {
               </Center>
               <Center>
                 <Text h="25px" fontSize="xl" color="gray.600" ml="2">
-                  {item.title}
+                  {item.account}
                 </Text>
               </Center>
             </Flex>
             <Flex gridGap="5" color="gray.600">
-              <Center fontWeight="bold">R$ {item.valor}</Center>
+              <Center fontWeight="bold">R$ {item.value}</Center>
               <Center
                 as="button"
                 fontSize="xl"
                 transition="0.5s"
                 _hover={{ color: "gray.300", cursor: "pointer" }}
               >
-                {item.completed ? <FaCheckCircle /> : <FaTimesCircle />}
+                {item.type ? <FaCheckCircle /> : <FaTimesCircle />}
               </Center>
             </Flex>
           </Flex>
@@ -76,19 +76,19 @@ export const CardEntry = ({ item }) => {
 
               <Center>
                 <Text h="25px" fontSize="xl" color="gray.600" ml="2">
-                  {item.title}
+                  {item.account}
                 </Text>
               </Center>
             </Flex>
             <Flex gridGap="5" color="gray.600">
-              <Center fontWeight="bold">R$ {item.valor}</Center>
+              <Center fontWeight="bold">R$ {item.value}</Center>
               <Center
                 as="button"
                 fontSize="xl"
                 transition="0.5s"
                 _hover={{ color: "gray.300" }}
               >
-                {item.completed ? <FaCheckCircle /> : <FaTimesCircle />}
+                {item.type ? <FaCheckCircle /> : <FaTimesCircle />}
               </Center>
             </Flex>
           </Flex>

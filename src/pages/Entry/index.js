@@ -12,11 +12,21 @@ import {
 } from "@chakra-ui/layout";
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
 import { FaPlusSquare, FaSearch, FaExclamationCircle } from "react-icons/fa";
+import { useState } from "react";
 import { CardEntry } from "../../components/CardEntry";
 import { ModalCreateRecive } from "../../components/ModalCreateRecive";
 import { ModalCreateSpend } from "../../components/ModalCreateSpend";
-
+import { useReceive } from "../../providers/ContextReceives";
+import { useSpend } from "../../providers/ContextSpend";
+import Lottie from "react-lottie";
+import animationData from "../../animations/animate-loading.json";
 export const Entry = () => {
+  const { allReceives } = useReceive();
+  const newAllReceives = allReceives.map((item) => ({ ...item, entry: true }));
+  const { allSpends } = useSpend();
+  const newAllSpends = allSpends.map((item) => ({ ...item, entry: false }));
+  const allEntry = [...newAllReceives, ...newAllSpends];
+
   const loading = false;
   const {
     isOpen: isOpenCreateRecive,
@@ -29,26 +39,18 @@ export const Entry = () => {
     onClose: onCloseCreateSpend,
   } = useDisclosure();
 
-  const itens = [
-    {
-      title: "salario",
-      valor: 100.0,
-      completed: false,
-      entry: true,
+  const [animationState, setAnimationState] = useState({
+    isStopped: false,
+    isPaused: false,
+  });
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
     },
-    {
-      title: "salario",
-      valor: 10.0,
-      completed: true,
-      entry: false,
-    },
-    {
-      title: "pizza",
-      valor: 10.0,
-      completed: false,
-      entry: false,
-    },
-  ];
+  };
 
   return (
     <Flex w="100%" justifyContent="center" alignItems="center">
@@ -118,9 +120,16 @@ export const Entry = () => {
         </HStack>
         <VStack mt="5" padding="3">
           {loading ? (
-            <div>Loading</div>
-          ) : itens.length > 0 ? (
-            itens.map((item) => <CardEntry item={item} />)
+            <Lottie
+              options={defaultOptions}
+              height={"20vw"}
+              width={"20vw"}
+              speed={0.5}
+              isStopped={animationState.isStopped}
+              isPaused={animationState.isPaused}
+            />
+          ) : allEntry.length > 0 ? (
+            allEntry.map((item, index) => <CardEntry item={item} key={index} />)
           ) : (
             <Flex flexDirection="column" color="gray.600">
               <Text>Voce ainda nao tem nenhum Lançamento</Text>

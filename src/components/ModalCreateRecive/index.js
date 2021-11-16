@@ -19,6 +19,7 @@ import { useForm } from "react-hook-form";
 import { FaTimes } from "react-icons/fa";
 
 import * as yup from "yup";
+import { useReceive } from "../../providers/ContextReceives";
 
 const createTaskSchema = yup.object().shape({
   title: yup.string().required("Campo obrigatório"),
@@ -32,6 +33,7 @@ const createTaskSchema = yup.object().shape({
 });
 
 export const ModalCreateRecive = ({ isOpen, onClose }) => {
+  const { lancReceive } = useReceive();
   const {
     formState: { errors },
     register,
@@ -41,7 +43,7 @@ export const ModalCreateRecive = ({ isOpen, onClose }) => {
   });
 
   const handleCreateEntry = (data) => {
-    console.log(data);
+    lancReceive(data);
     onClose();
   };
 
