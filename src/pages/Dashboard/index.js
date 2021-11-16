@@ -6,7 +6,6 @@ import {
   HStack,
   Icon,
   Progress,
-  Skeleton,
   SkeletonCircle,
   Stack,
   Text,
@@ -272,16 +271,29 @@ const WalletDashboard = () => {
         <Text fontSize={{ md: "2xl", base: "sm" }}>Carteira: </Text>
         <Icon as={FaWallet} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
       </Flex>
-      <Flex justify="space-between" color="gray.300">
-        <HStack spacing={2}>
-          <Icon as={FaLandmark} />
-          <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Conta Caixa</Text>
-        </HStack>
-        <HStack spacing={2}>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-          <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
-        </HStack>
-      </Flex>
+      {
+        false ?
+          <Flex justify="space-between" color="gray.300">
+            <HStack spacing={2}>
+              <Icon as={FaLandmark} />
+              <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>Conta Caixa</Text>
+            </HStack>
+            <HStack spacing={2}>
+              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
+              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
+            </HStack>
+          </Flex>
+          :
+          <Center h="100%">
+            <SkeletonCircle size="50px" />
+          </Center>
+        // <Center h="100%">
+        //   <Flex direction="column" align="center" color="gray.300" >
+        //     <Text>Você não tem contas a receber</Text>
+        //     <Icon as={FaExclamationCircle} my={2} fontSize="lg" />
+        //   </Flex>
+        // </Center>
+      }
     </Stack>
   );
 };
@@ -407,10 +419,8 @@ const ProgressBar = ({ receiveTotal, spendTotal }) => {
             color="gray.300"
           >
             {
-              !!spendProgress ?
-                spendProgress.toFixed(2) + ' %'
-                :
-                <Skeleton height="20px" />
+              !!spendProgress &&
+              spendProgress.toFixed(2) + ' %'
             }
           </Text>
         </HStack>
@@ -422,10 +432,8 @@ const ProgressBar = ({ receiveTotal, spendTotal }) => {
             color="gray.300"
           >
             {
-              !!receiveProgress ?
-                receiveProgress.toFixed(2) + ' %'
-                :
-                <Skeleton height="20px" />
+              !!receiveProgress &&
+              receiveProgress.toFixed(2) + ' %'
             }
           </Text>
         </HStack>
