@@ -15,14 +15,17 @@ import {
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { HiOutlineMail } from "react-icons/hi";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
+import {Users} from "../../providers/Users"
 
 export const Login = () => {
+
   const history = useHistory();
+
+  const {token,errorLogin,Login} = Users()
 
   const schema = yup.object().shape({
     email: yup.string().required("Item obrigatório"),
@@ -36,7 +39,7 @@ export const Login = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onLogin = (data) => {
-    axios.post();
+    Login(data);
   };
 
   return (
@@ -119,7 +122,7 @@ export const Login = () => {
                 paddingLeft="2"
                 marginBottom="5px"
                 fontSize="xs"
-              ></Text>
+              >{errors.email?.message}</Text>
             </InputGroup>
             <FormLabel
               textAlign="left"
@@ -146,7 +149,7 @@ export const Login = () => {
                 paddingLeft="2"
                 marginBottom="5px"
                 fontSize="xs"
-              ></Text>
+              >{errors.password?.message}</Text>
             </InputGroup>
 
             <Button

@@ -3,6 +3,7 @@ import Logo from '../../assets/logo.png';
 import { FaUserCircle } from 'react-icons/fa';
 import { useParams } from 'react-router';
 import { LinkDesktop, SuspenseMenu } from '../LinksHeader';
+import { Users } from '../../providers/Users';
 
 const Header = () => {
 
@@ -11,6 +12,8 @@ const Header = () => {
     const { id } = useParams();
 
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const {Logout} = Users()
 
 
     const callLinks = () => {
@@ -28,7 +31,7 @@ const Header = () => {
                         <ModalHeader>Nome do usuário</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody>
-                            <Button onClick={onClose}>Sair da minha conta</Button>
+                            <Button onClick={Logout}>Sair da minha conta</Button>
                         </ModalBody>
                     </ModalContent>
                 </Modal>
