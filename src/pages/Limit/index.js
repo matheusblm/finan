@@ -24,12 +24,16 @@ import {
 import { Menu } from "../../components/LimitDrawer";
 import Header from "../../components/Header";
 import { useLimits } from '../../providers/Limits';
+import { Users } from "../../providers/Users";
 
 const SpendLimit = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { totalSpends, userSpends, limits, totalLimit } = useLimits();
+  const { totalSpends, userSpends, totalLimit } = useLimits();
 
+  // console.log({ totalSpends, userSpends, limits, totalLimit })
+  const { limits } = Users()
+  console.log("Limits", limits)
   const progressValue = (spend, limit) => {
     return spend / limit
   }
@@ -39,8 +43,14 @@ const SpendLimit = () => {
   const filterLimits = (category) => userSpends.filter((spend) => spend.category === category)
 
   const filteredFood = filterLimits("alimentacao")
+  const filtroAssinaturas = filterLimits("assinatura")
+  const filteredbares = filterLimits("bares")
+  const filteredEducacao = filterLimits("educacao")
+  const filteredFamilia = filterLimits("familia")
+  const filteredImpostos = filterLimits("impostos")
+  const filteredCasa = filterLimits("casa")
 
-  console.log(filteredFood);
+  // console.log("Food", filteredFood, "Casa", filteredCasa);
 
   return (
     <>

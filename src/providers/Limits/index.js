@@ -44,7 +44,10 @@ export const LimitsProvider = ({ children }) => {
                     Authorization: `Bearer ${token}`,
                 },
             })
-            .then((resp) => { console.log("resp", resp); setLimits(resp.data[0]) })
+            .then((resp) => {
+                console.log("providerLimits", resp)
+                setLimits(resp.data[0])
+            })
             .catch((err) => console.log(err))
     }
 
