@@ -35,7 +35,9 @@ import { Users } from "../../providers/Users";
 export const Dashboard = () => {
   const {
     newReceive,
-    newSpend,
+    newSpend, 
+    receivedTotal, 
+    spendedTotal,
     spendTotal,
     receiveTotal,
     arraySpend,
@@ -75,6 +77,8 @@ export const Dashboard = () => {
               spendTotal={spendTotal}
               receiveTotal={receiveTotal}
               username={username}
+              spendedTotal={spendedTotal}
+              receivedTotal={receivedTotal}
             />
           </Flex>
           <Flex direction={{ md: "row", base: "column" }}>
@@ -164,13 +168,16 @@ export const Dashboard = () => {
 
 const HeaderDashboard = ({
   onOpenCreateRecive,
-  onOpenCreateSpend,
+  onOpenCreateSpend, 
+  receivedTotal, 
+  spendedTotal,
   spendTotal,
   receiveTotal,
   username,
 }) => {
   const totalBalance = receiveTotal - spendTotal;
-
+  const Saldo = receivedTotal - spendedTotal;
+ 
   return (
     <Flex
       direction={{ md: "row", base: "column" }}
@@ -226,8 +233,8 @@ const HeaderDashboard = ({
           <Text fontSize="sm" color="gray.600">
             Saldo Total:
           </Text>
-          <Text fontSize="sm" color={totalBalance > 0 ? "green" : "red"}>
-            {formatValue(totalBalance)}
+          <Text fontSize="sm" color={Saldo > 0 ? "green" : "red"}>
+            {formatValue(Saldo)}
           </Text>
         </Flex>
       </Flex>

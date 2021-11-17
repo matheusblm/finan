@@ -47,8 +47,12 @@ export const DashboardProvider = ({ children }) => {
     const newReceived = receive.filter(item => item.type === true)
     const newSpended = spend.filter(item => item.type === true)
 
-    const spendTotal = newSpended.reduce((acc, bill) => acc + bill.value, 0)
-    const receiveTotal = newReceived.reduce((acc, bill) => acc + bill.value, 0)
+    const spendTotal = newSpend.reduce((acc, bill) => acc + bill.value, 0)
+    const receiveTotal = newReceive.reduce((acc, bill) => acc + bill.value, 0)
+
+    const spendedTotal = newSpended.reduce((acc, bill) => acc + bill.value, 0)
+    const receivedTotal = newReceived.reduce((acc, bill) => acc + bill.value, 0)
+
     const arraySpend = newSpend.map(item => item.value)
     const arrayNameSpend = newSpend.map(item => item.category)
 
@@ -59,7 +63,7 @@ export const DashboardProvider = ({ children }) => {
     }, [])
 
     return (
-        <DashboardContext.Provider value={{ newReceive, newSpend, spendTotal, receiveTotal, arraySpend, arrayNameSpend }}>
+        <DashboardContext.Provider value={{ newReceive, receivedTotal, spendedTotal, newSpend, spendTotal, receiveTotal, arraySpend, arrayNameSpend }}>
             {children}
         </DashboardContext.Provider>
     )
