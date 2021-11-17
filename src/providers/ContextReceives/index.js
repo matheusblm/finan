@@ -9,7 +9,7 @@ import { api } from "../../service/api";
 
 const ReceivesContext = createContext();
 
-export const ReceiveProvider = ({ children }) => {  
+export const ReceiveProvider = ({ children }) => {
 
   const [received, setReceived] = useState([]);
 
@@ -35,7 +35,7 @@ export const ReceiveProvider = ({ children }) => {
     try {
       const response = await api.get(`/receive/?userId=${userId}`, {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       setAllReceives(response.data);

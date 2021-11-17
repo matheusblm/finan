@@ -34,11 +34,11 @@ const createTaskSchema = yup.object().shape({
   category: yup.string().required("Campo obrigatório"),
 });
 
-export const ModalCreateSpend = ({isOpen, onClose }) => {
+export const ModalCreateSpend = ({ isOpen, onClose }) => {
 
-  const {lancSpend} = useSpend()
+  const { lancSpend } = useSpend()
 
-  const {id:userId,token} = Users()
+  const { id: userId, token } = Users()
 
   const {
     formState: { errors },
@@ -47,14 +47,12 @@ export const ModalCreateSpend = ({isOpen, onClose }) => {
   } = useForm({
     resolver: yupResolver(createTaskSchema),
   });
-  const { token, id } = Users();
-  const { lancSpend } = useSpend();
 
-  const handleCreateEntry = ({account,description,value:v,data,category}) => {
+  const handleCreateEntry = ({ account, description, value: v, data, category }) => {
     const value = Number(v)
     const type = false
-    const req = {account,description,value,data,category,type,userId}
-    lancSpend(req,token);
+    const req = { account, description, value, data, category, type, userId }
+    lancSpend(req, token);
     onClose();
   };
 

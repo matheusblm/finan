@@ -36,7 +36,13 @@ const SpendLimit = () => {
 
   const { alimentacao, assinaturas, bares, casa, educacao, familia, impostos, lazer, outros, roupas, transportes } = limits;
 
-  console.log(userSpends);
+  // console.log(userSpends);
+
+  const filtered = userSpends.filter((spend) => {
+    return spend.category
+  })
+
+  console.log(filtered);
 
   return (
     <>
@@ -95,7 +101,7 @@ const SpendLimit = () => {
             <Flex w="252px" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Alimentação</Text>
-                <Text fontSize="13px">20,00 - {limits.alimentacao || 0.00}</Text>
+                <Text fontSize="13px">20,00 - {alimentacao || 0.00}</Text>
               </Flex>
               <Box w="100%">
                 <Progress

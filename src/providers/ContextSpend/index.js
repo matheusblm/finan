@@ -31,7 +31,7 @@ export const SpendProvider = ({ children }) => {
     try {
       const response = await api.get(`/spend/?userId=${userId}`, {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       setAllSpends(response.data);
