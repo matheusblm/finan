@@ -1,4 +1,4 @@
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo1.svg";
 import pizza from "../../assets/grafico-de-pizza 1.png";
 import phone from "../../assets/mockupIphone.png";
 import mobile from "../../assets/Mobile-Dash-page.jpg";
