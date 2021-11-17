@@ -36,7 +36,9 @@ export const Dashboard = () => {
 
   const {
     newReceive,
-    newSpend,
+    newSpend, 
+    receivedTotal, 
+    spendedTotal,
     spendTotal,
     receiveTotal,
     arraySpend,
@@ -76,6 +78,8 @@ export const Dashboard = () => {
               spendTotal={spendTotal}
               receiveTotal={receiveTotal}
               username={username}
+              spendedTotal={spendedTotal}
+              receivedTotal={receivedTotal}
             />
           </Flex>
           <Flex direction={{ md: "row", base: "column" }}>
@@ -91,17 +95,6 @@ export const Dashboard = () => {
               >
                 <WalletDashboard />
               </Flex>
-              {/* <Flex
-                w="100%"
-                h={{ sm: "270px", base: "75px" }}
-                flex={1}
-                p={2}
-                borderRadius="lg"
-                overflow="auto"
-                boxShadow="lg"
-              >
-                <CreditCardDashboard />
-              </Flex> */}
               <Flex
                 w="100%"
                 h={{ sm: "270px", base: "75px" }}
@@ -176,15 +169,18 @@ export const Dashboard = () => {
 
 const HeaderDashboard = ({
   onOpenCreateRecive,
-  onOpenCreateSpend,
+  onOpenCreateSpend, 
+  receivedTotal, 
+  spendedTotal,
   spendTotal,
   receiveTotal,
   username
 }) => {
   const totalBalance = receiveTotal - spendTotal;
-
-  
-
+  console.log("received",receivedTotal)
+  console.log("spended",spendedTotal)
+  const Saldo = receivedTotal - spendedTotal;
+  console.log("saldo",Saldo)
   return (
     <Flex
       direction={{ md: "row", base: "column" }}
@@ -241,8 +237,8 @@ const HeaderDashboard = ({
           <Text fontSize="sm" color="gray.600">
             Saldo Total:
           </Text>
-          <Text fontSize="sm" color={totalBalance > 0 ? "green" : "red"}>
-            {formatValue(totalBalance)}
+          <Text fontSize="sm" color={Saldo > 0 ? "green" : "red"}>
+            {formatValue(Saldo)}
           </Text>
         </Flex>
       </Flex>
@@ -334,12 +330,6 @@ const WalletDashboard = () => {
             <SkeletonCircle size="50px" />
           </Center>
         )
-        // <Center h="100%">
-        //   <Flex direction="column" align="center" color="gray.300" >
-        //     <Text>Você não tem contas a receber</Text>
-        //     <Icon as={FaExclamationCircle} my={2} fontSize="lg" />
-        //   </Flex>
-        // </Center>
       }
     </Stack>
   );
