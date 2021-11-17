@@ -12,6 +12,7 @@ import {
   Textarea,
   Input,
   Select,
+  Flex,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -19,7 +20,8 @@ import { FaTimes } from "react-icons/fa";
 
 import * as yup from "yup";
 import { useSpend } from "../../providers/ContextSpend";
-import {Users} from "../../providers/Users"
+import { Users } from "../../providers/Users";
+
 
 const createTaskSchema = yup.object().shape({
   account: yup.string().required("Campo obrigatório"),
@@ -45,6 +47,8 @@ export const ModalCreateSpend = ({isOpen, onClose }) => {
   } = useForm({
     resolver: yupResolver(createTaskSchema),
   });
+  const { token, id } = Users();
+  const { lancSpend } = useSpend();
 
   const handleCreateEntry = ({account,description,value:v,data,category}) => {
     const value = Number(v)
@@ -63,6 +67,7 @@ export const ModalCreateSpend = ({isOpen, onClose }) => {
         padding="2"
         bg="white"
         color="gray.800"
+        w="600px"
       >
         <ModalHeader display="flex">
           <Text fontWeight="bold" ml="2">
@@ -84,21 +89,44 @@ export const ModalCreateSpend = ({isOpen, onClose }) => {
 
         <ModalBody textAlign="center">
           <VStack spacing="5">
-            <Input {...register("account")} placeholder="Digite o título" />
+            <Flex
+              w="100%"
+              alignContent="center"
+              justifyContent="space-between"
+              padding="1"
+            >
+              <Input
+                {...register("account")}
+                placeholder="Digite o título"
+                w="45%"
+              />
+              <Input
+                {...register("value")}
+                placeholder="Valor da Receita"
+                w="45%"
+              />
+            </Flex>
             <Textarea
               {...register("description")}
               placeholder="Digite o Descrição"
             />
-            <Input {...register("value")} placeholder="Valor da Receita" />
-            <Input {...register("data")} placeholder="00/00/0000" />
+
+            <Input {...register("data")} type="date" />
             <Select
               placeholder="Categorias"
               color="gray.300"
               {...register("category")}
             >
-              <option value="salario">Aluguel</option>
-              <option value="dividendos">Compras</option>
-              <option value="extras">Mercado</option>
+              <option value="alimentacao">Alimentacao</option>
+              <option value="casa">Casa</option>
+              <option value="assinaturas">Assinaturas</option>
+              <option value="bares">Bares</option>
+              <option value="educacao">Educacao</option>
+              <option value="familia">Familia</option>
+              <option value="impostos">Impostos</option>
+              <option value="lazer">Lazer</option>
+              <option value="roupas">Roupas</option>
+              <option value="transportes">Transportes</option>
             </Select>
           </VStack>
         </ModalBody>

@@ -1,4 +1,10 @@
-import { useContext, createContext, useState, useEffect } from "react";
+import {
+  useContext,
+  createContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import { api } from "../../service/api";
 
 const ReceivesContext = createContext();
@@ -19,28 +25,23 @@ export const ReceiveProvider = ({ children }) => {
 
   const mes = data.getMonth() + 1;
 
-  // const token =
-  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hdGhldXNAZW1haWwuY29tIiwiaWF0IjoxNjM3MDY1MjMzLCJleHAiOjE2MzcwNjg4MzMsInN1YiI6IjQifQ.F3S55mq_JWB93bH5SkjALp7hDD0tZtZSI33KT9LBxpU";
-  // const userId = 4;
 
   //Pega todos os receber.
 
 
-  const Receives = (token,userId) => {
-    api
-      .get(`/receive/?userId=${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((resp) => {
-        resp.data.length > 0 && setAllReceives(resp.data);
-      })
-      .catch((err) => console.log(err));
-  };
 
-  useEffect(() => {
-    Receives();
+
+  const loadReceives = useCallback(async (userId, token) => {
+    try {
+      const response = await api.get(`/receive/?userId=${userId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setAllReceives(response.data);
+    } catch (err) {
+      console.log("err");
+    }
   }, []);
 
   // Todos os recebidos.
@@ -82,9 +83,9 @@ export const ReceiveProvider = ({ children }) => {
   };
 
   //Transforma receives não recebidas em recebidas.
-  const editReceive = (id,token) => {
-    console.log(id)
-    console.log(token)
+
+
+  const editReceive = (id, token) => {
     api
       .patch(
         `/receive/${id}`,
@@ -100,11 +101,11 @@ export const ReceiveProvider = ({ children }) => {
       .catch((resp) => console.log(resp));
   };
 
-  const lancReceive = (data,token) => {
-    // console.log("token",token)
-    // console.log("data",data)
+
+  const lancReceive = (data, token, id) => {
+    const newData = { ...data, userId: id };
     api
-      .post(`/receive`, data, {
+      .post(`/receive`, newData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -126,6 +127,7 @@ export const ReceiveProvider = ({ children }) => {
         filterMonthReceived,
         editReceive,
         lancReceive,
+        loadReceives,
       }}
     >
       {children}

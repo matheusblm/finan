@@ -22,6 +22,7 @@ import * as yup from "yup";
 import { useReceive } from "../../providers/ContextReceives";
 import {Users} from "../../providers/Users"
 
+
 const createTaskSchema = yup.object().shape({
   account: yup.string().required("Campo obrigatório"),
   description: yup
@@ -36,8 +37,8 @@ const createTaskSchema = yup.object().shape({
 export const ModalCreateRecive = ({isOpen, onClose }) => {
 
   const { lancReceive } = useReceive();
-
   const {id:userId,token} = Users()
+
   const {
     formState: { errors },
     register,
@@ -46,11 +47,11 @@ export const ModalCreateRecive = ({isOpen, onClose }) => {
     resolver: yupResolver(createTaskSchema),
   });
 
+
   const handleCreateEntry = ({account,description,value:v,data,category}) => {
     const value = Number(v)
     const type = false
     const req = {account,description,value,data,category,type,userId}
-    // console.log(req)
     lancReceive(req,token);
     onClose();
   };
@@ -91,10 +92,8 @@ export const ModalCreateRecive = ({isOpen, onClose }) => {
               placeholder="Digite o Descrição"
             />
             <Input {...register("value")} placeholder="Valor da Receita" />
-            <Input {...register("data")} placeholder="00/00/0000" />
+            <Input {...register("data")} placeholder="00/00/0000" type="date" />
 
-            {console.log("userid",userId)}
-            {console.log("token",token)}
             <Select
               placeholder="Categorias"
               color="gray.300"

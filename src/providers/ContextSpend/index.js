@@ -1,4 +1,10 @@
-import { useContext, createContext, useState, useEffect } from "react";
+import {
+  useContext,
+  createContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import { api } from "../../service/api";
 
 const SpendContext = createContext();
@@ -18,26 +24,20 @@ export const SpendProvider = ({ children }) => {
 
   const mes = data.getMonth() + 1;
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hdGhldXNAZW1haWwuY29tIiwiaWF0IjoxNjM3MDY1MjMzLCJleHAiOjE2MzcwNjg4MzMsInN1YiI6IjQifQ.F3S55mq_JWB93bH5SkjALp7hDD0tZtZSI33KT9LBxpU";
-  const userId = 4;
-
   //Pegar todos os spend
-  const Spends = (token,userId) => {
-    api
-      .get(`/spend/?userId=${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((resp) => {
-        resp.data.length > 0 && setAllSpends(resp.data);
-      })
-      .catch((err) => console.log(err));
-  };
 
-  useEffect(() => {
-    Spends();
+
+  const loadSpends = useCallback(async (userId, token) => {
+    try {
+      const response = await api.get(`/spend/?userId=${userId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setAllSpends(response.data);
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   //Todos os pagos.
@@ -63,10 +63,6 @@ export const SpendProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    filterActualMonthSpend();
-  }, []);
-
   //Filtrar por mes escolhido pelo usuário
   const filterMonthSpend = (mes, ano) => {
     const filterPorAnoSpend = spended.filter(
@@ -79,8 +75,8 @@ export const SpendProvider = ({ children }) => {
   };
 
   //Transformar spends não pago em pagos
-  const editSpend = (id,token) => {
-    console.log("editSpend",id,token)
+
+  const editSpend = (id, token) => {
     api
       .patch(
         `spend/${id}`,
@@ -96,10 +92,12 @@ export const SpendProvider = ({ children }) => {
       .catch((resp) => console.log(resp));
   };
 
-  const lancSpend = (data,token) => {
-    //console.log(data)
+
+
+  const lancSpend = (data, token, id) => {
+    const newData = { ...data, userId: id };
     api
-      .post(`spend`, data, {
+      .post(`spend`, newData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -115,13 +113,13 @@ export const SpendProvider = ({ children }) => {
         allSpends,
         filterPorMesSpend,
         filterPorMesSpendAtual,
-        Spends,
         filterReceived,
         filterNoReceived,
         filterActualMonthSpend,
         filterMonthSpend,
         editSpend,
         lancSpend,
+        loadSpends,
       }}
     >
       {children}
