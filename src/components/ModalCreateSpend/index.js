@@ -22,7 +22,6 @@ import * as yup from "yup";
 import { useSpend } from "../../providers/ContextSpend";
 import { Users } from "../../providers/Users";
 
-
 const createTaskSchema = yup.object().shape({
   account: yup.string().required("Campo obrigatório"),
   description: yup
@@ -34,11 +33,10 @@ const createTaskSchema = yup.object().shape({
   category: yup.string().required("Campo obrigatório"),
 });
 
-export const ModalCreateSpend = ({isOpen, onClose }) => {
+export const ModalCreateSpend = ({ isOpen, onClose }) => {
+  const { lancSpend } = useSpend();
 
-  const {lancSpend} = useSpend()
-
-  const {id:userId,token} = Users()
+  const { id: userId, token } = Users();
 
   const {
     formState: { errors },
@@ -47,6 +45,7 @@ export const ModalCreateSpend = ({isOpen, onClose }) => {
   } = useForm({
     resolver: yupResolver(createTaskSchema),
   });
+
   
   const handleCreateEntry = ({account,description,value:v,data,category}) => {
     const value = Number(v)

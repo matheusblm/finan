@@ -205,8 +205,8 @@ export const Login = () => {
               </Text>
             </Box>
           </FormControl>
-        </Box>
-        <Flex
+        </Box>     
+           <Flex
           bg="#9BADD0"
           w={["0%", "50%", "50%"]}
           h="100%"
