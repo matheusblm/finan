@@ -28,8 +28,12 @@ import { ModalCreateSpend } from "../../components/ModalCreateSpend";
 import { useListDashboard } from "../../providers/Dashboard";
 import { formatValue } from "../../utils/formatValue";
 import Header from "../../components/Header";
+import { useReceive } from "../../providers/ContextReceives";
+import { useSpend } from "../../providers/ContextSpend";
+import {Users} from "../../providers/Users"
 
 export const Dashboard = () => {
+
   const {
     newReceive,
     newSpend,
@@ -50,6 +54,8 @@ export const Dashboard = () => {
     onClose: onCloseCreateSpend,
   } = useDisclosure();
 
+  const {username} = Users()
+
   return (
     <>
       <Header />
@@ -63,11 +69,13 @@ export const Dashboard = () => {
             overflow="auto"
             boxShadow="lg"
           >
+            {console.log("username",username)}
             <HeaderDashboard
               onOpenCreateRecive={onOpenCreateRecive}
               onOpenCreateSpend={onOpenCreateSpend}
               spendTotal={spendTotal}
               receiveTotal={receiveTotal}
+              username={username}
             />
           </Flex>
           <Flex direction={{ md: "row", base: "column" }}>
@@ -171,8 +179,11 @@ const HeaderDashboard = ({
   onOpenCreateSpend,
   spendTotal,
   receiveTotal,
+  username
 }) => {
   const totalBalance = receiveTotal - spendTotal;
+
+  
 
   return (
     <Flex
@@ -189,7 +200,7 @@ const HeaderDashboard = ({
       >
         <Text color="gray.600" fontSize="lg">
           Bem Vindo,
-          <br /> Usuário
+          <br /> {username}
         </Text>
         <Flex direction={{ lg: "row", base: "column" }}>
           <Stack bg="white" borderRadius="lg" py={2} px={6} m={2}>
@@ -483,6 +494,10 @@ const ProgressBar = ({ receiveTotal, spendTotal }) => {
 };
 
 const BillsToPay = ({ newSpend }) => {
+
+  const { editSpend } = useSpend()
+  const {token} = Users()
+
   return (
     <Stack w="100%" p={4} spacing={2}>
       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
@@ -513,7 +528,7 @@ const BillsToPay = ({ newSpend }) => {
               <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>
                 {formatValue(item.value)}
               </Text>
-              <Checkbox />
+              <Checkbox onChange={()=>editSpend(item.id,token)}/>
             </HStack>
           </Flex>
         ))
@@ -530,6 +545,11 @@ const BillsToPay = ({ newSpend }) => {
 };
 
 const BillsToReceive = ({ newReceive }) => {
+
+  const {editReceive} = useReceive()
+
+  const {token} = Users()
+
   return (
     <Stack w="100%" p={4} spacing={2}>
       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
@@ -560,7 +580,7 @@ const BillsToReceive = ({ newReceive }) => {
               <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>
                 {formatValue(item.value)}
               </Text>
-              <Checkbox />
+              <Checkbox onChange={()=>editReceive(item.id,token)}/>
             </HStack>
           </Flex>
         ))
