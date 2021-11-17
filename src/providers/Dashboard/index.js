@@ -15,7 +15,7 @@ export const DashboardProvider = ({ children }) => {
 
     const getAllReceive = () => {
 
-        console.log("dados provider Dash",token,id)
+        console.log("dados provider Dash", token, id)
         api
             .get(`/receive/?userId=${id}`, {
                 headers: {
@@ -50,7 +50,7 @@ export const DashboardProvider = ({ children }) => {
     const spendTotal = newSpended.reduce((acc, bill) => acc + bill.value, 0)
     const receiveTotal = newReceived.reduce((acc, bill) => acc + bill.value, 0)
     const arraySpend = newSpend.map(item => item.value)
-    const arrayNameSpend = newSpend.map(item => item.account)
+    const arrayNameSpend = newSpend.map(item => item.category)
 
     useEffect(() => {
         getAllReceive()
