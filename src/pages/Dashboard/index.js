@@ -30,10 +30,9 @@ import { formatValue } from "../../utils/formatValue";
 import Header from "../../components/Header";
 import { useReceive } from "../../providers/ContextReceives";
 import { useSpend } from "../../providers/ContextSpend";
-import {Users} from "../../providers/Users"
+import { Users } from "../../providers/Users";
 
 export const Dashboard = () => {
-
   const {
     newReceive,
     newSpend,
@@ -54,7 +53,7 @@ export const Dashboard = () => {
     onClose: onCloseCreateSpend,
   } = useDisclosure();
 
-  const {username} = Users()
+  const { username } = Users();
 
   return (
     <>
@@ -69,7 +68,7 @@ export const Dashboard = () => {
             overflow="auto"
             boxShadow="lg"
           >
-            {console.log("username",username)}
+            {console.log("username", username)}
             <HeaderDashboard
               onOpenCreateRecive={onOpenCreateRecive}
               onOpenCreateSpend={onOpenCreateSpend}
@@ -179,11 +178,9 @@ const HeaderDashboard = ({
   onOpenCreateSpend,
   spendTotal,
   receiveTotal,
-  username
+  username,
 }) => {
   const totalBalance = receiveTotal - spendTotal;
-
-  
 
   return (
     <Flex
@@ -331,7 +328,16 @@ const WalletDashboard = () => {
           </Flex>
         ) : (
           <Center h="100%">
-            <SkeletonCircle size="50px" />
+            <Flex
+              direction="column"
+              align="center"
+              alignContent="center"
+              color="gray.300"
+              w="100%"
+            >
+              <Text>Você não tem contas cadastradas ainda</Text>
+              <Icon as={FaExclamationCircle} my={2} fontSize="xl" />
+            </Flex>
           </Center>
         )
         // <Center h="100%">
@@ -432,9 +438,18 @@ const SpendingOfTheMonth = ({ arraySpend, arrayNameSpend }) => {
           {arraySpend.length !== 0 ? (
             <Doughnut data={dataGrafico} />
           ) : (
-            <SkeletonCircle
-              size={{ base: "250px", md: "300px", lg: "400px" }}
-            />
+            <Center h="100%">
+              <Flex
+                direction="column"
+                align="center"
+                alignContent="center"
+                color="gray.300"
+                w="100%"
+              >
+                <Text>Você não tem gastos cadastrados</Text>
+                <Icon as={FaExclamationCircle} my={2} fontSize="xl" />
+              </Flex>
+            </Center>
           )}
         </Flex>
       </Center>
@@ -494,9 +509,8 @@ const ProgressBar = ({ receiveTotal, spendTotal }) => {
 };
 
 const BillsToPay = ({ newSpend }) => {
-
-  const { editSpend } = useSpend()
-  const {token} = Users()
+  const { editSpend } = useSpend();
+  const { token } = Users();
 
   return (
     <Stack w="100%" p={4} spacing={2}>
@@ -528,7 +542,7 @@ const BillsToPay = ({ newSpend }) => {
               <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>
                 {formatValue(item.value)}
               </Text>
-              <Checkbox onChange={()=>editSpend(item.id,token)}/>
+              <Checkbox onChange={() => editSpend(item.id, token)} />
             </HStack>
           </Flex>
         ))
@@ -536,7 +550,7 @@ const BillsToPay = ({ newSpend }) => {
         <Center h="100%">
           <Flex direction="column" align="center" color="gray.300">
             <Text>Você não tem contas a pagar</Text>
-            <Icon as={FaExclamationCircle} my={2} fontSize="lg" />
+            <Icon as={FaExclamationCircle} my={2} fontSize="xl" />
           </Flex>
         </Center>
       )}
@@ -545,10 +559,9 @@ const BillsToPay = ({ newSpend }) => {
 };
 
 const BillsToReceive = ({ newReceive }) => {
+  const { editReceive } = useReceive();
 
-  const {editReceive} = useReceive()
-
-  const {token} = Users()
+  const { token } = Users();
 
   return (
     <Stack w="100%" p={4} spacing={2}>
@@ -580,7 +593,7 @@ const BillsToReceive = ({ newReceive }) => {
               <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>
                 {formatValue(item.value)}
               </Text>
-              <Checkbox onChange={()=>editReceive(item.id,token)}/>
+              <Checkbox onChange={() => editReceive(item.id, token)} />
             </HStack>
           </Flex>
         ))
@@ -588,7 +601,7 @@ const BillsToReceive = ({ newReceive }) => {
         <Center h="100%">
           <Flex direction="column" align="center" color="gray.300">
             <Text>Você não tem contas a receber</Text>
-            <Icon as={FaExclamationCircle} my={2} fontSize="lg" />
+            <Icon as={FaExclamationCircle} my={2} fontSize="xl" />
           </Flex>
         </Center>
       )}
