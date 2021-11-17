@@ -24,13 +24,21 @@ const Header = () => {
   const callLinks = () => {
     if (!isMobile) {
       return (
-        <Flex justifyContent="space-between" w="550px" padding="15px">
-          <LinkDesktop />
-          <FaUserCircle
-            fontSize="50px"
-            onClick={onOpen}
+        <Flex
+          justifyContent="space-between"
+          w="100%"
+          alignContent="center"
+          alignItems="center"
+        >
+          <Img
             cursor="pointer"
-          ></FaUserCircle>
+            src={Logo}
+            w={["80px", "100px", "130px"]}
+            borderRadius="8px"
+            backgroundColor="gray.50"
+          />
+          <LinkDesktop />
+          <FaUserCircle fontSize="50px" onClick={onOpen} cursor="pointer" />
           <LogoutDrawer isOpen={isOpen} onClose={onClose} />
         </Flex>
       );
@@ -50,14 +58,6 @@ const Header = () => {
       h={["60px", "80px", "106px"]}
       padding="20px"
     >
-      <Img
-        cursor="pointer"
-        src={Logo}
-        w={["80px", "100px", "130px"]}
-        borderRadius="8px"
-        backgroundColor="gray.50"
-      />
-
       {callLinks()}
     </Flex>
   );

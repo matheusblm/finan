@@ -26,7 +26,6 @@ export const SpendProvider = ({ children }) => {
 
   //Pegar todos os spend
 
-
   const loadSpends = useCallback(async (userId, token) => {
     try {
       const response = await api.get(`/spend/?userId=${userId}`, {
@@ -94,10 +93,11 @@ export const SpendProvider = ({ children }) => {
 
 
 
-  const lancSpend = (data, token, id) => {
-    const newData = { ...data, userId: id };
+
+  const lancSpend = (data, token) => {
+
     api
-      .post(`spend`, newData, {
+      .post(`spend`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

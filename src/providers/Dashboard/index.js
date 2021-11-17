@@ -6,8 +6,6 @@ export const DashboardContext = createContext({});
 export const DashboardProvider = ({ children }) => {
     const [receive, setReceive] = useState([]);
     const [spend, setSpend] = useState([]);
-    // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRldkBtYWlsLmNvbSIsImlhdCI6MTYzNzA5OTI4NywiZXhwIjoxNjM3MTAyODg3LCJzdWIiOiI0In0.Pr4DcjFrjyJxgVMw5sNWydXBc9M_dfKPnEBzf6URTwM"
-    // const id = 4
 
     const token = localStorage.getItem("@tokenfinan") || ""
 
@@ -15,7 +13,7 @@ export const DashboardProvider = ({ children }) => {
 
     const getAllReceive = () => {
 
-        console.log("dados provider Dash",token,id)
+        console.log("dados provider Dash", token, id)
         api
             .get(`/receive/?userId=${id}`, {
                 headers: {
@@ -47,10 +45,14 @@ export const DashboardProvider = ({ children }) => {
     const newReceived = receive.filter(item => item.type === true)
     const newSpended = spend.filter(item => item.type === true)
 
-    const spendTotal = newSpended.reduce((acc, bill) => acc + bill.value, 0)
-    const receiveTotal = newReceived.reduce((acc, bill) => acc + bill.value, 0)
+    const spendTotal = newSpend.reduce((acc, bill) => acc + bill.value, 0)
+    const receiveTotal = newReceive.reduce((acc, bill) => acc + bill.value, 0)
+
+    const spendedTotal = newSpended.reduce((acc, bill) => acc + bill.value, 0)
+    const receivedTotal = newReceived.reduce((acc, bill) => acc + bill.value, 0)
+
     const arraySpend = newSpend.map(item => item.value)
-    const arrayNameSpend = newSpend.map(item => item.account)
+    const arrayNameSpend = newSpend.map(item => item.category)
 
     useEffect(() => {
         getAllReceive()
@@ -59,7 +61,9 @@ export const DashboardProvider = ({ children }) => {
     }, [])
 
     return (
-        <DashboardContext.Provider value={{ newReceive, newSpend, spendTotal, receiveTotal, arraySpend, arrayNameSpend }}>
+        <DashboardContext.Provider value={{
+            newReceive, receivedTotal, spendedTotal, newSpend, spendTotal, receiveTotal, arraySpend, arrayNameSpend, getAllReceive, getAllSpend
+        }}>
             {children}
         </DashboardContext.Provider>
     )

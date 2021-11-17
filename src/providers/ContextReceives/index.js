@@ -10,7 +10,6 @@ import { api } from "../../service/api";
 const ReceivesContext = createContext();
 
 export const ReceiveProvider = ({ children }) => {
-
   const [received, setReceived] = useState([]);
 
   const [noReceived, setNoReceived] = useState([]);
@@ -25,11 +24,7 @@ export const ReceiveProvider = ({ children }) => {
 
   const mes = data.getMonth() + 1;
 
-
   //Pega todos os receber.
-
-
-
 
   const loadReceives = useCallback(async (userId, token) => {
     try {
@@ -84,7 +79,6 @@ export const ReceiveProvider = ({ children }) => {
 
   //Transforma receives não recebidas em recebidas.
 
-
   const editReceive = (id, token) => {
     api
       .patch(
@@ -102,10 +96,10 @@ export const ReceiveProvider = ({ children }) => {
   };
 
 
-  const lancReceive = (data, token, id) => {
-    const newData = { ...data, userId: id };
+
+  const lancReceive = (data, token) => {
     api
-      .post(`/receive`, newData, {
+      .post(`/receive`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -20,8 +20,8 @@ import { FaTimes } from "react-icons/fa";
 
 import * as yup from "yup";
 import { useSpend } from "../../providers/ContextSpend";
+import { useListDashboard } from "../../providers/Dashboard";
 import { Users } from "../../providers/Users";
-
 
 const createTaskSchema = yup.object().shape({
   account: yup.string().required("Campo obrigatório"),
@@ -35,10 +35,13 @@ const createTaskSchema = yup.object().shape({
 });
 
 export const ModalCreateSpend = ({ isOpen, onClose }) => {
+  const { lancSpend } = useSpend();
 
-  const { lancSpend } = useSpend()
+  const { id: userId, token } = Users();
 
-  const { id: userId, token } = Users()
+  const {
+    getAllSpend
+  } = useListDashboard();
 
   const {
     formState: { errors },
@@ -53,6 +56,7 @@ export const ModalCreateSpend = ({ isOpen, onClose }) => {
     const type = false
     const req = { account, description, value, data, category, type, userId }
     lancSpend(req, token);
+    getAllSpend();
     onClose();
   };
 

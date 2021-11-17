@@ -5,15 +5,22 @@ import { Users } from '../../providers/Users';
 
 export const LinkDesktop = () => {
   const history = useHistory();
-
+  const local = history.location.pathname;
+  console.log(local);
   return (
-    <Flex justifyContent="" alignItems="center" w="415px">
+    <Flex
+      justifyContent="space-evenly"
+      alignItems="center"
+      w="350px"
+      alignItems="flex-end"
+      height="70px"
+    >
       <Button
         fontFamily="heading"
-        color="gray.600"
         variant="link"
-        _hover={{ color: "gray.50" }}
-        borderBottom="solid 2px"
+        color="gray.50"
+        borderBottom={local === "/dashboard" ? "solid 2px" : "hidden"}
+        _hover={{ color: "gray.600" }}
         borderRadius="0px"
         onClick={() => history.push("/dashboard")}
       >
@@ -21,10 +28,10 @@ export const LinkDesktop = () => {
       </Button>
       <Button
         fontFamily="heading"
-        color="gray.600"
         variant="link"
-        _hover={{ color: "gray.50" }}
-        borderBottom="solid 2px"
+        color="gray.50"
+        borderBottom={local === "/lancamentos" ? "solid 2px" : "hidden"}
+        _hover={{ color: "gray.600" }}
         borderRadius="0px"
         onClick={() => history.push("/lancamentos")}
       >
@@ -32,10 +39,10 @@ export const LinkDesktop = () => {
       </Button>
       <Button
         fontFamily="heading"
-        color="gray.600"
         variant="link"
-        _hover={{ color: "gray.50" }}
-        borderBottom="solid 2px"
+        color="gray.50"
+        borderBottom={local === "/limites" ? "solid 2px" : "hidden"}
+        _hover={{ color: "gray.600" }}
         borderRadius="0px"
         onClick={() => history.push("/limites")}
       >
