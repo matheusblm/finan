@@ -44,8 +44,6 @@ export const Dashboard = () => {
     onClose: onCloseCreateSpend,
   } = useDisclosure();
 
-  const { username } = Users();
-
   return (
     <>
       <Header />
@@ -62,7 +60,6 @@ export const Dashboard = () => {
             <HeaderDashboard
               onOpenCreateRecive={onOpenCreateRecive}
               onOpenCreateSpend={onOpenCreateSpend}
-              username={username}
             />
           </Flex>
           <Flex direction={{ md: "row", base: "column" }}>
@@ -147,7 +144,6 @@ export const Dashboard = () => {
 const HeaderDashboard = ({
   onOpenCreateRecive,
   onOpenCreateSpend,
-  username,
 }) => {
 
   const {
@@ -156,6 +152,9 @@ const HeaderDashboard = ({
     spendTotal,
     receiveTotal
   } = useListDashboard();
+
+  const { username } = Users();
+
   const Saldo = receivedTotal - spendedTotal;
 
   return (
@@ -172,7 +171,7 @@ const HeaderDashboard = ({
         align={{ lg: "flex-start", base: "center" }}
       >
         <Text color="gray.600" fontSize="lg">
-          Bem Vindo, {username}
+          Bem Vindo, {username.toUpperCase()}
         </Text>
         <Flex direction={{ lg: "row", base: "column" }}>
           <Stack bg="white" borderRadius="lg" py={2} px={6} m={2}>
