@@ -84,6 +84,7 @@ export const Login = () => {
         color="whiteAlpha.900"
         borderRadius={["0px", "0px", "30px"]}
         overflow="hidden"
+        boxShadow="xl"
       >
         <Box
           bg={["#FEFEFE", "#FEFEFE", "#FEFEFE"]}
@@ -106,7 +107,9 @@ export const Login = () => {
             color="#80807E"
             onSubmit={handleSubmit(onLogin)}
           >
-            <Image h={["150px", "150px", "120px", "140px"]} src={logo} />
+            <Flex height="35%" display="flex" alignContent="center">
+              <Image h={["150px", "150px", "120px", "140px"]} src={logo} />
+            </Flex>
             <FormLabel
               textAlign="left"
               w="100%"
