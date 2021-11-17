@@ -20,7 +20,8 @@ import { FaTimes } from "react-icons/fa";
 
 import * as yup from "yup";
 import { useReceive } from "../../providers/ContextReceives";
-import { Users } from "../../providers/Users";
+import {Users} from "../../providers/Users"
+
 
 const createTaskSchema = yup.object().shape({
   account: yup.string().required("Campo obrigatório"),
@@ -30,12 +31,14 @@ const createTaskSchema = yup.object().shape({
     .max(100, "Máximo de 100 caracteres"),
   value: yup.string().required("Campo obrigatório"),
   data: yup.string().required("Campo obrigatório"),
-  categorie: yup.string().required("Campo obrigatório"),
+  category: yup.string().required("Campo obrigatório"),
 });
 
-export const ModalCreateRecive = ({ isOpen, onClose }) => {
+export const ModalCreateRecive = ({isOpen, onClose }) => {
+
   const { lancReceive } = useReceive();
-  const { token, id } = Users();
+  const {id:userId,token} = Users()
+
   const {
     formState: { errors },
     register,
@@ -44,9 +47,12 @@ export const ModalCreateRecive = ({ isOpen, onClose }) => {
     resolver: yupResolver(createTaskSchema),
   });
 
-  const handleCreateEntry = (data) => {
-    const userId = id | localStorage.getItem("idfinan");
-    lancReceive(data, token, userId);
+
+  const handleCreateEntry = ({account,description,value:v,data,category}) => {
+    const value = Number(v)
+    const type = false
+    const req = {account,description,value,data,category,type,userId}
+    lancReceive(req,token);
     onClose();
   };
 
@@ -87,10 +93,11 @@ export const ModalCreateRecive = ({ isOpen, onClose }) => {
             />
             <Input {...register("value")} placeholder="Valor da Receita" />
             <Input {...register("data")} placeholder="00/00/0000" type="date" />
+
             <Select
               placeholder="Categorias"
               color="gray.300"
-              {...register("categorie")}
+              {...register("category")}
             >
               <option value="salario">Salario</option>
               <option value="dividendos">Dividendos</option>
@@ -101,6 +108,7 @@ export const ModalCreateRecive = ({ isOpen, onClose }) => {
 
         <ModalFooter flexDirection="column">
           <Button
+            as="button"
             type="submit"
             bg="blue.900"
             color="white"

@@ -26,7 +26,8 @@ export const SpendProvider = ({ children }) => {
 
   //Pegar todos os spend
 
-  const loadSpends = useCallback(async (userId, accessToken) => {
+
+  const loadSpends = useCallback(async (userId, token) => {
     try {
       const response = await api.get(`/spend/?userId=${userId}`, {
         headers: {
@@ -74,6 +75,7 @@ export const SpendProvider = ({ children }) => {
   };
 
   //Transformar spends não pago em pagos
+
   const editSpend = (id, token) => {
     api
       .patch(
@@ -89,6 +91,8 @@ export const SpendProvider = ({ children }) => {
       )
       .catch((resp) => console.log(resp));
   };
+
+
 
   const lancSpend = (data, token, id) => {
     const newData = { ...data, userId: id };
