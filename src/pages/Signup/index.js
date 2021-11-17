@@ -21,17 +21,14 @@ import { BsPerson } from "react-icons/bs";
 import { HiOutlineMail } from "react-icons/hi";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
-import { useEffect, useState } from "react";
 import { Users } from "../../providers/Users";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Carrossel } from "../../components/Carrossel";
 import Img1 from "../../assets/signupimg/img1.jpg";
 import Img2 from "../../assets/signupimg/img2.jpg";
 import Img6 from "../../assets/signupimg/img6.jpg";
-import Gif from "../../assets/signupimg/Personal finance-pana.png"
-
-
+import Gif from "../../assets/signupimg/Personal finance-pana.png";
+import logo from "../../assets/logo1.svg";
 export const Signup = () => {
   const history = useHistory();
 
@@ -40,13 +37,11 @@ export const Signup = () => {
   const schema = yup.object().shape({
     username: yup.string().required("Item obrigatório"),
     email: yup.string().required("Item obrigatório"),
-    password: yup
-      .string()
-      .required("Item obrigatório")
-      .matches(
-        /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-        "Senha deve ter letras maíuscula, mínuscula, numero e caracter"
-      ),
+    password: yup.string().required("Item obrigatório"),
+    // .matches(
+    //   /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+    //   "Senha deve ter letras maíuscula, mínuscula, numero e caracter"
+    // ),
     passwordConfirm: yup
       .string()
       .required("Item obrigatório")
@@ -63,7 +58,7 @@ export const Signup = () => {
     SignUp(data);
   };
 
-  const texts = [Img1,Img2,Img6];
+  const texts = [Img1, Img2, Img6];
 
   return (
     <Flex
@@ -80,8 +75,8 @@ export const Signup = () => {
         cursor="pointer"
         position="absolute"
         fontSize="25px"
-        top={["40px", "50px", "90px"]}
-        left={["40px", "50px", "90px"]}
+        top={["40px", "50px", "110px"]}
+        left={["40px", "50px", "110px"]}
       >
         <FaArrowLeft />
       </Box>
@@ -96,15 +91,15 @@ export const Signup = () => {
       >
         <Flex
           bg="#9BADD0"
-          w={["0%", "0%", "40%","40%"]}
+          w={["0%", "0%", "50%", "50%"]}
           h="100%"
           as="div"
           justifyContent="center"
           alignItems="center"
         >
           <Box
-            w={["80%","90%","80%","80%"]}
-            h={["80%","90%","80%","80%"]}
+            w={["80%", "90%", "80%", "80%"]}
+            h={["80%", "90%", "80%", "80%"]}
             bg="gray.50"
             borderRadius="50%"
             overflow="hidden"
@@ -112,12 +107,12 @@ export const Signup = () => {
             justifyContent="center"
             alignContent="center"
           >
-            <Img src={Gif}/>
+            <Img src={Gif} />
           </Box>
         </Flex>
         <Box
           bg={["#FEFEFE", "#FEFEFE", "#FEFEFE"]}
-          w={["100%", "80%", "60%"]}
+          w={["100%", "80%", "50%"]}
           height="100%"
           display="flex"
           alignItems="center"
@@ -136,10 +131,7 @@ export const Signup = () => {
             isInvalid={false}
             onSubmit={handleSubmit(onSignup)}
           >
-            <Image
-              h="100px"
-              src="https://s3-alpha-sig.figma.com/img/44a9/8893/fad81878ee4881059dc97e15eb6c5bdf?Expires=1637539200&Signature=Yg26wPlf7-zg6SOzn8mvaqGMwBN-sSv-LiHRcKjVK~yk-RJOoh~3AYqUpws5S~sYMo4fvH95iTJyYS5maMpsXSd5aw4VOFF8gbzqGNqPzDEBOCA1Q0h4eV2zxEBGwjm0VhvnSoYzpo5Zb6~Ze-eo7iWA0naKRGqhx0XRdcnvxSi4Wqqr3zu7QsjQ0fxfDSnWewyT-Jb2Qm9HEZsaAlDiFzTOFKQkL8fVidgRQqyLv36Ai8dQYIQRjrKeJFHIeFyOAsfkRS7MRTJudBdLjt0CleMJ2q49f6pF4J4cNZJKEOtnjuwBUpEqpWj0XLCTYPKXOnWLHdyeUSEDfikH4CvhcQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-            />
+            <Image src={logo} h={["150px", "150px", "120px", "140px"]} />
             <FormLabel
               textAlign="left"
               w="100%"
@@ -264,6 +256,8 @@ export const Signup = () => {
               marginBottom="4"
               marginTop="4"
               type="submit"
+              transition="0.5s"
+              _hover={{ bg: "#1A1F22" }}
             >
               Cadastrar
             </Button>
@@ -279,6 +273,10 @@ export const Signup = () => {
                 onClick={() => history.push("/login")}
                 cursor="pointer"
                 color={"blue.900"}
+                transition="0.5s"
+                _hover={{
+                  color: "gray.200",
+                }}
               >
                 {" "}
                 Clique aqui!

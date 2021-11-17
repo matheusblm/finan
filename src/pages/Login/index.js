@@ -4,14 +4,13 @@ import {
   FormControl,
   Input,
   FormLabel,
-  FormErrorMessage,
-  ChakraInputProps,
   InputLeftElement,
   InputGroup,
   Box,
   Image,
   Text,
 } from "@chakra-ui/react";
+import { Center } from "@chakra-ui/layout";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -20,6 +19,10 @@ import { HiOutlineMail } from "react-icons/hi";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
 import { Users } from "../../providers/Users";
+import logo from "../../assets/logo1.svg";
+import Lottie from "react-lottie";
+import animationData from "../../animations/animate-login.json";
+import { useState } from "react";
 
 export const Login = () => {
   const history = useHistory();
@@ -40,7 +43,18 @@ export const Login = () => {
   const onLogin = (data) => {
     Login(data);
   };
-
+  const [animationState, setAnimationState] = useState({
+    isStopped: false,
+    isPaused: false,
+  });
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
   return (
     <Flex
       justifyContent="center"
@@ -56,8 +70,8 @@ export const Login = () => {
         cursor="pointer"
         position="absolute"
         fontSize="25px"
-        top={["40px", "50px", "90px"]}
-        left={["40px", "50px", "90px"]}
+        top={["40px", "50px", "100px"]}
+        left={["40px", "50px", "130px"]}
       >
         <FaArrowLeft />
       </Box>
@@ -70,6 +84,7 @@ export const Login = () => {
         color="whiteAlpha.900"
         borderRadius={["0px", "0px", "30px"]}
         overflow="hidden"
+        boxShadow="xl"
       >
         <Box
           bg={["#FEFEFE", "#FEFEFE", "#FEFEFE"]}
@@ -92,10 +107,9 @@ export const Login = () => {
             color="#80807E"
             onSubmit={handleSubmit(onLogin)}
           >
-            <Image
-              h={["150px", "150px", "120px", "100px"]}
-              src="https://s3-alpha-sig.figma.com/img/44a9/8893/fad81878ee4881059dc97e15eb6c5bdf?Expires=1637539200&Signature=Yg26wPlf7-zg6SOzn8mvaqGMwBN-sSv-LiHRcKjVK~yk-RJOoh~3AYqUpws5S~sYMo4fvH95iTJyYS5maMpsXSd5aw4VOFF8gbzqGNqPzDEBOCA1Q0h4eV2zxEBGwjm0VhvnSoYzpo5Zb6~Ze-eo7iWA0naKRGqhx0XRdcnvxSi4Wqqr3zu7QsjQ0fxfDSnWewyT-Jb2Qm9HEZsaAlDiFzTOFKQkL8fVidgRQqyLv36Ai8dQYIQRjrKeJFHIeFyOAsfkRS7MRTJudBdLjt0CleMJ2q49f6pF4J4cNZJKEOtnjuwBUpEqpWj0XLCTYPKXOnWLHdyeUSEDfikH4CvhcQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-            />
+            <Flex height="35%" display="flex" alignContent="center">
+              <Image h={["150px", "150px", "120px", "140px"]} src={logo} />
+            </Flex>
             <FormLabel
               textAlign="left"
               w="100%"
@@ -163,6 +177,8 @@ export const Login = () => {
               marginBottom="4"
               marginTop="4"
               type="submit"
+              transition="0.5s"
+              _hover={{ bg: "#1A1F22" }}
             >
               Login
             </Button>
@@ -178,6 +194,10 @@ export const Login = () => {
                 onClick={() => history.push("/register")}
                 cursor="pointer"
                 color={"blue.900"}
+                transition="0.5s"
+                _hover={{
+                  color: "gray.200",
+                }}
               >
                 {" "}
                 Clique aqui!
@@ -193,19 +213,32 @@ export const Login = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Box
+          <Flex
             w="75%"
             h="75%"
             borderRadius="50%"
             bg="#FEFEFE"
-            overflow="hidden"
+            alignItems="center"
+            alignContent="center"
+            justifyContent="center"
           >
-            <Image
+            <Flex
+              height={["30%", "50%", "80%", "85%"]}
+              width={["30%", "70%", "80%", "70%"]}
+            >
+              <Lottie
+                options={defaultOptions}
+                speed={0.5}
+                isStopped={animationState.isStopped}
+                isPaused={animationState.isPaused}
+              />
+            </Flex>
+
+            {/* <Image
               src="https://s3-alpha-sig.figma.com/img/6bd4/c077/3073998c6d775893db11cffa4edbdc31?Expires=1637539200&Signature=A-zmXARI16HBl5eQt0M0xxvXTi2xhr9~DP6NaPvXWBtusfd6MdTjIcP1R0PSDjVJFRSOHxlpP~WpLR34Pe4xLqNuwfbd~5FM2M5rjAesz7hHyvrInAQu3B~4rUzl3XlOSciVj4C6kTx-DP5Pp8O3z5W4BHvwH~~fiiGleZu2DyYqL3SYJgtPgaN0yNW1zrp3e5SgSHEncnxrEgKc7u8~F0nnG~PxdqTRuW280czqiDIO~plECw01PnbFFRKFDMA7FveTKUPYEZGvnLi9rhBamlaoWONMyyyutuan60OFp9TL2o5rKVNH-FikwnUAwrI1Y24HjqyIii66JwMBIVUsFw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-              borderRadius="50%"
-              paddingTop={["30%", "30%", "30%", "10%"]}
-            />
-          </Box>
+              
+            /> */}
+          </Flex>
         </Flex>
       </Flex>
     </Flex>
