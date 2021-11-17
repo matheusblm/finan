@@ -90,17 +90,6 @@ export const Dashboard = () => {
               >
                 <WalletDashboard />
               </Flex>
-              {/* <Flex
-                w="100%"
-                h={{ sm: "270px", base: "75px" }}
-                flex={1}
-                p={2}
-                borderRadius="lg"
-                overflow="auto"
-                boxShadow="lg"
-              >
-                <CreditCardDashboard />
-              </Flex> */}
               <Flex
                 w="100%"
                 h={{ sm: "270px", base: "75px" }}
@@ -196,8 +185,7 @@ const HeaderDashboard = ({
         align={{ lg: "flex-start", base: "center" }}
       >
         <Text color="gray.600" fontSize="lg">
-          Bem Vindo,
-          <br /> {username}
+          Bem Vindo, {username}
         </Text>
         <Flex direction={{ lg: "row", base: "column" }}>
           <Stack bg="white" borderRadius="lg" py={2} px={6} m={2}>
@@ -340,57 +328,11 @@ const WalletDashboard = () => {
             </Flex>
           </Center>
         )
-        // <Center h="100%">
-        //   <Flex direction="column" align="center" color="gray.300" >
-        //     <Text>Você não tem contas a receber</Text>
-        //     <Icon as={FaExclamationCircle} my={2} fontSize="lg" />
-        //   </Flex>
-        // </Center>
       }
     </Stack>
   );
 };
 
-// const CreditCardDashboard = () => {
-//   return (
-//     <Stack w="100%" p={4} spacing={2}>
-//       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
-//         <Text fontSize={{ md: "2xl", base: "sm" }}>Cartão de Crédito: </Text>
-//         <Icon
-//           as={FaCreditCard}
-//           fontSize={{ lg: "4xl", md: "2xl", base: "md" }}
-//         />
-//       </Flex>
-//       <Flex justify="space-between" color="gray.300">
-//         <HStack spacing={2}>
-//           <Icon as={FaCreditCard} color="red.300" w="30px" />
-//           <Stack spacing={0}>
-//             <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
-//               Conta Caixa
-//             </Text>
-//             <Text
-//               display={["none", "none", "none", "block"]}
-//               fontSize={{ md: "sm", lg: "md" }}
-//             >
-//               Data Vencimento
-//             </Text>
-//             <Text
-//               display={["none", "none", "none", "block"]}
-//               fontSize={{ md: "sm", lg: "md" }}
-//             >
-//               10-11-21
-//             </Text>
-//           </Stack>
-//         </HStack>
-//         <HStack spacing={2}>
-//           <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-//           <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
-//           <Checkbox />
-//         </HStack>
-//       </Flex>
-//     </Stack>
-//   );
-// };
 
 const SpendingOfTheMonth = ({ arraySpend, arrayNameSpend }) => {
   const dataGrafico = {
