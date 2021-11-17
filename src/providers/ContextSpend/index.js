@@ -26,12 +26,11 @@ export const SpendProvider = ({ children }) => {
 
   //Pegar todos os spend
 
-
   const loadSpends = useCallback(async (userId, token) => {
     try {
       const response = await api.get(`/spend/?userId=${userId}`, {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       setAllSpends(response.data);
@@ -91,8 +90,6 @@ export const SpendProvider = ({ children }) => {
       )
       .catch((resp) => console.log(resp));
   };
-
-
 
   const lancSpend = (data, token, id) => {
     const newData = { ...data, userId: id };
