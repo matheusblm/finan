@@ -95,10 +95,11 @@ export const ReceiveProvider = ({ children }) => {
       .catch((resp) => console.log(resp));
   };
 
-  const lancReceive = (data, token, id) => {
-    const newData = { ...data, userId: id };
+
+
+  const lancReceive = (data, token) => {
     api
-      .post(`/receive`, newData, {
+      .post(`/receive`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

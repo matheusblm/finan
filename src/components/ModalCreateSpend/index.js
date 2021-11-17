@@ -46,17 +46,12 @@ export const ModalCreateSpend = ({ isOpen, onClose }) => {
     resolver: yupResolver(createTaskSchema),
   });
 
-  const handleCreateEntry = ({
-    account,
-    description,
-    value: v,
-    data,
-    category,
-  }) => {
-    const value = Number(v);
-    const type = false;
-    const req = { account, description, value, data, category, type, userId };
-    lancSpend(req, token);
+  
+  const handleCreateEntry = ({account,description,value:v,data,category}) => {
+    const value = Number(v)
+    const type = false
+    const req = {account,description,value,data,category,type,userId}
+    lancSpend(req,token);
     onClose();
   };
 
