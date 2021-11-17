@@ -10,7 +10,9 @@ export const UserProvider = ({ children }) => {
 
     const [token, setToken] = useState(localStorage.getItem("@tokenfinan") || "")
 
-    const [id, setId] = useState(localStorage.getItem("@idfinan") || "")
+    const [id, setId] = useState(Number(localStorage.getItem("idfinan")) || "")
+
+    const [username,setUserName] = useState()
 
     const [errorSign, setErrorSign] = useState("")
 
@@ -41,6 +43,10 @@ export const UserProvider = ({ children }) => {
 
                 localStorage.setItem("idfinan", resp.data.user.id)
 
+                setUserName(resp.data.user.username)
+
+                localStorage.setItem("usernamefinan", resp.data.user.username)
+
                 history.push("/dashboard")
             })
             .catch(resp => {
@@ -54,7 +60,14 @@ export const UserProvider = ({ children }) => {
     }
 
     return (
-        <UsersContext.Provider value={{ token, id, errorSign, errorLogin, Login, SignUp, Logout }}>
+        <UsersContext.Provider value={{ token,
+         id, 
+         username, 
+         errorSign, 
+         errorLogin, 
+         Login, 
+         SignUp, 
+         Logout }}>
             {children}
         </UsersContext.Provider>
     )

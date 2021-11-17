@@ -23,7 +23,7 @@ export const SpendProvider = ({ children }) => {
   const userId = 4;
 
   //Pegar todos os spend
-  const Spends = () => {
+  const Spends = (token,userId) => {
     api
       .get(`/spend/?userId=${userId}`, {
         headers: {
@@ -79,7 +79,8 @@ export const SpendProvider = ({ children }) => {
   };
 
   //Transformar spends não pago em pagos
-  const editSpend = (id) => {
+  const editSpend = (id,token) => {
+    console.log("editSpend",id,token)
     api
       .patch(
         `spend/${id}`,
@@ -95,7 +96,8 @@ export const SpendProvider = ({ children }) => {
       .catch((resp) => console.log(resp));
   };
 
-  const lancSpend = (data) => {
+  const lancSpend = (data,token) => {
+    //console.log(data)
     api
       .post(`spend`, data, {
         headers: {

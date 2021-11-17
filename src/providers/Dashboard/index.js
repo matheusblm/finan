@@ -6,10 +6,16 @@ export const DashboardContext = createContext({});
 export const DashboardProvider = ({ children }) => {
     const [receive, setReceive] = useState([]);
     const [spend, setSpend] = useState([]);
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZlbGlwZUBtYWlsLmNvbSIsImlhdCI6MTYzNzA2NjI0MSwiZXhwIjoxNjM3MDY5ODQxLCJzdWIiOiIzIn0.sgGwMUp65lycdkAWUm2FJN8tFBJRchGISeK2EPRhoPU"
-    const id = 3
+    // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRldkBtYWlsLmNvbSIsImlhdCI6MTYzNzA5OTI4NywiZXhwIjoxNjM3MTAyODg3LCJzdWIiOiI0In0.Pr4DcjFrjyJxgVMw5sNWydXBc9M_dfKPnEBzf6URTwM"
+    // const id = 4
+
+    const token = localStorage.getItem("@tokenfinan") || ""
+
+    const id = Number(localStorage.getItem("idfinan")) || ""
 
     const getAllReceive = () => {
+
+        console.log("dados provider Dash",token,id)
         api
             .get(`/receive/?userId=${id}`, {
                 headers: {

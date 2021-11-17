@@ -18,19 +18,26 @@ import { useForm } from "react-hook-form";
 import { FaTimes } from "react-icons/fa";
 
 import * as yup from "yup";
+import { useSpend } from "../../providers/ContextSpend";
+import {Users} from "../../providers/Users"
 
 const createTaskSchema = yup.object().shape({
-  title: yup.string().required("Campo obrigatório"),
+  account: yup.string().required("Campo obrigatório"),
   description: yup
     .string()
     .required("Campo obrigatório")
     .max(100, "Máximo de 100 caracteres"),
   value: yup.string().required("Campo obrigatório"),
   data: yup.string().required("Campo obrigatório"),
-  categorie: yup.string().required("Campo obrigatório"),
+  category: yup.string().required("Campo obrigatório"),
 });
 
-export const ModalCreateSpend = ({ isOpen, onClose }) => {
+export const ModalCreateSpend = ({isOpen, onClose }) => {
+
+  const {lancSpend} = useSpend()
+
+  const {id:userId,token} = Users()
+
   const {
     formState: { errors },
     register,
@@ -39,8 +46,11 @@ export const ModalCreateSpend = ({ isOpen, onClose }) => {
     resolver: yupResolver(createTaskSchema),
   });
 
-  const handleCreateEntry = (data) => {
-    console.log(data);
+  const handleCreateEntry = ({account,description,value:v,data,category}) => {
+    const value = Number(v)
+    const type = false
+    const req = {account,description,value,data,category,type,userId}
+    lancSpend(req,token);
     onClose();
   };
 
@@ -74,7 +84,7 @@ export const ModalCreateSpend = ({ isOpen, onClose }) => {
 
         <ModalBody textAlign="center">
           <VStack spacing="5">
-            <Input {...register("title")} placeholder="Digite o título" />
+            <Input {...register("account")} placeholder="Digite o título" />
             <Textarea
               {...register("description")}
               placeholder="Digite o Descrição"
@@ -84,7 +94,7 @@ export const ModalCreateSpend = ({ isOpen, onClose }) => {
             <Select
               placeholder="Categorias"
               color="gray.300"
-              {...register("categorie")}
+              {...register("category")}
             >
               <option value="salario">Aluguel</option>
               <option value="dividendos">Compras</option>

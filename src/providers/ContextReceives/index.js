@@ -3,7 +3,8 @@ import { api } from "../../service/api";
 
 const ReceivesContext = createContext();
 
-export const ReceiveProvider = ({ children }) => {
+export const ReceiveProvider = ({ children }) => {  
+
   const [received, setReceived] = useState([]);
 
   const [noReceived, setNoReceived] = useState([]);
@@ -18,13 +19,14 @@ export const ReceiveProvider = ({ children }) => {
 
   const mes = data.getMonth() + 1;
 
+  // const token =
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hdGhldXNAZW1haWwuY29tIiwiaWF0IjoxNjM3MDY1MjMzLCJleHAiOjE2MzcwNjg4MzMsInN1YiI6IjQifQ.F3S55mq_JWB93bH5SkjALp7hDD0tZtZSI33KT9LBxpU";
+  // const userId = 4;
+
   //Pega todos os receber.
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hdGhldXNAZW1haWwuY29tIiwiaWF0IjoxNjM3MDY1MjMzLCJleHAiOjE2MzcwNjg4MzMsInN1YiI6IjQifQ.F3S55mq_JWB93bH5SkjALp7hDD0tZtZSI33KT9LBxpU";
-  const userId = 4;
 
-  const Receives = () => {
+  const Receives = (token,userId) => {
     api
       .get(`/receive/?userId=${userId}`, {
         headers: {
@@ -80,10 +82,12 @@ export const ReceiveProvider = ({ children }) => {
   };
 
   //Transforma receives não recebidas em recebidas.
-  const editReceive = (id) => {
+  const editReceive = (id,token) => {
+    console.log(id)
+    console.log(token)
     api
       .patch(
-        `receives/${id}`,
+        `/receive/${id}`,
         {
           type: true,
         },
@@ -96,7 +100,9 @@ export const ReceiveProvider = ({ children }) => {
       .catch((resp) => console.log(resp));
   };
 
-  const lancReceive = (data) => {
+  const lancReceive = (data,token) => {
+    // console.log("token",token)
+    // console.log("data",data)
     api
       .post(`/receive`, data, {
         headers: {
