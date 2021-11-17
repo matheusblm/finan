@@ -36,13 +36,11 @@ const SpendLimit = () => {
 
   const { alimentacao, assinaturas, bares, casa, educacao, familia, impostos, lazer, outros, roupas, transportes } = limits;
 
-  // console.log(userSpends);
+  const filterLimits = (category) => userSpends.filter((spend) => spend.category === category)
 
-  const filtered = userSpends.filter((spend) => {
-    return spend.category
-  })
+  const filteredFood = filterLimits("alimentacao")
 
-  console.log(filtered);
+  console.log(filteredFood);
 
   return (
     <>

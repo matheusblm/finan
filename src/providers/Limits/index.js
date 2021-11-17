@@ -12,9 +12,9 @@ export const LimitsProvider = ({ children }) => {
 
     const [totalLimit, setTotalLimit] = useState(0)
 
-    const token = localStorage.getItem('@tokenfinan');
+    const token = localStorage.getItem('@tokenfinan') || "";
 
-    const userId = localStorage.getItem('idfinan');
+    const userId = localStorage.getItem('idfinan') || "";
 
     const getSpend = () => {
         api
@@ -44,7 +44,7 @@ export const LimitsProvider = ({ children }) => {
                     Authorization: `Bearer ${token}`,
                 },
             })
-            .then((resp) => setLimits(resp.data[0]))
+            .then((resp) => { console.log("resp", resp); setLimits(resp.data[0]) })
             .catch((err) => console.log(err))
     }
 
