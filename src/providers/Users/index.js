@@ -12,7 +12,7 @@ export const UserProvider = ({ children }) => {
 
     const [id, setId] = useState(Number(localStorage.getItem("idfinan")) || "")
 
-    const [username,setUserName] = useState()
+    const [username,setUserName] = useState(localStorage.getItem("usernamefinan") || "")
 
     const [errorSign, setErrorSign] = useState("")
 
@@ -60,7 +60,8 @@ export const UserProvider = ({ children }) => {
     }
 
     return (
-        <UsersContext.Provider value={{ token,
+        <UsersContext.Provider value={{ 
+         token,
          id, 
          username, 
          errorSign, 

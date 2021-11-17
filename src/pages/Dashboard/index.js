@@ -54,6 +54,8 @@ export const Dashboard = () => {
     onClose: onCloseCreateSpend,
   } = useDisclosure();
 
+  const {username} = Users()
+
   return (
     <>
       <Header />
@@ -67,11 +69,13 @@ export const Dashboard = () => {
             overflow="auto"
             boxShadow="lg"
           >
+            {console.log("username",username)}
             <HeaderDashboard
               onOpenCreateRecive={onOpenCreateRecive}
               onOpenCreateSpend={onOpenCreateSpend}
               spendTotal={spendTotal}
               receiveTotal={receiveTotal}
+              username={username}
             />
           </Flex>
           <Flex direction={{ md: "row", base: "column" }}>
@@ -175,10 +179,11 @@ const HeaderDashboard = ({
   onOpenCreateSpend,
   spendTotal,
   receiveTotal,
+  username
 }) => {
   const totalBalance = receiveTotal - spendTotal;
 
-  const {username} = Users()
+  
 
   return (
     <Flex

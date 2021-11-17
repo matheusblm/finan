@@ -44,8 +44,11 @@ export const DashboardProvider = ({ children }) => {
     const newReceive = receive.filter(item => item.type === false)
     const newSpend = spend.filter(item => item.type === false)
 
-    const spendTotal = newSpend.reduce((acc, bill) => acc + bill.value, 0)
-    const receiveTotal = newReceive.reduce((acc, bill) => acc + bill.value, 0)
+    const newReceived = receive.filter(item => item.type === true)
+    const newSpended = spend.filter(item => item.type === true)
+
+    const spendTotal = newSpended.reduce((acc, bill) => acc + bill.value, 0)
+    const receiveTotal = newReceived.reduce((acc, bill) => acc + bill.value, 0)
     const arraySpend = newSpend.map(item => item.value)
     const arrayNameSpend = newSpend.map(item => item.account)
 

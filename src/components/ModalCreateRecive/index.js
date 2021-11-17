@@ -23,7 +23,7 @@ import { useReceive } from "../../providers/ContextReceives";
 import {Users} from "../../providers/Users"
 
 const createTaskSchema = yup.object().shape({
-  title: yup.string().required("Campo obrigatório"),
+  account: yup.string().required("Campo obrigatório"),
   description: yup
     .string()
     .required("Campo obrigatório")
@@ -50,7 +50,7 @@ export const ModalCreateRecive = ({isOpen, onClose }) => {
     const value = Number(v)
     const type = false
     const req = {account,description,value,data,category,type,userId}
-    console.log(req)
+    // console.log(req)
     lancReceive(req,token);
     onClose();
   };
@@ -85,7 +85,7 @@ export const ModalCreateRecive = ({isOpen, onClose }) => {
 
         <ModalBody textAlign="center">
           <VStack spacing="5">
-            <Input {...register("title")} placeholder="Digite o título" />
+            <Input {...register("account")} placeholder="Digite o título" />
             <Textarea
               {...register("description")}
               placeholder="Digite o Descrição"
