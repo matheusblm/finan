@@ -35,7 +35,7 @@ export const ReceiveProvider = ({ children }) => {
     try {
       const response = await api.get(`/receive/?userId=${userId}`, {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       setAllReceives(response.data);
@@ -102,10 +102,9 @@ export const ReceiveProvider = ({ children }) => {
   };
 
 
-  const lancReceive = (data, token, id) => {
-    const newData = { ...data, userId: id };
+  const lancReceive = (data, token) => {
     api
-      .post(`/receive`, newData, {
+      .post(`/receive`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
