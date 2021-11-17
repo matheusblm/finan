@@ -6,8 +6,6 @@ export const DashboardContext = createContext({});
 export const DashboardProvider = ({ children }) => {
     const [receive, setReceive] = useState([]);
     const [spend, setSpend] = useState([]);
-    // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRldkBtYWlsLmNvbSIsImlhdCI6MTYzNzA5OTI4NywiZXhwIjoxNjM3MTAyODg3LCJzdWIiOiI0In0.Pr4DcjFrjyJxgVMw5sNWydXBc9M_dfKPnEBzf6URTwM"
-    // const id = 4
 
     const token = localStorage.getItem("@tokenfinan") || ""
 
@@ -63,7 +61,9 @@ export const DashboardProvider = ({ children }) => {
     }, [])
 
     return (
-        <DashboardContext.Provider value={{ newReceive, receivedTotal, spendedTotal, newSpend, spendTotal, receiveTotal, arraySpend, arrayNameSpend }}>
+        <DashboardContext.Provider value={{
+            newReceive, receivedTotal, spendedTotal, newSpend, spendTotal, receiveTotal, arraySpend, arrayNameSpend, getAllReceive, getAllSpend
+        }}>
             {children}
         </DashboardContext.Provider>
     )

@@ -6,7 +6,6 @@ import {
   HStack,
   Icon,
   Progress,
-  SkeletonCircle,
   Stack,
   Text,
   useDisclosure,
@@ -33,16 +32,6 @@ import { useSpend } from "../../providers/ContextSpend";
 import { Users } from "../../providers/Users";
 
 export const Dashboard = () => {
-  const {
-    newReceive,
-    newSpend, 
-    receivedTotal, 
-    spendedTotal,
-    spendTotal,
-    receiveTotal,
-    arraySpend,
-    arrayNameSpend,
-  } = useListDashboard();
 
   const {
     isOpen: isOpenCreateRecive,
@@ -54,8 +43,6 @@ export const Dashboard = () => {
     onOpen: onOpenCreateSpend,
     onClose: onCloseCreateSpend,
   } = useDisclosure();
-
-  const { username } = Users();
 
   return (
     <>
@@ -70,15 +57,9 @@ export const Dashboard = () => {
             overflow="auto"
             boxShadow="lg"
           >
-            {console.log("username", username)}
             <HeaderDashboard
               onOpenCreateRecive={onOpenCreateRecive}
               onOpenCreateSpend={onOpenCreateSpend}
-              spendTotal={spendTotal}
-              receiveTotal={receiveTotal}
-              username={username}
-              spendedTotal={spendedTotal}
-              receivedTotal={receivedTotal}
             />
           </Flex>
           <Flex direction={{ md: "row", base: "column" }}>
@@ -103,10 +84,7 @@ export const Dashboard = () => {
                 overflow="auto"
                 boxShadow="lg"
               >
-                <ProgressBar
-                  spendTotal={spendTotal}
-                  receiveTotal={receiveTotal}
-                />
+                <ProgressBar />
               </Flex>
             </Stack>
             <Flex
@@ -119,10 +97,7 @@ export const Dashboard = () => {
               boxShadow="lg"
               mx={[0, 0, 2]}
             >
-              <SpendingOfTheMonth
-                arraySpend={arraySpend}
-                arrayNameSpend={arrayNameSpend}
-              />
+              <SpendingOfTheMonth />
             </Flex>
           </Flex>
           <Flex direction={{ md: "row", base: "column" }}>
@@ -136,7 +111,7 @@ export const Dashboard = () => {
               boxShadow="lg"
               mx={[0, 0, 2]}
             >
-              <BillsToPay newSpend={newSpend} />
+              <BillsToPay />
             </Flex>
 
             <Flex
@@ -149,7 +124,7 @@ export const Dashboard = () => {
               boxShadow="lg"
               mx={[0, 0, 2]}
             >
-              <BillsToReceive newReceive={newReceive} />
+              <BillsToReceive />
             </Flex>
           </Flex>
         </Stack>
@@ -168,16 +143,20 @@ export const Dashboard = () => {
 
 const HeaderDashboard = ({
   onOpenCreateRecive,
-  onOpenCreateSpend, 
-  receivedTotal, 
-  spendedTotal,
-  spendTotal,
-  receiveTotal,
-  username,
+  onOpenCreateSpend,
 }) => {
-  const totalBalance = receiveTotal - spendTotal;
+
+  const {
+    receivedTotal,
+    spendedTotal,
+    spendTotal,
+    receiveTotal
+  } = useListDashboard();
+
+  const { username } = Users();
+
   const Saldo = receivedTotal - spendedTotal;
- 
+
   return (
     <Flex
       direction={{ md: "row", base: "column" }}
@@ -192,7 +171,7 @@ const HeaderDashboard = ({
         align={{ lg: "flex-start", base: "center" }}
       >
         <Text color="gray.600" fontSize="lg">
-          Bem Vindo, {username}
+          Bem Vindo, {username.toUpperCase()}
         </Text>
         <Flex direction={{ lg: "row", base: "column" }}>
           <Stack bg="white" borderRadius="lg" py={2} px={6} m={2}>
@@ -341,7 +320,13 @@ const WalletDashboard = () => {
 };
 
 
-const SpendingOfTheMonth = ({ arraySpend, arrayNameSpend }) => {
+const SpendingOfTheMonth = () => {
+
+  const {
+    arraySpend,
+    arrayNameSpend
+  } = useListDashboard();
+
   const dataGrafico = {
     labels: arrayNameSpend,
     options: {
@@ -406,7 +391,14 @@ const SpendingOfTheMonth = ({ arraySpend, arrayNameSpend }) => {
   );
 };
 
-const ProgressBar = ({ receiveTotal, spendTotal }) => {
+const ProgressBar = () => {
+
+  const {
+    spendTotal,
+    receiveTotal
+  } = useListDashboard();
+
+
   const total = receiveTotal + spendTotal;
 
   const spendProgress = spendTotal !== 0 ? (spendTotal / total) * 100 : 0;
@@ -457,9 +449,14 @@ const ProgressBar = ({ receiveTotal, spendTotal }) => {
   );
 };
 
-const BillsToPay = ({ newSpend }) => {
+const BillsToPay = () => {
   const { editSpend } = useSpend();
   const { token } = Users();
+
+  const {
+    newSpend,
+    getAllSpend
+  } = useListDashboard();
 
   return (
     <Stack w="100%" p={4} spacing={2}>
@@ -491,7 +488,10 @@ const BillsToPay = ({ newSpend }) => {
               <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>
                 {formatValue(item.value)}
               </Text>
-              <Checkbox onChange={() => editSpend(item.id, token)} />
+              <Checkbox onChange={() => {
+                editSpend(item.id, token)
+                getAllSpend()
+              }} />
             </HStack>
           </Flex>
         ))
@@ -507,10 +507,15 @@ const BillsToPay = ({ newSpend }) => {
   );
 };
 
-const BillsToReceive = ({ newReceive }) => {
+const BillsToReceive = () => {
   const { editReceive } = useReceive();
 
   const { token } = Users();
+
+  const {
+    newReceive,
+    getAllReceive
+  } = useListDashboard();
 
   return (
     <Stack w="100%" p={4} spacing={2}>
@@ -542,7 +547,10 @@ const BillsToReceive = ({ newReceive }) => {
               <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>
                 {formatValue(item.value)}
               </Text>
-              <Checkbox onChange={() => editReceive(item.id, token)} />
+              <Checkbox onChange={() => {
+                editReceive(item.id, token)
+                getAllReceive()
+              }} />
             </HStack>
           </Flex>
         ))
