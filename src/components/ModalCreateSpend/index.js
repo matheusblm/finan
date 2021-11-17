@@ -47,9 +47,7 @@ export const ModalCreateSpend = ({isOpen, onClose }) => {
   } = useForm({
     resolver: yupResolver(createTaskSchema),
   });
-  const { token, id } = Users();
-  const { lancSpend } = useSpend();
-
+  
   const handleCreateEntry = ({account,description,value:v,data,category}) => {
     const value = Number(v)
     const type = false
