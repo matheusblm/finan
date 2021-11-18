@@ -19,7 +19,6 @@ import {
   FaBus,
   FaNetworkWired,
   FaPlus,
-  FaEdit,
 } from "react-icons/fa";
 import { Menu } from "../../components/LimitDrawer";
 import Header from "../../components/Header";
@@ -27,11 +26,12 @@ import { useLimits } from '../../providers/Limits';
 import { Users } from "../../providers/Users";
 import { formatValue } from "../../utils/formatValue";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const SpendLimit = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { totalSpends, userSpends, totalLimit } = useLimits();
+  const { userSpends, totalLimit } = useLimits();
 
   const { limits } = Users()
 
@@ -44,6 +44,8 @@ const SpendLimit = () => {
   const filterLimits = (category) => userSpends.filter((spend) => spend.category === category)
 
   const spendReduce = (spend) => spend.reduce((acc, value) => { return acc + value.value }, 0);
+
+  const totalSpends = spendReduce(userSpends)
 
   const filteredFood = filterLimits("alimentacao")
   const filtroAssinaturas = filterLimits("assinatura")
