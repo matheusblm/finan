@@ -105,6 +105,17 @@ export const SpendProvider = ({ children }) => {
       .catch((resp) => console.log(resp));
   };
 
+  const deleteSpend = (idSpend,token)=>{
+    api.delete(`/spend/${idSpend}`,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(resp=>console.log(resp))
+    .catch(err=>console.log(err))
+  }
+
+
   return (
     <SpendContext.Provider
       value={{
@@ -120,6 +131,7 @@ export const SpendProvider = ({ children }) => {
         editSpend,
         lancSpend,
         loadSpends,
+        deleteSpend
       }}
     >
       {children}

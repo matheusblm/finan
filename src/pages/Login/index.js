@@ -28,7 +28,7 @@ import { FaLinkedin } from "react-icons/fa";
 export const Login = () => {
   const history = useHistory();
 
-  const { token, errorLogin, Login } = Users();
+  const {Login } = Users();
 
   const schema = yup.object().shape({
     email: yup.string().required("Item obrigatório"),
