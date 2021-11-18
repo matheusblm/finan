@@ -1,7 +1,7 @@
 import { useContext, createContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { api } from "../../service/api";
-import { useToast,Box } from "@chakra-ui/react"
+import { useToast, Box } from "@chakra-ui/react"
 
 const UsersContext = createContext()
 
@@ -30,13 +30,13 @@ export const UserProvider = ({ children }) => {
         api.post("/signup", newData)
             .then(_ => {
                 toast({
-                    
+
                     description: "Cadastro realizado com sucesso!",
                     status: "success",
                     duration: 1800,
                     isClosable: true,
                     position: "top",
-                    
+
                 })
                 history.push("/login")
             })
@@ -48,7 +48,7 @@ export const UserProvider = ({ children }) => {
                     duration: 1800,
                     isClosable: true,
                     position: "top",
-                  })
+                })
                 setErrorSign(resp.message)
             })
     }
@@ -57,9 +57,7 @@ export const UserProvider = ({ children }) => {
         api.post("/login", data)
             .then(resp => {
 
-                // setLimits(resp.data.user.limits)
-
-                console.log(resp.data.user.limits);
+                setLimits(resp.data.user.limits)
 
                 localStorage.setItem("limits", JSON.stringify(resp.data.user.limits[0]))
 
@@ -85,7 +83,7 @@ export const UserProvider = ({ children }) => {
                     duration: 1800,
                     isClosable: true,
                     position: "top",
-                  })
+                })
                 setErrorLogin(resp.message)
             })
     }
