@@ -1,7 +1,7 @@
 import logo from "../../assets/logo.png";
 import pizza from "../../assets/grafico-de-pizza 1.png";
 import phone from "../../assets/mockupIphone.png";
-import mobile from "../../assets/Mobile-Dash-page.jpg";
+import mobile from "../../assets/initialPage.png";
 import { Flex, Center, Box, Image, Heading, Button } from "@chakra-ui/react";
 import { HStack, Text, VStack } from "@chakra-ui/layout";
 import { FaLinkedin } from "react-icons/fa";
@@ -44,58 +44,67 @@ const Initial = () => {
   const reviews = [
     {
       name: "Renato",
-      comment: "App muito bom!",
+      comment:
+        "Esquece qualquer outro app, este sem dúvida é o mais intuitivo e eficiente. Fácil de manipular e vincular seus gastos com dashboard de verdade",
       note: 5,
     },
     {
       name: "Victor",
-      comment: "App muito bom!",
+      comment:
+        "Excelente App. Só falta mesmo, a integração com os Apps dos bancos e cartões de créditos.",
       note: 5,
     },
     {
       name: "Manu",
-      comment: "App muito bom!",
+      comment:
+        "O aplicativo é simples de usar e bem organizado, mais importante pra mim é a simplicidade do app diferente de outros que baixei onde tinha uma complexidade muito alta. Parabéns aos desenvolvedores.",
       note: 5,
     },
     {
       name: "Madu",
-      comment: "App muito bom!",
+      comment:
+        "Simplesmente excelente, bem simples de usar. Consigo ter uma ideia dos gastos tudo bem certinho. O aplicativo é ótimo!",
       note: 5,
     },
     {
       name: "Matheus",
-      comment: "App muito bom!",
+      comment:
+        "Um aplicativo simples, bonito e fácil de usar. Para mim é perfeito para controlar minhas finanças e ver com o que estou gastando mais o meu dinheiro. A única opção que faltou para mim foi poder colocar uma meta como algo que eu queira comprar no futuro e esteja guardando dinheiro para isso. Com essa opção ficaria perfeito!",
       note: 5,
     },
     {
       name: "Laudemir",
-      comment: "App muito bom!",
+      comment:
+        "Muito intuitivo e fácil de usar. Até o momento está atendendo as espectativas. Recomendo!",
       note: 5,
     },
     {
       name: "William",
-      comment: "App muito bom!",
+      comment:
+        "App excelente para se manter no controle das finanças, com toda opção de detalhamento acerca das despesas e receitas, além da fatura do cartão de crédito e limites de investimentos, fora a interface do app que é super intuitiva e prática.",
       note: 5,
     },
     {
       name: "Felipe",
-      comment: "App muito bom!",
+      comment:
+        "Eu gosto. Simples e eficaz. Não trava não tem anúncios E ele e bem completo pra mim né. Atende bem minhas necessidades",
       note: 5,
     },
     {
       name: "Davis",
-      comment: "App muito bom!",
+      comment: "Só faltava sincronizar as contas em tempo real com o banco.",
       note: 5,
     },
     {
-      name: "Davis",
-      comment: "App muito bom!",
+      name: "Junia",
+      comment:
+        "Muito bom, economiza muito tempo, antes fazia tudo manual, agora facilita minha vida. Possui ótimas funcionalidade, muitas opções, é bem fácil saber como funciona, recomendo o app.",
       note: 5,
     },
   ];
   return (
     <>
-      <Flex h={["22vh", "40.5vh", "500px"]} padding="30px">
+      <Flex h={["300px", "400px", "500px"]} padding="30px">
         <Flex
           w={["100%", "50%"]}
           alignItems="center"
@@ -108,11 +117,13 @@ const Initial = () => {
             alt="finan"
             height={["200px", "300px", "300px"]}
             w="300px"
+            _hover={{ cursor: "pointer" }}
+            onClick={() => history.push("/login")}
           />{" "}
           <Button
             bg="#16425B"
             color="white"
-            w="30%"
+            w={["50%", "50%", "50%", "30%"]}
             h="40px"
             fontSize="md"
             type="submit"
@@ -125,9 +136,12 @@ const Initial = () => {
         </Flex>
         <Box
           w="248px"
-          display={["none", "block"]}
+          display={["", "block"]}
           marginLeft={["0px", "0px", "100px"]}
           marginRight={["0px", "10px"]}
+          position="absolute"
+          top={["350px", "0", "0"]}
+          right={["50px", "50px", "100px", "300px"]}
         >
           <Center
             position="relative"
@@ -217,7 +231,7 @@ const Initial = () => {
       <Flex
         bg="gray.50"
         h="700px"
-        justifyContent={["space-evenly", "space-between"]}
+        justifyContent={["space-evenly"]}
         flexDirection={["column", "row"]}
         alignContent="center"
         alignItems="center"
@@ -236,7 +250,8 @@ const Initial = () => {
             color="gray.600"
             width={["202px", "235px", "370px"]}
           >
-            Quando voce tem controle, tudo fica mais calmo!
+            Quando voce tem <Text color="blue.800">controle</Text> tudo fica
+            mais <Text color="blue.800">calmo!</Text>
           </Heading>
         </Flex>
 

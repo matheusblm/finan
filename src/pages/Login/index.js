@@ -1,34 +1,23 @@
-import {
-  Flex,
-  Button,
-  FormControl,
-  Input,
-  FormLabel,
-  InputLeftElement,
-  InputGroup,
-  Box,
-  Image,
-  Text,
-} from "@chakra-ui/react";
-import { Center } from "@chakra-ui/layout";
+import { Flex, Button, FormControl, Box, Image, Text } from "@chakra-ui/react";
+
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
-import { HiOutlineMail } from "react-icons/hi";
-import { FaRegEyeSlash } from "react-icons/fa";
+import { FaEnvelope, FaLock } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa";
 import { Users } from "../../providers/Users";
 import logo from "../../assets/logo1.svg";
 import Lottie from "react-lottie";
 import animationData from "../../animations/animate-login.json";
 import { useState } from "react";
-import { FaLinkedin } from "react-icons/fa";
+import { InputTeste } from "../../components/Input";
 
 export const Login = () => {
   const history = useHistory();
 
-  const {Login } = Users();
+  const { Login } = Users();
+
 
   const schema = yup.object().shape({
     email: yup.string().required("Item obrigatório"),
@@ -44,7 +33,7 @@ export const Login = () => {
   const onLogin = (data) => {
     Login(data);
   };
-  const [animationState, setAnimationState] = useState({
+  const [animationState] = useState({
     isStopped: false,
     isPaused: false,
   });
@@ -57,13 +46,7 @@ export const Login = () => {
     },
   };
   return (
-    <Flex
-      justifyContent="center"
-      alignItems="center"
-      w="100vw"
-      h="100vh"
-      bg="#E5E5E5"
-    >
+    <Flex justifyContent="center" alignItems="center" w="100vw" h="100vh">
       <Box
         onClick={() => history.push("/")}
         w="60px"
@@ -78,13 +61,20 @@ export const Login = () => {
       </Box>
       <Flex
         w={["100vw", "100vw", "90vw"]}
-        bg={["#B7C5DE", "#FEFEFE", "#FEFEFE"]}
+        bg={[
+          "#B7C5DE",
+          "rgba( 255, 255, 255, 0.15 )",
+          "rgba( 255, 255, 255, 0.15 )",
+        ]}
         h={["100vh", "100vh", "90vh"]}
         justifyContent="center"
         alignItems="flex-end"
         color="whiteAlpha.900"
-        borderRadius="20px"
         overflow="hidden"
+        borderRadius={["0px", "0px", "30px"]}
+        boxShadow="0 8px 32px 0 rgba( 31, 38, 135, 0.37 )"
+        backDropFilter="blur( 0px )"
+        border="1px solid rgba( 255, 255, 255, 0.18 )"
       >
         <Box
           bg={["#FEFEFE", "#FEFEFE", "#FEFEFE"]}
@@ -110,64 +100,26 @@ export const Login = () => {
             <Flex height="35%" display="flex" alignContent="center">
               <Image h={["150px", "150px", "120px", "140px"]} src={logo} />
             </Flex>
-            <FormLabel
-              textAlign="left"
-              w="100%"
-              paddingLeft="2"
-              fontSize="14px"
-            >
-              Email
-            </FormLabel>
-            <InputGroup flexDirection="column">
-              <InputLeftElement>
-                <HiOutlineMail />
-              </InputLeftElement>
-              <Input
-                {...register("email")}
-                marginBottom="0.5"
+            <Box w="100%">
+              <InputTeste
+                placeholder="Digite seu login"
                 type="email"
-                placeholder="email"
-                _placeholder={"fontSize:18px"}
+                label="Login"
+                error={errors.email}
+                icon={FaEnvelope}
+                {...register("email")}
               />
-              <Text
-                as="p"
-                h="10px"
-                paddingLeft="2"
-                marginBottom="5px"
-                fontSize="xs"
-              >
-                {errors.email?.message}
-              </Text>
-            </InputGroup>
-            <FormLabel
-              textAlign="left"
-              w="100%"
-              paddingLeft="2"
-              fontSize="14px"
-            >
-              Senha
-            </FormLabel>
-            <InputGroup flexDirection="column">
-              <InputLeftElement>
-                <FaRegEyeSlash />
-              </InputLeftElement>
-              <Input
-                {...register("password")}
-                marginBottom="0.5"
+            </Box>
+            <Box w="100%" mt="20px">
+              <InputTeste
+                label="Senha"
                 type="password"
-                placeholder="password"
-                _placeholder={"fontSize:18px"}
+                placeholder="Digite sua Senha"
+                error={errors.password}
+                icon={FaLock}
+                {...register("password")}
               />
-              <Text
-                as="p"
-                h="10px"
-                paddingLeft="2"
-                marginBottom="5px"
-                fontSize="xs"
-              >
-                {errors.password?.message}
-              </Text>
-            </InputGroup>
+            </Box>
 
             <Button
               bg="#16425B"
@@ -206,7 +158,7 @@ export const Login = () => {
           </FormControl>
         </Box>
         <Flex
-         bgGradient="linear(to-l, blue.500, gray.100)"
+          bgGradient="linear(to-l, blue.500, gray.100)"
           w={["0%", "50%", "50%"]}
           h="100%"
           as="div"
@@ -215,7 +167,7 @@ export const Login = () => {
         >
           <Flex
             w="88%"
-            h={["40%","45%","68%"]}
+            h={["40%", "45%", "68%"]}
             maxW="480px"
             borderRadius="50%"
             bg="#FEFEFE"

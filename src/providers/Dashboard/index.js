@@ -14,7 +14,6 @@ export const DashboardProvider = ({ children }) => {
 
     const getAllReceive = () => {
 
-        console.log("dados provider Dash", token, id)
         api
             .get(`/receive/?userId=${id}`, {
                 headers: {
@@ -47,16 +46,16 @@ export const DashboardProvider = ({ children }) => {
     const newSpendedAll = spend.filter(item => item.type === true)
 
     const newReceive = receive.filter((item) => Number(item.data.split("-")[0]) === new Date().getFullYear() && item.type === false
-    ).filter( (item) => Number(item.data.split("-")[1]) === new Date().getMonth() +1 && item.type === false
+    ).filter((item) => Number(item.data.split("-")[1]) === new Date().getMonth() + 1 && item.type === false
     );
     const newSpend = spend.filter((item) => Number(item.data.split("-")[0]) === new Date().getFullYear() && item.type === false
-    ).filter( (item) => Number(item.data.split("-")[1]) === new Date().getMonth() +1 && item.type === false
+    ).filter((item) => Number(item.data.split("-")[1]) === new Date().getMonth() + 1 && item.type === false
     );
     const newReceived = receive.filter((item) => Number(item.data.split("-")[0]) === new Date().getFullYear() && item.type === true
-      ).filter( (item) => Number(item.data.split("-")[1]) === new Date().getMonth() +1 && item.type === true
-      );
+    ).filter((item) => Number(item.data.split("-")[1]) === new Date().getMonth() + 1 && item.type === true
+    );
     const newSpended = spend.filter((item) => Number(item.data.split("-")[0]) === new Date().getFullYear() && item.type === true
-    ).filter( (item) => Number(item.data.split("-")[1]) === new Date().getMonth() +1 && item.type === true
+    ).filter((item) => Number(item.data.split("-")[1]) === new Date().getMonth() + 1 && item.type === true
     );
 
     const spendTotal = newSpend.reduce((acc, bill) => acc + bill.value, 0)
@@ -65,13 +64,26 @@ export const DashboardProvider = ({ children }) => {
     const spendedTotal = newSpended.reduce((acc, bill) => acc + bill.value, 0)
     const receivedTotal = newReceived.reduce((acc, bill) => acc + bill.value, 0)
 
-    const arraySpend = newSpend.map(item => (
-        item.value
-    ))
+    const groupBy = (objetoArray, propriedade) => {
+        return objetoArray.reduce((acc, obj) => {
+            let key = obj[propriedade];
+            if (!acc[key]) {
+                acc[key] = [];
+            }
+            acc[key].push(obj.value);
+            return acc;
+        }, {});
+    }
 
-    const arrayNameSpend = newSpend.map(item => (
-        item.category
-    ))
+    const arraySpendValue = groupBy(newSpend, 'category')
+
+    for (let value in arraySpendValue) {
+        arraySpendValue[value] = arraySpendValue[value].reduce((acc, val) => acc + val, 0)
+    }
+
+    const arraySpend = Object.values(arraySpendValue)
+
+    const arrayNameSpend = Object.keys(arraySpendValue)
 
     const handleModalWallet = () => setOpenModalWallet(!openModalWallet)
 
