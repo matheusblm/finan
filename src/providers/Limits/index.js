@@ -1,5 +1,6 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import { api } from "../../service/api";
+import { Users } from "../Users";
 
 export const LimitsContext = createContext();
 
@@ -8,13 +9,13 @@ export const LimitsProvider = ({ children }) => {
 
     const [userSpends, setUserSpends] = useState([]);
 
-    const [limits, setLimits] = useState([]);
+    const { limits } = Users();
 
     const [totalLimit, setTotalLimit] = useState(0)
 
-    const token = localStorage.getItem('@tokenfinan');
+    const token = localStorage.getItem('@tokenfinan') || "";
 
-    const userId = localStorage.getItem('idfinan');
+    const userId = localStorage.getItem('idfinan') || "";
 
     const getSpend = () => {
         api
@@ -37,23 +38,8 @@ export const LimitsProvider = ({ children }) => {
         setTotalSpends(newSum)
     }
 
-    const getLimits = () => {
-        api
-            .get(`/limit/?userId=${userId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then((resp) => setLimits(resp.data[0]))
-            .catch((err) => console.log(err))
-    }
-
     const getTotalValueLimit = () => {
-        const filterLimits = limits.filter((limit) => {
-            return limit !== "userId" || limit !== "id"
-        })
-        const valuesLimits = Object.values(filterLimits)
-
+        const valuesLimits = Object.values(limits)
         const newTotalLimit = valuesLimits.reduce((acc, limit) => {
             return acc + limit
         }, 0)
@@ -61,15 +47,26 @@ export const LimitsProvider = ({ children }) => {
         setTotalLimit(Number(newTotalLimit));
     }
 
+    const changeLimit = (data) => {
+
+        localStorage.setItem("limits", JSON.stringify(data[0]))
+
+        api.patch(`/users/${userId}`, { limits: data }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+    }
+
+
     useEffect(() => {
         getSpend()
         spendsReduce()
-        getLimits()
         getTotalValueLimit()
     }, [])
 
     return (
-        <LimitsContext.Provider value={{ totalSpends, userSpends, limits, totalLimit }}>{children}</LimitsContext.Provider>
+        <LimitsContext.Provider value={{ totalSpends, userSpends, limits, totalLimit, changeLimit, getTotalValueLimit }}>{children}</LimitsContext.Provider>
     );
 
 };
