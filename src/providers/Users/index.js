@@ -14,7 +14,7 @@ export const UserProvider = ({ children }) => {
 
     const [username, setUserName] = useState(localStorage.getItem("usernamefinan") || "")
 
-    const [limits, setLimits] = useState("")
+    const [limits, setLimits] = useState(JSON.parse(localStorage.getItem("limits")) || "")
 
     const [errorSign, setErrorSign] = useState("")
 
@@ -38,6 +38,8 @@ export const UserProvider = ({ children }) => {
             .then(resp => {
 
                 setLimits(resp.data.user.limits)
+
+                localStorage.setItem("limits", JSON.stringify(resp.data.user.limits[0]))
 
                 setToken(resp.data.accessToken)
 

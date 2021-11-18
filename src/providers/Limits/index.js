@@ -37,20 +37,6 @@ export const LimitsProvider = ({ children }) => {
         setTotalSpends(newSum)
     }
 
-    const getLimits = () => {
-        api
-            .get(`/limit/?userId=${userId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then((resp) => {
-                console.log("providerLimits", resp)
-                setLimits(resp.data[0])
-            })
-            .catch((err) => console.log(err))
-    }
-
     const getTotalValueLimit = () => {
         const filterLimits = limits.filter((limit) => {
             return limit !== "userId" || limit !== "id"
@@ -64,15 +50,24 @@ export const LimitsProvider = ({ children }) => {
         setTotalLimit(Number(newTotalLimit));
     }
 
+    const changeLimit = (data) => {
+
+        api.patch(`/users/${userId}`, { limits: data }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+    }
+
+
     useEffect(() => {
         getSpend()
         spendsReduce()
-        getLimits()
         getTotalValueLimit()
     }, [])
 
     return (
-        <LimitsContext.Provider value={{ totalSpends, userSpends, limits, totalLimit }}>{children}</LimitsContext.Provider>
+        <LimitsContext.Provider value={{ totalSpends, userSpends, limits, totalLimit, changeLimit }}>{children}</LimitsContext.Provider>
     );
 
 };
