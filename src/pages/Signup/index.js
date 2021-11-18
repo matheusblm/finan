@@ -12,27 +12,29 @@ import {
   Image,
   Text,
   Img,
+  Grid,
 } from "@chakra-ui/react";
+
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
+
 import { BsPerson } from "react-icons/bs";
-import { HiOutlineMail } from "react-icons/hi";
-import { FaRegEyeSlash } from "react-icons/fa";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaLock, FaRegEyeSlash } from "react-icons/fa";
+import { FaArrowLeft, FaEnvelope } from "react-icons/fa";
+
 import { Users } from "../../providers/Users";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Img1 from "../../assets/signupimg/img1.jpg";
-import Img2 from "../../assets/signupimg/img2.jpg";
-import Img6 from "../../assets/signupimg/img6.jpg";
+
+import { InputBase } from "../../components/Input";
+
 import Gif from "../../assets/signupimg/Personal finance-pana.png";
 import logo from "../../assets/logo1.svg";
+
 export const Signup = () => {
   const history = useHistory();
 
-  const { token, errorSign, SignUp } = Users();
+  const { SignUp } = Users();
 
   const schema = yup.object().shape({
     username: yup.string().required("Item obrigatório"),
@@ -55,11 +57,10 @@ export const Signup = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSignup = (data) => {
+    console.log(data);
     SignUp(data);
   };
-
-  const texts = [Img1, Img2, Img6];
-
+  console.log(errors);
   return (
     <Flex
       justifyContent="center"
@@ -87,10 +88,13 @@ export const Signup = () => {
         alignItems="flex-end"
         color="whiteAlpha.900"
         borderRadius={["0px", "0px", "30px"]}
+        boxShadow="0 8px 32px 0 rgba( 31, 38, 135, 0.37 )"
+        backDropFilter="blur( 0px )"
+        border="1px solid rgba( 255, 255, 255, 0.18 )"
         overflow="hidden"
       >
         <Flex
-          bg="#9BADD0"
+          bgGradient="linear(to-l, blue.500, gray.100)"
           w={["0%", "0%", "50%", "50%"]}
           h="100%"
           as="div"
@@ -118,7 +122,7 @@ export const Signup = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <FormControl
+          <Grid
             as="form"
             w={["90%", "60%", "75%", "50%"]}
             padding="15px"
@@ -128,125 +132,52 @@ export const Signup = () => {
             alignItems="center"
             justifyContent="center"
             color="#80807E"
-            isInvalid={false}
             onSubmit={handleSubmit(onSignup)}
           >
             <Image src={logo} h={["150px", "150px", "120px", "140px"]} />
-            <FormLabel
-              textAlign="left"
-              w="100%"
-              paddingLeft="2"
-              fontSize="14px"
-            >
-              Nome de usuário
-            </FormLabel>
-            <InputGroup flexDirection="column">
-              <InputLeftElement>
-                <BsPerson />
-              </InputLeftElement>
-              <Input
-                {...register("username")}
-                marginBottom="0.1"
+
+            <Box w="100%" mt="20px">
+              <InputBase
+                label="Nome de usuário"
                 placeholder="username"
-                _placeholder={"fontSize:18px"}
+                type="username"
+                error={errors.username}
+                icon={BsPerson}
+                {...register("username")}
               />
-              <Text
-                as="p"
-                h="10px"
-                paddingLeft="2"
-                marginBottom="5px"
-                fontSize="xs"
-              >
-                {errors.username?.message}
-              </Text>
-            </InputGroup>
-            <FormLabel
-              textAlign="left"
-              w="100%"
-              paddingLeft="2"
-              fontSize="14px"
-            >
-              Email
-            </FormLabel>
-            <InputGroup flexDirection="column">
-              <InputLeftElement>
-                <HiOutlineMail />
-              </InputLeftElement>
-              <Input
-                {...register("email")}
-                marginBottom="0.1"
+            </Box>
+            <Box w="100%" mt="20px">
+              <InputBase
+                placeholder="Digite seu login"
                 type="email"
-                placeholder="email"
-                _placeholder={"fontSize:18px"}
+                label="Login"
+                error={errors.email}
+                icon={FaEnvelope}
+                {...register("email")}
               />
-              <Text
-                as="p"
-                h="10px"
-                paddingLeft="2"
-                marginBottom="5px"
-                fontSize="xs"
-              >
-                {errors.email?.message}
-              </Text>
-            </InputGroup>
-            <FormLabel
-              textAlign="left"
-              w="100%"
-              paddingLeft="2"
-              fontSize="14px"
-            >
-              Senha
-            </FormLabel>
-            <InputGroup flexDirection="column">
-              <InputLeftElement>
-                <FaRegEyeSlash />
-              </InputLeftElement>
-              <Input
+            </Box>
+
+            <Box w="100%" mt="20px">
+              <InputBase
+                label="Senha"
+                type="password"
+                placeholder="Digite sua Senha"
+                error={errors.password}
+                icon={FaLock}
                 {...register("password")}
-                marginBottom="0.1"
-                type="password"
-                placeholder="password"
-                _placeholder={"fontSize:18px"}
               />
-              <Text
-                as="p"
-                h="10px"
-                paddingLeft="2"
-                marginBottom="5px"
-                fontSize="xs"
-              >
-                {errors.password?.message}
-              </Text>
-            </InputGroup>
-            <FormLabel
-              textAlign="left"
-              w="100%"
-              paddingLeft="2"
-              fontSize="14px"
-            >
-              Confirmar senha
-            </FormLabel>
-            <InputGroup flexDirection="column">
-              <InputLeftElement>
-                <FaRegEyeSlash />
-              </InputLeftElement>
-              <Input
+            </Box>
+
+            <Box w="100%" mt="20px">
+              <InputBase
+                label="Senha"
+                type="password"
+                placeholder="Confirme sua Senha"
+                error={errors.passwordConfirm}
+                icon={FaLock}
                 {...register("passwordConfirm")}
-                marginBottom="0.1"
-                type="password"
-                placeholder="password confirm"
-                _placeholder={"fontSize:18px"}
               />
-              <Text
-                as="p"
-                h="10px"
-                paddingLeft="2"
-                marginBottom="5px"
-                fontSize="xs"
-              >
-                {errors.passwordConfirm?.message}
-              </Text>
-            </InputGroup>
+            </Box>
 
             <Button
               bg={"blue.900"}
@@ -278,11 +209,10 @@ export const Signup = () => {
                   color: "gray.200",
                 }}
               >
-                {" "}
                 Clique aqui!
               </Text>
             </Box>
-          </FormControl>
+          </Grid>
         </Box>
       </Flex>
     </Flex>
