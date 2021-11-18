@@ -153,6 +153,9 @@ const HeaderDashboard = ({
     receiveTotal
   } = useListDashboard();
 
+  console.log(receivedTotal)
+  console.log(spendedTotal)
+
   const { username } = Users();
 
   const Saldo = receivedTotal - spendedTotal;

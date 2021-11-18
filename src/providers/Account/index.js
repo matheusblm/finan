@@ -6,7 +6,7 @@ const AccountContext = createContext()
 
 export const AccountProvider = ({children})=>{
 
-    const [account,setAccount] = useState()
+    const [account,setAccount] = useState([])
 
     const getAccount = (token) => {
         api
