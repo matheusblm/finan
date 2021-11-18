@@ -65,22 +65,26 @@ export const DashboardProvider = ({ children }) => {
     const spendedTotal = newSpended.reduce((acc, bill) => acc + bill.value, 0)
     const receivedTotal = newReceived.reduce((acc, bill) => acc + bill.value, 0)
 
-    const agruparPor = (objetoArray, propriedade) => {
-        return objetoArray.reduce(function (acc, obj) {
+    const groupBy = (objetoArray, propriedade) => {
+        return objetoArray.reduce((acc, obj) => {
             let key = obj[propriedade];
             if (!acc[key]) {
                 acc[key] = [];
             }
-            acc[key].push(obj);
+            acc[key].push(obj.value);
             return acc;
         }, {});
     }
 
-    const arraySpend = agruparPor(newSpend, 'category')
-    console.log(arraySpend)
-    const arrayNameSpend = newSpend.map(item => (
-        item.category
-    ))
+    const arraySpendValue = groupBy(newSpend, 'category')
+
+    for (let n in arraySpendValue) {
+        arraySpendValue[n] = arraySpendValue[n].reduce((a, i) => a + i, 0)
+    }
+
+    const arraySpend = Object.values(arraySpendValue)
+
+    const arrayNameSpend = Object.keys(arraySpendValue)
 
     const handleModalWallet = () => setOpenModalWallet(!openModalWallet)
 
