@@ -1,12 +1,15 @@
 import { useContext, createContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { api } from "../../service/api";
+import { useToast,Box } from "@chakra-ui/react"
 
 const UsersContext = createContext()
 
 export const UserProvider = ({ children }) => {
 
     const history = useHistory()
+
+    const toast = useToast()
 
     const [token, setToken] = useState(localStorage.getItem("@tokenfinan") || "")
 
@@ -24,9 +27,26 @@ export const UserProvider = ({ children }) => {
     const SignUp = (data) => {
         api.post("/signup", data)
             .then(_ => {
+                toast({
+                    
+                    description: "Cadastro realizado com sucesso!",
+                    status: "success",
+                    duration: 1800,
+                    isClosable: true,
+                    position: "top",
+                    
+                })
                 history.push("/login")
             })
             .catch(resp => {
+                toast({
+                    title: "Falha no cadastro",
+                    description: "E-mail já cadastrado",
+                    status: "error",
+                    duration: 1800,
+                    isClosable: true,
+                    position: "top",
+                  })
                 setErrorSign(resp.message)
             })
     }
@@ -50,6 +70,14 @@ export const UserProvider = ({ children }) => {
                 history.push("/dashboard")
             })
             .catch(resp => {
+                toast({
+                    title: "Falha ao logar",
+                    description: "E-mail / Senha inválidos",
+                    status: "error",
+                    duration: 1800,
+                    isClosable: true,
+                    position: "top",
+                  })
                 setErrorLogin(resp.message)
             })
     }

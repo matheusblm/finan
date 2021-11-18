@@ -37,15 +37,11 @@ export const Signup = () => {
   const schema = yup.object().shape({
     username: yup.string().required("Item obrigatório"),
     email: yup.string().required("Item obrigatório"),
-    password: yup.string().required("Item obrigatório"),
-    // .matches(
-    //   /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-    //   "Senha deve ter letras maíuscula, mínuscula, numero e caracter"
-    // ),
+    password: yup.string().required("Item obrigatório").min(6, "Senha deve ter no mínimo de 6 dígitos*"),
     passwordConfirm: yup
       .string()
       .required("Item obrigatório")
-      .oneOf([yup.ref("password")], "senha incorreta"),
+      .oneOf([yup.ref("password")], "senha não confere com a criada acima"),
   });
 
   const {
