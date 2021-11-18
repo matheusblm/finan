@@ -54,6 +54,7 @@ export const DashboardProvider = ({ children }) => {
     const arraySpend = newSpend.map(item => (
         item.value
     ))
+
     const arrayNameSpend = newSpend.map(item => (
         item.category
     ))

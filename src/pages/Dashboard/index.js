@@ -21,6 +21,8 @@ import {
   FaReceipt,
   FaFileInvoiceDollar,
   FaExclamationCircle,
+  FaPlusSquare,
+  FaTimes,
 } from "react-icons/fa";
 import { ModalCreateRecive } from "../../components/ModalCreateRecive";
 import { ModalCreateSpend } from "../../components/ModalCreateSpend";
@@ -282,7 +284,10 @@ const WalletDashboard = () => {
     <Stack w="100%" p={4} spacing={2}>
       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
         <Text fontSize={{ md: "2xl", base: "sm" }}>Carteira: </Text>
-        <Icon as={FaWallet} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
+        <HStack spacing={8}>
+          <Icon as={FaPlusSquare} my={2} fontSize={{ lg: "2xl", md: "xl", base: "lg" }} color="green" />
+          <Icon as={FaWallet} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
+        </HStack>
       </Flex>
       {
         false ? (
@@ -492,6 +497,7 @@ const BillsToPay = () => {
                 editSpend(item.id, token)
                 getAllSpend()
               }} />
+              <Icon as={FaTimes} my={2} fontSize={{ lg: "md", md: "sm", base: "xs" }} color="red" />
             </HStack>
           </Flex>
         ))
@@ -551,6 +557,7 @@ const BillsToReceive = () => {
                 editReceive(item.id, token)
                 getAllReceive()
               }} />
+              <Icon as={FaTimes} my={2} fontSize={{ lg: "md", md: "sm", base: "xs" }} color="red" />
             </HStack>
           </Flex>
         ))
