@@ -26,6 +26,7 @@ import Header from "../../components/Header";
 import { useLimits } from '../../providers/Limits';
 import { Users } from "../../providers/Users";
 import { formatValue } from "../../utils/formatValue";
+import { useState } from "react";
 
 const SpendLimit = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,8 +40,6 @@ const SpendLimit = () => {
   }
 
   const { alimentacao, assinaturas, bares, casa, educacao, familia, impostos, lazer, outros, roupas, transportes } = limits;
-
-  // const renderbars = ["alimentacao", "assinaturas", "bares", "casa", "educacao", "familia", "impostos", "lazer", "outros", "roupas", "transportes"]
 
   const filterLimits = (category) => userSpends.filter((spend) => spend.category === category)
 
@@ -70,7 +69,23 @@ const SpendLimit = () => {
   const reduceRoupas = spendReduce(filteredRoupas)
   const reduceTransportes = spendReduce(filteredTransportes)
 
+  const [drawerFood, setDrawerFood] = useState(false);
+  const [drawerAssinaturas, setDrawerAssinaturas] = useState(false);
+  const [drawerBares, setDrawerBares] = useState(false);
+  const [drawerEducacao, setDrawerEducacao] = useState(false);
+  const [drawerFamilia, setDrawerFamilia] = useState(false);
+  const [drawerImpostos, setDrawerImpostos] = useState(false);
+  const [drawerCasa, setDrawerCasa] = useState(false);
+  const [drawerLazer, setDrawerLazer] = useState(false);
+  const [drawerOutros, setDrawerOutros] = useState(false);
+  const [drawerRoupas, setDrawerRoupas] = useState(false);
+  const [drawerTransportes, setDrawerTransportes] = useState(false);
 
+
+  const handleDrawer = (setDrawer) => {
+    setDrawer(true);
+    onOpen()
+  }
 
   return (
     <>
@@ -101,7 +116,7 @@ const SpendLimit = () => {
               justifyContent="center"
               w="100%"
             >
-              <Text fontSize="20px">Despesas</Text>
+              <Text fontSize="20px" fontWeight="extrabold" >Despesas</Text>
               <Text alignSelf="flex-end">{formatValue(totalSpends)} - {formatValue(totalLimit)}</Text>
             </Flex>
             <Progress
@@ -142,8 +157,11 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={onOpen} w="12px" />
-            <Menu isOpen={isOpen} onClose={onClose} categoryName="alimentacao" />
+            <FaPlus onClick={() => { handleDrawer(setDrawerFood) }} w="12px" />
+            {drawerFood ?
+              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerFood} categoryName="alimentacao" />
+              : ""}
+
           </Flex>
           {/* Assinaturas */}
           <Flex
@@ -176,8 +194,10 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={onOpen} w="12px" />
-            <Menu isOpen={isOpen} onClose={onClose} categoryName="assinaturas" />
+            <FaPlus onClick={() => { handleDrawer(setDrawerAssinaturas) }} w="12px" />
+            {drawerAssinaturas ?
+              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerAssinaturas} categoryName="assinaturas" />
+              : ""}
           </Flex>
           {/* Bares */}
           <Flex
@@ -210,8 +230,10 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={onOpen} w="12px" />
-            <Menu isOpen={isOpen} onClose={onClose} categoryName="bares" />
+            <FaPlus onClick={() => { handleDrawer(setDrawerBares) }} w="12px" />
+            {drawerBares ?
+              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerBares} categoryName="bares" />
+              : ""}
           </Flex>
           {/* Casa */}
           <Flex
@@ -244,8 +266,10 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={onOpen} w="12px" />
-            <Menu isOpen={isOpen} onClose={onClose} categoryName="casa" />
+            <FaPlus onClick={() => { handleDrawer(setDrawerCasa) }} w="12px" />
+            {drawerCasa ?
+              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerCasa} categoryName="casa" />
+              : ""}
           </Flex>
           {/* Educação */}
           <Flex
@@ -278,8 +302,10 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={onOpen} w="12px" />
-            <Menu isOpen={isOpen} onClose={onClose} categoryName="educacao" />
+            <FaPlus onClick={() => { handleDrawer(setDrawerEducacao) }} w="12px" />
+            {drawerEducacao ?
+              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerEducacao} categoryName="educacao" />
+              : ""}
           </Flex>
           {/* Familia */}
           <Flex
@@ -312,8 +338,10 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={onOpen} w="12px" />
-            <Menu isOpen={isOpen} onClose={onClose} categoryName="familia" />
+            <FaPlus onClick={() => { handleDrawer(setDrawerFamilia) }} w="12px" />
+            {drawerFamilia ?
+              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerFamilia} categoryName="familia" />
+              : ""}
           </Flex>
           {/* Impostos */}
           <Flex
@@ -346,8 +374,10 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={onOpen} w="12px" />
-            <Menu isOpen={isOpen} onClose={onClose} categoryName="impostos" />
+            <FaPlus onClick={() => { handleDrawer(setDrawerImpostos) }} w="12px" />
+            {drawerImpostos ?
+              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerImpostos} categoryName="impostos" />
+              : ""}
           </Flex>
           {/* Lazer */}
           <Flex
@@ -380,8 +410,10 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={onOpen} w="12px" />
-            <Menu isOpen={isOpen} onClose={onClose} categoryName="lazer" />
+            <FaPlus onClick={() => { handleDrawer(setDrawerLazer) }} w="12px" />
+            {drawerLazer ?
+              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerLazer} categoryName="lazer" />
+              : ""}
           </Flex>
           {/* Roupas */}
           <Flex
@@ -414,8 +446,10 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={onOpen} w="12px" />
-            <Menu isOpen={isOpen} onClose={onClose} categoryName="roupas" />
+            <FaPlus onClick={() => { handleDrawer(setDrawerRoupas) }} w="12px" />
+            {drawerRoupas ?
+              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerRoupas} categoryName="roupas" />
+              : ""}
           </Flex>
           {/* Transportes */}
           <Flex
@@ -448,8 +482,10 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={onOpen} w="12px" />
-            <Menu isOpen={isOpen} onClose={onClose} categoryName="transportes" />
+            <FaPlus onClick={() => { handleDrawer(setDrawerTransportes) }} w="12px" />
+            {drawerTransportes ?
+              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerTransportes} categoryName="transportes" />
+              : ""}
           </Flex>
           {/* Outros */}
           <Flex
@@ -482,8 +518,10 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={onOpen} w="12px" />
-            <Menu isOpen={isOpen} onClose={onClose} categoryName="outros" />
+            <FaPlus onClick={() => { handleDrawer(setDrawerOutros) }} w="12px" />
+            {drawerOutros ?
+              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerOutros} categoryName="outros" />
+              : ""}
           </Flex>
 
         </Stack>

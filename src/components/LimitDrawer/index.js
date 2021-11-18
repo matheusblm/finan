@@ -13,9 +13,9 @@ import { useForm } from "react-hook-form";
 import { useLimits } from "../../providers/Limits";
 import { Users } from "../../providers/Users";
 
-export const Menu = ({ isOpen, onClose, categoryName }) => {
+export const Menu = ({ isOpen, onClose, categoryName, setDrawer }) => {
 
-    const { changeLimit } = useLimits();
+    const { changeLimit, getTotalValueLimit } = useLimits();
 
     const { limits } = Users()
 
@@ -29,8 +29,9 @@ export const Menu = ({ isOpen, onClose, categoryName }) => {
                 newLimits[0][key] = Object.values(data)[0]
             }
         }
-        console.log(newLimits);
-        changeLimit(newLimits)
+        changeLimit(newLimits);
+        getTotalValueLimit();
+        setDrawer(false)
         onClose()
 
     }

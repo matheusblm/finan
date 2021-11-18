@@ -37,7 +37,9 @@ export const UserProvider = ({ children }) => {
         api.post("/login", data)
             .then(resp => {
 
-                setLimits(resp.data.user.limits)
+                // setLimits(resp.data.user.limits)
+
+                console.log(resp.data.user.limits);
 
                 localStorage.setItem("limits", JSON.stringify(resp.data.user.limits[0]))
 
