@@ -153,6 +153,9 @@ const HeaderDashboard = ({
     receiveTotal
   } = useListDashboard();
 
+  console.log(receivedTotal)
+  console.log(spendedTotal)
+
   const { username } = Users();
 
   const Saldo = receivedTotal - spendedTotal;
@@ -179,7 +182,7 @@ const HeaderDashboard = ({
               Receita Mensal:
             </Text>
             <Text color="green" fontSize="sm">
-              {formatValue(receiveTotal)}
+              {formatValue(receivedTotal)}
             </Text>
           </Stack>
           <Stack bg="white" borderRadius="lg" py={2} px={6} m={2}>
@@ -187,7 +190,7 @@ const HeaderDashboard = ({
               Despesa Mensal:
             </Text>
             <Text color="red.300" fontSize="sm">
-              {formatValue(spendTotal)}
+              {formatValue(spendedTotal)}
             </Text>
           </Stack>
         </Flex>
