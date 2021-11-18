@@ -51,8 +51,12 @@ export const DashboardProvider = ({ children }) => {
     const spendedTotal = newSpended.reduce((acc, bill) => acc + bill.value, 0)
     const receivedTotal = newReceived.reduce((acc, bill) => acc + bill.value, 0)
 
-    const arraySpend = newSpend.map(item => item.value)
-    const arrayNameSpend = newSpend.map(item => item.category)
+    const arraySpend = newSpend.map(item => (
+        item.value
+    ))
+    const arrayNameSpend = newSpend.map(item => (
+        item.category
+    ))
 
     useEffect(() => {
         getAllReceive()

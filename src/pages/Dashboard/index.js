@@ -477,10 +477,10 @@ const BillsToPay = () => {
                   {item.account}
                 </Text>
                 <Text
-                  display={["none", "none", "none", "block"]}
+                  display={["none", "none", "block", "block"]}
                   fontSize={{ md: "sm", lg: "md" }}
                 >
-                  {item.date}
+                  {item.data}
                 </Text>
               </Stack>
             </HStack>
