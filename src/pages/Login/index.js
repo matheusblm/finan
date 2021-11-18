@@ -23,9 +23,9 @@ import logo from "../../assets/logo1.svg";
 import Lottie from "react-lottie";
 import animationData from "../../animations/animate-login.json";
 import { useState } from "react";
+import { FaLinkedin } from "react-icons/fa";
 
 export const Login = () => {
-  
   const history = useHistory();
 
   const { token, errorLogin, Login } = Users();
@@ -83,9 +83,7 @@ export const Login = () => {
         justifyContent="center"
         alignItems="flex-end"
         color="whiteAlpha.900"
-        borderRadius={["0px", "0px", "30px"]}
         overflow="hidden"
-        boxShadow="xl"
       >
         <Box
           bg={["#FEFEFE", "#FEFEFE", "#FEFEFE"]}
@@ -205,8 +203,8 @@ export const Login = () => {
               </Text>
             </Box>
           </FormControl>
-        </Box>     
-           <Flex
+        </Box>
+        <Flex
           bg="#9BADD0"
           w={["0%", "50%", "50%"]}
           h="100%"

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/core": "^0.8.0",
+    "@chakra-ui/icons": "^1.1.1",
     "@chakra-ui/react": "^1.6.12",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
@@ -29,6 +30,7 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "4.0.3",
     "react-slick": "^0.28.1",
+    "react-wavify": "^1.5.4",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.3",
     "web-vitals": "^1.0.1",
