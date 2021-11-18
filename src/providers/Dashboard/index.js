@@ -14,7 +14,6 @@ export const DashboardProvider = ({ children }) => {
 
     const getAllReceive = () => {
 
-        console.log("dados provider Dash", token, id)
         api
             .get(`/receive/?userId=${id}`, {
                 headers: {
