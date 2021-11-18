@@ -2,17 +2,16 @@ import logo from "../../assets/logo.png";
 import pizza from "../../assets/grafico-de-pizza 1.png";
 import phone from "../../assets/mockupIphone.png";
 import mobile from "../../assets/Mobile-Dash-page.jpg";
-
 import { Flex, Center, Box, Image, Heading, Button } from "@chakra-ui/react";
 import { HStack, Text, VStack } from "@chakra-ui/layout";
-
 import { FaLinkedin } from "react-icons/fa";
-
 import Wave from "react-wavify";
 import ChakraCarousel from "../../components/ChakraCarrousel";
 import { StarIcon } from "@chakra-ui/icons";
+import { useHistory } from "react-router-dom";
 
 const Initial = () => {
+  const history = useHistory();
   const team = [
     {
       nome: "Matheus Bueno",
@@ -119,6 +118,7 @@ const Initial = () => {
             type="submit"
             transition="0.5s"
             _hover={{ bg: "#1A1F22" }}
+            onClick={() => history.push("/register")}
           >
             começar agora!
           </Button>
