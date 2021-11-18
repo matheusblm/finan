@@ -6,6 +6,7 @@ export const DashboardContext = createContext({});
 export const DashboardProvider = ({ children }) => {
     const [receive, setReceive] = useState([]);
     const [spend, setSpend] = useState([]);
+    const [openModalWallet, setOpenModalWallet] = useState(false)
 
     const token = localStorage.getItem("@tokenfinan") || ""
 
@@ -64,8 +65,15 @@ export const DashboardProvider = ({ children }) => {
     const spendedTotal = newSpended.reduce((acc, bill) => acc + bill.value, 0)
     const receivedTotal = newReceived.reduce((acc, bill) => acc + bill.value, 0)
 
-    const arraySpend = newSpend.map(item => item.value)
-    const arrayNameSpend = newSpend.map(item => item.category)
+    const arraySpend = newSpend.map(item => (
+        item.value
+    ))
+
+    const arrayNameSpend = newSpend.map(item => (
+        item.category
+    ))
+
+    const handleModalWallet = () => setOpenModalWallet(!openModalWallet)
 
     useEffect(() => {
         getAllReceive()
@@ -75,7 +83,7 @@ export const DashboardProvider = ({ children }) => {
 
     return (
         <DashboardContext.Provider value={{
-            newReceive, receivedTotal, spendedTotal, newSpend, spendTotal, receiveTotal, arraySpend, arrayNameSpend, getAllReceive, getAllSpend
+            newReceive, receivedTotal, spendedTotal, newSpend, spendTotal, receiveTotal, arraySpend, arrayNameSpend, getAllReceive, getAllSpend, openModalWallet, handleModalWallet
         }}>
             {children}
         </DashboardContext.Provider>
