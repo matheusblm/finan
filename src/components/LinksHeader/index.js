@@ -6,7 +6,7 @@ import { Users } from '../../providers/Users';
 export const LinkDesktop = () => {
   const history = useHistory();
   const local = history.location.pathname;
-  console.log(local);
+  // console.log(local);
   return (
     <Flex
       justifyContent="space-evenly"

@@ -69,10 +69,10 @@ export const ReceiveProvider = ({ children }) => {
   //Filtrar por mes escolhido pelo usuário
   const filterMonthReceived = (mes, ano) => {
     const filterPorAnoReceive = received.filter(
-      (item) => item.data.split("-")[0] === ano && item.type === true
+      (item) => item.data.split("-")[0] === new Date().getFullYear() && item.type === true
     );
     const filterPorMesReceive = filterPorAnoReceive.filter(
-      (item) => item.data.split("-")[0] === ano && item.type === true
+      (item) => item.data.split("-")[0] === new Date().getMonth() +1 && item.type === true
     );
     setFilterPorMesReceive(filterPorMesReceive);
   };
@@ -98,6 +98,7 @@ export const ReceiveProvider = ({ children }) => {
 
 
   const lancReceive = (data, token) => {
+    console.log(data)
     api
       .post(`/receive`, data, {
         headers: {
