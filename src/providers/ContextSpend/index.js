@@ -61,6 +61,7 @@ export const SpendProvider = ({ children }) => {
       .catch((resp) => console.log(resp));
   };
 
+
   // const newSpendAll = allSpends.filter((item) => item.type === false);
   // const newSpendedAll = allSpends.filter((item) => item.type === true);
 
@@ -114,6 +115,18 @@ export const SpendProvider = ({ children }) => {
 
   const arrayNameSpend = Object.keys(arraySpendValue);
 
+  const deleteSpend = (idSpend,token)=>{
+    api.delete(`/spend/${idSpend}`,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(resp=>console.log(resp))
+    .catch(err=>console.log(err))
+  }
+
+
+
   return (
     <SpendContext.Provider
       value={{
@@ -130,6 +143,7 @@ export const SpendProvider = ({ children }) => {
         spendTotal,
         arraySpend,
         arrayNameSpend,
+        deleteSpend
       }}
     >
       {children}

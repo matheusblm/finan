@@ -38,8 +38,8 @@ export const Menu = ({ isOpen, onClose, categoryName, setDrawer }) => {
 
     return (
         <Drawer placement="top" onClose={onClose} isOpen={isOpen}>
-            <DrawerOverlay mt={["13vh", "8vh"]} />
-            <DrawerContent ml="auto" mt="80px" w={["450px", "350px"]}>
+            <DrawerOverlay mt={["0vh", "0vh"]} />
+            <DrawerContent ml="auto" mt="80px" mr={["auto", "14px"]} w={["280px", "350px"]}>
                 <DrawerHeader
 
                     borderBottomWidth="1px"
@@ -54,7 +54,7 @@ export const Menu = ({ isOpen, onClose, categoryName, setDrawer }) => {
                 >
                     <Input as="input" placeholder='Novo valor' fontWeight='bold' color='black' type="number" {...register(categoryName, {
                         valueAsNumber: true,
-                    })} margin="20px" />
+                    })} mb="20px" />
                     <Flex align="center" justifyContent='flex-end' _hover={{ cursor: "pointer" }}>
                         <Button backgroundColor='blue' color='white' type="submit"  >Ok</Button>
                     </Flex>

@@ -60,9 +60,13 @@ export const LimitsProvider = ({ children }) => {
 
 
     useEffect(() => {
-        getSpend()
-        spendsReduce()
-        getTotalValueLimit()
+        if (localStorage.getItem('@tokenfinan') && localStorage.getItem('idfinan')) {
+            getSpend()
+            spendsReduce()
+            getTotalValueLimit()
+        } else {
+            console.log("erro");
+        }
     }, [])
 
     return (

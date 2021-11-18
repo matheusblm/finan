@@ -1,5 +1,4 @@
 import { useContext,createContext,useState, useEffect } from "react";
-import { useSpend } from "../ContextSpend";
 import { api } from "../../service/api";
 
 const AccountContext = createContext()
@@ -8,22 +7,29 @@ export const AccountProvider = ({children})=>{
 
     const [account,setAccount] = useState([])
 
-    const getAccount = (token) => {
+    const userId = Number(localStorage.getItem("idfinan")) || ""
+
+    const token = localStorage.getItem("@tokenfinan") || ""
+
+    const getAccount = () => {
+
+      console.log("id",userId)
+      console.log("token",token)
         api
-        .get("/account", {
+        .get(`/account?userId=${userId}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           })
-          .then(resp=>setAccount(resp.data))
+          .then(resp=> resp.data.length !== 0 && setAccount(resp.data))
           .catch(erro=>console.log(erro))
     }
 
-    useEffect(()=>
-        getAccount()
-    ,[])
+    // useEffect(()=>
+    //      getAccount()
+    //  ,[])
 
-    const wallet = account.reduce((acc,elem)=>acc+elem.saldo,0)
+    //const wallet = account.reduce((acc,elem)=>acc+elem.saldo,0)
 
     const letAccount = (data,token)=>{
         api.post("/account",data, {
@@ -31,12 +37,12 @@ export const AccountProvider = ({children})=>{
               Authorization: `Bearer ${token}`,
             },
           })
-          .then(resp=>console.log(resp))
+          .then(resp=>console.log(resp.data))
           .catch(error=>console.log(error))
     }
 
-    const editAccountSaldo = (idaccount,token)=>{
-        api.patch(`/account${idaccount}`, {
+    const editAccountSaldo = (idAccount)=>{
+        api.patch(`/account${idAccount}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -45,9 +51,20 @@ export const AccountProvider = ({children})=>{
           .catch(error=>console.log(error))
     }
 
+    const deleteAccount = (idAccount,token)=>{
+      api.delete(`/account${idAccount}`,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(resp=>console.log(resp))
+      .catch(err=>console.log(err))
+    }
+    
+
 
     return (
-        <AccountContext.Provider value={{wallet,letAccount,editAccountSaldo}}>
+        <AccountContext.Provider value={{account,getAccount,letAccount,editAccountSaldo,deleteAccount}}>
             {children}
         </AccountContext.Provider>
     )

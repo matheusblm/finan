@@ -94,6 +94,17 @@ export const ReceiveProvider = ({ children }) => {
   const receivedTotal = newReceived.reduce((acc, bill) => acc + bill.value, 0);
   const handleModalWallet = () => setOpenModalWallet(!openModalWallet);
 
+  const deleteReceive = (idReceive,token)=>{
+    api.delete(`/receive/${idReceive}`,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(resp=>console.log(resp))
+    .catch(err=>console.log(err))
+  }
+
+
   return (
     <ReceivesContext.Provider
       value={{
@@ -110,6 +121,7 @@ export const ReceiveProvider = ({ children }) => {
         receiveTotal,
         openModalWallet,
         handleModalWallet,
+        deleteReceive
       }}
     >
       {children}

@@ -15,7 +15,9 @@ import { InputTeste } from "../../components/Input";
 
 export const Login = () => {
   const history = useHistory();
+
   const { Login } = Users();
+
 
   const schema = yup.object().shape({
     email: yup.string().required("Item obrigatório"),
