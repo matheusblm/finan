@@ -4,16 +4,19 @@ import { theme } from "../style/theme";
 import { DashboardProvider } from "./Dashboard";
 import { ReceiveProvider } from "./ContextReceives";
 import { SpendProvider } from "./ContextSpend";
+import { AccountProvider } from "./Account";
 
 const AppProvider = ({ children }) => (
   <ChakraProvider theme={theme}>
-    <ReceiveProvider>
-      <UserProvider>
-        <DashboardProvider>
-          <SpendProvider>{children}</SpendProvider>
-        </DashboardProvider>
-      </UserProvider>
-    </ReceiveProvider>
+    <AccountProvider>
+      <ReceiveProvider>
+        <UserProvider>
+          <DashboardProvider>
+            <SpendProvider>{children}</SpendProvider>
+          </DashboardProvider>
+        </UserProvider>
+      </ReceiveProvider>
+    </AccountProvider>
   </ChakraProvider>
 );
 
