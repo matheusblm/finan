@@ -78,8 +78,8 @@ export const DashboardProvider = ({ children }) => {
 
     const arraySpendValue = groupBy(newSpend, 'category')
 
-    for (let n in arraySpendValue) {
-        arraySpendValue[n] = arraySpendValue[n].reduce((a, i) => a + i, 0)
+    for (let value in arraySpendValue) {
+        arraySpendValue[value] = arraySpendValue[value].reduce((acc, val) => acc + val, 0)
     }
 
     const arraySpend = Object.values(arraySpendValue)
