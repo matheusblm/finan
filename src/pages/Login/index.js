@@ -23,9 +23,9 @@ import logo from "../../assets/logo1.svg";
 import Lottie from "react-lottie";
 import animationData from "../../animations/animate-login.json";
 import { useState } from "react";
+import { FaLinkedin } from "react-icons/fa";
 
 export const Login = () => {
-  
   const history = useHistory();
 
   const { token, errorLogin, Login } = Users();
@@ -83,9 +83,8 @@ export const Login = () => {
         justifyContent="center"
         alignItems="flex-end"
         color="whiteAlpha.900"
-        borderRadius={["0px", "0px", "30px"]}
+        borderRadius="20px"
         overflow="hidden"
-        boxShadow="xl"
       >
         <Box
           bg={["#FEFEFE", "#FEFEFE", "#FEFEFE"]}
@@ -205,9 +204,9 @@ export const Login = () => {
               </Text>
             </Box>
           </FormControl>
-        </Box>     
-           <Flex
-          bg="#9BADD0"
+        </Box>
+        <Flex
+         bgGradient="linear(to-l, blue.500, gray.100)"
           w={["0%", "50%", "50%"]}
           h="100%"
           as="div"
@@ -215,8 +214,9 @@ export const Login = () => {
           alignItems="center"
         >
           <Flex
-            w="75%"
-            h="75%"
+            w="88%"
+            h={["40%","45%","68%"]}
+            maxW="480px"
             borderRadius="50%"
             bg="#FEFEFE"
             alignItems="center"
@@ -224,8 +224,10 @@ export const Login = () => {
             justifyContent="center"
           >
             <Flex
-              height={["30%", "50%", "80%", "85%"]}
-              width={["30%", "70%", "80%", "70%"]}
+              height={["30%", "200px", "215px", "85%"]}
+              width={["30%", "180px", "185px", "70%"]}
+              maxH="380px"
+              maxW="336px"
             >
               <Lottie
                 options={defaultOptions}
@@ -234,11 +236,6 @@ export const Login = () => {
                 isPaused={animationState.isPaused}
               />
             </Flex>
-
-            {/* <Image
-              src="https://s3-alpha-sig.figma.com/img/6bd4/c077/3073998c6d775893db11cffa4edbdc31?Expires=1637539200&Signature=A-zmXARI16HBl5eQt0M0xxvXTi2xhr9~DP6NaPvXWBtusfd6MdTjIcP1R0PSDjVJFRSOHxlpP~WpLR34Pe4xLqNuwfbd~5FM2M5rjAesz7hHyvrInAQu3B~4rUzl3XlOSciVj4C6kTx-DP5Pp8O3z5W4BHvwH~~fiiGleZu2DyYqL3SYJgtPgaN0yNW1zrp3e5SgSHEncnxrEgKc7u8~F0nnG~PxdqTRuW280czqiDIO~plECw01PnbFFRKFDMA7FveTKUPYEZGvnLi9rhBamlaoWONMyyyutuan60OFp9TL2o5rKVNH-FikwnUAwrI1Y24HjqyIii66JwMBIVUsFw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-              
-            /> */}
           </Flex>
         </Flex>
       </Flex>

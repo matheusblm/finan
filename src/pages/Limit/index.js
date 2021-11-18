@@ -23,9 +23,26 @@ import {
 } from "react-icons/fa";
 import { Menu } from "../../components/LimitDrawer";
 import Header from "../../components/Header";
+import { useLimits } from '../../providers/Limits';
 
 const SpendLimit = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { totalSpends, userSpends, limits, totalLimit } = useLimits();
+
+  const progressValue = (spend, limit) => {
+    return spend / limit
+  }
+
+  const { alimentacao, assinaturas, bares, casa, educacao, familia, impostos, lazer, outros, roupas, transportes } = limits;
+
+  // console.log(userSpends);
+
+  const filtered = userSpends.filter((spend) => {
+    return spend.category
+  })
+
+  console.log(filtered);
 
   return (
     <>
@@ -33,7 +50,6 @@ const SpendLimit = () => {
       <Flex
         w="100%"
         h="100%"
-        backgroundColor="#e5e5e5"
         justifyContent="space-evenly"
         alignItems="center"
       >
@@ -57,10 +73,10 @@ const SpendLimit = () => {
               w="100%"
             >
               <Text fontSize="20px">Despesas</Text>
-              <Text alignSelf="flex-end">20,00 - 1.000,00</Text>
+              <Text alignSelf="flex-end">{totalSpends}.00 - {totalLimit}.00</Text>
             </Flex>
             <Progress
-              value={2}
+              value={progressValue(totalSpends, totalLimit)}
               colorScheme="green"
               borderRadius="8px"
               height="28.78px"
@@ -85,7 +101,7 @@ const SpendLimit = () => {
             <Flex w="252px" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Alimentação</Text>
-                <Text fontSize="13px">20,00 - 100,00</Text>
+                <Text fontSize="13px">20,00 - {alimentacao || 0.00}</Text>
               </Flex>
               <Box w="100%">
                 <Progress

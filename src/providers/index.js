@@ -5,18 +5,21 @@ import { DashboardProvider } from "./Dashboard";
 import { ReceiveProvider } from "./ContextReceives";
 import { SpendProvider } from "./ContextSpend";
 import { AccountProvider } from "./Account";
+import { LimitsProvider } from "./Limits";
 
 const AppProvider = ({ children }) => (
   <ChakraProvider theme={theme}>
-    <AccountProvider>
-      <ReceiveProvider>
-        <UserProvider>
-          <DashboardProvider>
+    <ReceiveProvider>
+  <AccountProvider>
+      <UserProvider>
+        <DashboardProvider>
+          <LimitsProvider>
             <SpendProvider>{children}</SpendProvider>
-          </DashboardProvider>
-        </UserProvider>
-      </ReceiveProvider>
-    </AccountProvider>
+          </LimitsProvider>
+        </DashboardProvider>
+      </UserProvider>
+   </AccountProvider>
+    </ReceiveProvider>
   </ChakraProvider>
 );
 

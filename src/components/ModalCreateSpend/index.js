@@ -51,7 +51,6 @@ export const ModalCreateSpend = ({ isOpen, onClose }) => {
     resolver: yupResolver(createTaskSchema),
   });
 
-
   const handleCreateEntry = ({ account, description, value: v, data, category }) => {
     const value = Number(v)
     const type = false

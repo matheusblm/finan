@@ -13,7 +13,7 @@ import { FiLogOut } from "react-icons/fi";
 import { Users } from '../../providers/Users'
 export const LogoutDrawer = ({ isOpen, onClose }) => {
 
-    const { Logout } = Users();
+    const { Logout, username } = Users();
 
     return (
         <Drawer placement="top" onClose={onClose} isOpen={isOpen}>
@@ -24,7 +24,7 @@ export const LogoutDrawer = ({ isOpen, onClose }) => {
                     borderColor="gray.50"
                     color="gray.600"
                 >
-                    NomeDoUsuario
+                    {username}
                 </DrawerHeader>
                 <DrawerBody onClick={() => Logout()} >
                     <Flex align="center" _hover={{ cursor: "pointer" }}>
