@@ -26,7 +26,7 @@ import { FaArrowLeft, FaEnvelope } from "react-icons/fa";
 
 import { Users } from "../../providers/Users";
 
-import { InputBase } from "../../components/Input";
+import { InputTeste } from "../../components/Input";
 
 import Gif from "../../assets/signupimg/Personal finance-pana.png";
 import logo from "../../assets/logo1.svg";
@@ -38,7 +38,7 @@ export const Signup = () => {
 
   const schema = yup.object().shape({
     username: yup.string().required("Item obrigatório"),
-    email: yup.string().required("Item obrigatório"),
+    email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
     password: yup.string().required("Item obrigatório"),
     // .matches(
     //   /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
@@ -47,7 +47,7 @@ export const Signup = () => {
     passwordConfirm: yup
       .string()
       .required("Item obrigatório")
-      .oneOf([yup.ref("password")], "senha incorreta"),
+      .oneOf([yup.ref("password")], "As senhas nao combinam!"),
   });
 
   const {
@@ -137,7 +137,7 @@ export const Signup = () => {
             <Image src={logo} h={["150px", "150px", "120px", "140px"]} />
 
             <Box w="100%" mt="20px">
-              <InputBase
+              <InputTeste
                 label="Nome de usuário"
                 placeholder="username"
                 type="username"
@@ -147,7 +147,7 @@ export const Signup = () => {
               />
             </Box>
             <Box w="100%" mt="20px">
-              <InputBase
+              <InputTeste
                 placeholder="Digite seu login"
                 type="email"
                 label="Login"
@@ -158,7 +158,7 @@ export const Signup = () => {
             </Box>
 
             <Box w="100%" mt="20px">
-              <InputBase
+              <InputTeste
                 label="Senha"
                 type="password"
                 placeholder="Digite sua Senha"
@@ -169,7 +169,7 @@ export const Signup = () => {
             </Box>
 
             <Box w="100%" mt="20px">
-              <InputBase
+              <InputTeste
                 label="Senha"
                 type="password"
                 placeholder="Confirme sua Senha"

@@ -11,7 +11,7 @@ import logo from "../../assets/logo1.svg";
 import Lottie from "react-lottie";
 import animationData from "../../animations/animate-login.json";
 import { useState } from "react";
-import { InputBase } from "../../components/Input";
+import { InputTeste } from "../../components/Input";
 
 export const Login = () => {
   const history = useHistory();
@@ -99,7 +99,7 @@ export const Login = () => {
               <Image h={["150px", "150px", "120px", "140px"]} src={logo} />
             </Flex>
             <Box w="100%">
-              <InputBase
+              <InputTeste
                 placeholder="Digite seu login"
                 type="email"
                 label="Login"
@@ -109,7 +109,7 @@ export const Login = () => {
               />
             </Box>
             <Box w="100%" mt="20px">
-              <InputBase
+              <InputTeste
                 label="Senha"
                 type="password"
                 placeholder="Digite sua Senha"

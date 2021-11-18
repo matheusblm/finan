@@ -4,12 +4,13 @@ import {
   FormLabel,
 } from "@chakra-ui/form-control";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import {
   Input as ChakraInput,
   InputLeftElement,
   InputGroup,
 } from "@chakra-ui/input";
+import { forwardRef } from "react";
 
 const inputVariantion = {
   error: "red.300",
@@ -18,12 +19,11 @@ const inputVariantion = {
   filled: "green.300",
 };
 
-export const InputBase = ({ name, error, icon: Icon, label, ...rest }, ref) => {
+const InputBase = ({ name, error = null, icon: Icon, label, ...rest }, ref) => {
   const [variation, setVariation] = useState("default");
   const [value, setValue] = useState("");
 
   useEffect(() => {
-    console.log(error);
     if (error) {
       setVariation("error");
     }
@@ -63,6 +63,7 @@ export const InputBase = ({ name, error, icon: Icon, label, ...rest }, ref) => {
           _placeholder={{ color: "gray.300" }}
           size="lg"
           h="40px"
+          ref={ref}
           {...rest}
           _focus={{
             bg: "gray.100",
@@ -73,3 +74,5 @@ export const InputBase = ({ name, error, icon: Icon, label, ...rest }, ref) => {
     </FormControl>
   );
 };
+
+export const InputTeste = forwardRef(InputBase);
