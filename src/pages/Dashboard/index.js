@@ -39,9 +39,11 @@ import Header from "../../components/Header";
 import { useReceive } from "../../providers/ContextReceives";
 import { useSpend } from "../../providers/ContextSpend";
 import { Users } from "../../providers/Users";
+import { Account } from "../../providers/Account";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 
 
@@ -166,9 +168,6 @@ const HeaderDashboard = ({
     spendTotal,
     receiveTotal
   } = useListDashboard();
-
-  console.log(receivedTotal)
-  console.log(spendedTotal)
 
   const { username } = Users();
 
@@ -295,7 +294,14 @@ const HeaderDashboard = ({
 };
 
 const WalletDashboard = () => {
+
   const { openModalWallet, handleModalWallet } = useListDashboard()
+
+  const {id,token} = Users()
+
+  const {account,getAccount,editAccountSaldo} = Account()
+
+  useEffect(()=>getAccount(),[])
 
   return (
     <Stack w="100%" p={4} spacing={2}>
@@ -308,36 +314,65 @@ const WalletDashboard = () => {
           <Icon as={FaWallet} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
         </HStack>
       </Flex>
-      {
-        false ? (
-          <Flex justify="space-between" color="gray.300">
-            <HStack spacing={2}>
-              <Icon as={FaLandmark} />
-              <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
-                Conta Caixa
-              </Text>
-            </HStack>
-            <HStack spacing={2}>
-              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>
-                3.000,00
-              </Text>
-            </HStack>
-          </Flex>
-        ) : (
-          <Center h="100%">
-            <Flex
-              direction="column"
-              align="center"
-              alignContent="center"
-              color="gray.300"
-              w="100%"
-            >
-              <Text>Você não tem contas cadastradas ainda</Text>
-              <Icon as={FaExclamationCircle} my={2} fontSize="xl" />
-            </Flex>
-          </Center>
-        )
+      { account ? 
+       account.map((acc,index)=>
+              <Flex justify="space-between" color="gray.300" key={index} >
+                <HStack spacing={2}>
+                  <Icon as={FaLandmark} />
+                  <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
+                    {acc.bank}
+                  </Text>
+                </HStack>
+                <HStack spacing={2}>
+                  <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
+                  <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>
+                    {acc.over}
+                  </Text>
+                </HStack>
+              </Flex>)
+        :
+        <Center h="100%">
+             <Flex
+               direction="column"
+               align="center"
+               alignContent="center"
+               color="gray.300"
+               w="100%"
+             >
+               <Text>Você não tem contas cadastradas ainda</Text>
+               <Icon as={FaExclamationCircle} my={2} fontSize="xl" />
+             </Flex>
+           </Center>
+      
+        // false ? (
+        //   <Flex justify="space-between" color="gray.300">
+        //     <HStack spacing={2}>
+        //       <Icon as={FaLandmark} />
+        //       <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
+        //         Conta Caixa
+        //       </Text>
+        //     </HStack>
+        //     <HStack spacing={2}>
+        //       <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
+        //       <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>
+        //         3.000,00
+        //       </Text>
+        //     </HStack>
+        //   </Flex>
+        // ) : (
+        //   <Center h="100%">
+        //     <Flex
+        //       direction="column"
+        //       align="center"
+        //       alignContent="center"
+        //       color="gray.300"
+        //       w="100%"
+        //     >
+        //       <Text>Você não tem contas cadastradas ainda</Text>
+        //       <Icon as={FaExclamationCircle} my={2} fontSize="xl" />
+        //     </Flex>
+        //   </Center>
+        // )
       }
       {
         openModalWallet &&
@@ -354,7 +389,12 @@ const createTaskSchema = yup.object().shape({
 });
 
 const ModalWallet = () => {
+
   const { openModalWallet, handleModalWallet } = useListDashboard()
+
+  const {getAccount,letAccount} = Account()
+
+  const {id:userId,token} = Users()
 
   const {
     formState: { errors },
@@ -364,7 +404,12 @@ const ModalWallet = () => {
     resolver: yupResolver(createTaskSchema),
   });
 
-  const handleWallet = (data) => console.log(data)
+  const handleWallet = ({bank,value}) => {
+      const over = Number(value)
+      const newData = {bank,over,userId}
+      letAccount(newData,token)
+      getAccount(token)
+  }
 
   return (
     <Modal isOpen={openModalWallet}>
@@ -471,7 +516,7 @@ const SpendingOfTheMonth = () => {
           {arraySpend.length !== 0 ? (
             <Doughnut data={dataGrafico} />
           ) : (
-            <Center h="100%">
+            <Center h="100%" w="100%">
               <Flex
                 direction="column"
                 align="center"
@@ -549,7 +594,7 @@ const ProgressBar = () => {
 };
 
 const BillsToPay = () => {
-  const { editSpend } = useSpend();
+  const { editSpend, deleteSpend } = useSpend();
   const { token } = Users();
 
   const {
@@ -591,7 +636,10 @@ const BillsToPay = () => {
                 editSpend(item.id, token)
                 getAllSpend()
               }} />
-              <Icon as={FaTimes} my={2} fontSize={{ lg: "md", md: "sm", base: "xs" }} color="red" />
+              <Icon onClick={()=> {
+                deleteSpend(item.id, token)
+                getAllSpend()
+              }} as={FaTimes} my={2} fontSize={{ lg: "md", md: "sm", base: "xs" }} color="red" />
             </HStack>
           </Flex>
         ))
@@ -608,7 +656,7 @@ const BillsToPay = () => {
 };
 
 const BillsToReceive = () => {
-  const { editReceive } = useReceive();
+  const { editReceive,deleteReceive } = useReceive();
 
   const { token } = Users();
 
@@ -639,7 +687,7 @@ const BillsToReceive = () => {
                   display={["none", "none", "none", "block"]}
                   fontSize={{ md: "sm", lg: "md" }}
                 >
-                  {item.date}
+                  {item.data}
                 </Text>
               </Stack>
             </HStack>
@@ -651,7 +699,10 @@ const BillsToReceive = () => {
                 editReceive(item.id, token)
                 getAllReceive()
               }} />
-              <Icon as={FaTimes} my={2} fontSize={{ lg: "md", md: "sm", base: "xs" }} color="red" />
+              <Icon onClick={()=>{
+                deleteReceive(item.id,token)
+                getAllReceive()
+              }} as={FaTimes} my={2} fontSize={{ lg: "md", md: "sm", base: "xs" }} color="red" />
             </HStack>
           </Flex>
         ))

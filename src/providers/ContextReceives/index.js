@@ -108,6 +108,16 @@ export const ReceiveProvider = ({ children }) => {
       .catch((resp) => console.log(resp));
   };
 
+  const deleteReceive = (idReceive,token)=>{
+    api.delete(`/receive/${idReceive}`,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(resp=>console.log(resp))
+    .catch(err=>console.log(err))
+  }
+
   return (
     <ReceivesContext.Provider
       value={{
@@ -123,6 +133,7 @@ export const ReceiveProvider = ({ children }) => {
         editReceive,
         lancReceive,
         loadReceives,
+        deleteReceive
       }}
     >
       {children}
