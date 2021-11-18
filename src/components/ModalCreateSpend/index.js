@@ -20,7 +20,7 @@ import { FaTimes } from "react-icons/fa";
 
 import * as yup from "yup";
 import { useSpend } from "../../providers/ContextSpend";
-import { useListDashboard } from "../../providers/Dashboard";
+
 import { Users } from "../../providers/Users";
 
 const createTaskSchema = yup.object().shape({
@@ -40,10 +40,6 @@ export const ModalCreateSpend = ({ isOpen, onClose }) => {
   const { id: userId, token } = Users();
 
   const {
-    getAllSpend
-  } = useListDashboard();
-
-  const {
     formState: { errors },
     register,
     handleSubmit,
@@ -51,12 +47,18 @@ export const ModalCreateSpend = ({ isOpen, onClose }) => {
     resolver: yupResolver(createTaskSchema),
   });
 
-  const handleCreateEntry = ({ account, description, value: v, data, category }) => {
-    const value = Number(v)
-    const type = false
-    const req = { account, description, value, data, category, type, userId }
+  const handleCreateEntry = ({
+    account,
+    description,
+    value: v,
+    data,
+    category,
+  }) => {
+    const value = Number(v);
+    const type = false;
+    const req = { account, description, value, data, category, type, userId };
     lancSpend(req, token);
-    getAllSpend();
+
     onClose();
   };
 

@@ -20,8 +20,7 @@ import { FaTimes } from "react-icons/fa";
 
 import * as yup from "yup";
 import { useReceive } from "../../providers/ContextReceives";
-import { Users } from "../../providers/Users"
-import { useListDashboard } from "../../providers/Dashboard"
+import { Users } from "../../providers/Users";
 
 const createTaskSchema = yup.object().shape({
   account: yup.string().required("Campo obrigatório"),
@@ -35,13 +34,8 @@ const createTaskSchema = yup.object().shape({
 });
 
 export const ModalCreateRecive = ({ isOpen, onClose }) => {
-
   const { lancReceive } = useReceive();
-  const { id: userId, token } = Users()
-
-  const {
-    getAllReceive
-  } = useListDashboard();
+  const { id: userId, token } = Users();
 
   const {
     formState: { errors },
@@ -51,13 +45,18 @@ export const ModalCreateRecive = ({ isOpen, onClose }) => {
     resolver: yupResolver(createTaskSchema),
   });
 
-
-  const handleCreateEntry = ({ account, description, value: v, data, category }) => {
-    const value = Number(v)
-    const type = false
-    const req = { account, description, value, data, category, type, userId }
+  const handleCreateEntry = ({
+    account,
+    description,
+    value: v,
+    data,
+    category,
+  }) => {
+    const value = Number(v);
+    const type = false;
+    const req = { account, description, value, data, category, type, userId };
     lancReceive(req, token);
-    getAllReceive()
+
     onClose();
   };
 
