@@ -5,6 +5,13 @@ import {
   Flex,
   HStack,
   Icon,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Progress,
   Stack,
   Text,
@@ -32,6 +39,9 @@ import Header from "../../components/Header";
 import { useReceive } from "../../providers/ContextReceives";
 import { useSpend } from "../../providers/ContextSpend";
 import { Users } from "../../providers/Users";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 
 export const Dashboard = () => {
 
@@ -280,12 +290,16 @@ const HeaderDashboard = ({
 };
 
 const WalletDashboard = () => {
+  const { openModalWallet, handleModalWallet } = useListDashboard()
+
   return (
     <Stack w="100%" p={4} spacing={2}>
       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
         <Text fontSize={{ md: "2xl", base: "sm" }}>Carteira: </Text>
         <HStack spacing={8}>
-          <Icon as={FaPlusSquare} my={2} fontSize={{ lg: "2xl", md: "xl", base: "lg" }} color="green" />
+          <Button onClick={handleModalWallet}>
+            <Icon as={FaPlusSquare} my={2} fontSize={{ lg: "2xl", md: "xl", base: "lg" }} color="green" />
+          </Button>
           <Icon as={FaWallet} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
         </HStack>
       </Flex>
@@ -320,10 +334,85 @@ const WalletDashboard = () => {
           </Center>
         )
       }
+      {
+        openModalWallet &&
+        <ModalWallet />
+      }
     </Stack>
   );
 };
 
+
+const createTaskSchema = yup.object().shape({
+  bank: yup.string().required("Campo obrigatório"),
+  value: yup.string().required("Campo obrigatório"),
+});
+
+const ModalWallet = () => {
+  const { openModalWallet, handleModalWallet } = useListDashboard()
+
+  const {
+    formState: { errors },
+    register,
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(createTaskSchema),
+  });
+
+  const handleWallet = (data) => console.log(data)
+
+  return (
+    <Modal isOpen={openModalWallet}>
+      <ModalOverlay />
+      <ModalContent
+        as="form"
+        onSubmit={handleSubmit(handleWallet)}
+        padding="2"
+        bg="white"
+        color="gray.800"
+      >
+        <ModalHeader display="flex">
+          <Text fontWeight="bold" ml="2">
+            Nova Carteira
+          </Text>
+          <Center
+            onClick={handleModalWallet}
+            as="button"
+            ml="auto"
+            w="32px"
+            h="32px"
+            bg="red.600"
+            fontSize="lg"
+            borderRadius="md"
+          >
+            <FaTimes color="white" />
+          </Center>
+        </ModalHeader>
+
+        <ModalBody textAlign="center">
+          <Stack spacing="5">
+            <Input {...register("bank")} placeholder="Digite o banco" />
+            <Input {...register("value")} placeholder="Valor da Receita" />
+          </Stack>
+        </ModalBody>
+
+        <ModalFooter flexDirection="column">
+          <Button
+            as="button"
+            type="submit"
+            bg="blue.900"
+            color="white"
+            w="100%"
+            h="40px"
+            _hover={{ bg: "blue.800" }}
+          >
+            Criar
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  )
+}
 
 const SpendingOfTheMonth = () => {
 
