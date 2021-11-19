@@ -24,7 +24,7 @@ import { useReceive } from "../../providers/ContextReceives";
 import { Users } from "../../providers/Users";
 
 export const ModalEntry = ({ isOpen, onClose, item }) => {
-  const { token } = Users();
+  const { token, id } = Users();
   const { editSpend, deleteSpend, loadSpends } = useSpend();
   const { editReceive, deleteReceive, loadReceives } = useReceive();
 
@@ -40,13 +40,15 @@ export const ModalEntry = ({ isOpen, onClose, item }) => {
 
   const handleDelete = (type) => {
     if (type === true) {
-      deleteReceive(item.id, token);
+      deleteReceive(item.id, token, id);
       loadReceives(item.id, token);
     } else if (type === false) {
-      deleteSpend(item.id, token);
+      deleteSpend(item.id, token, id);
       loadSpends(item.id, token);
     }
+
     onClose();
+    loadSpends(item.id, token);
   };
 
   return (

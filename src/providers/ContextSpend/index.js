@@ -1,6 +1,6 @@
 import { useContext, createContext, useState, useCallback } from "react";
 import { api } from "../../service/api";
-import { useToast } from '@chakra-ui/react';
+import { useToast } from "@chakra-ui/react";
 
 const SpendContext = createContext();
 
@@ -19,14 +19,7 @@ export const SpendProvider = ({ children }) => {
       });
 
       response.data.length > 0 && setAllSpends(response.data);
-    } catch (err) {
-      toast({
-        title: "Erro ao buscar lançamento",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
-    }
+    } catch (err) {}
   }, []);
 
   //Todos os pagos.
@@ -41,6 +34,7 @@ export const SpendProvider = ({ children }) => {
   };
 
   const editSpend = (id, token) => {
+    const userId = localStorage.getItem("idfinan");
     api
       .patch(
         `spend/${id}`,
@@ -53,18 +47,23 @@ export const SpendProvider = ({ children }) => {
           },
         }
       )
-      .then((resp) => toast({
-        title: "Lançamento editado com sucesso",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      }))
-      .catch((erro) => toast({
-        title: "Erro ao editar lançamento",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      }));
+      .then(async (_) => await loadSpends(userId, token))
+      .then((resp) =>
+        toast({
+          title: "Lançamento editado com sucesso",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        })
+      )
+      .catch((erro) =>
+        toast({
+          title: "Erro ao editar lançamento",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        })
+      );
   };
 
   const lancSpend = async (data, token) => {
@@ -76,23 +75,23 @@ export const SpendProvider = ({ children }) => {
         },
       })
       .then(async (_) => await loadSpends(userId, token))
-      .then((resp) => toast({
-        title: "Lançamento criado com sucesso",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      }))
-      .catch((erro) => toast({
-        title: "Erro ao realizar lançamento",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      }));
+      .then((resp) =>
+        toast({
+          title: "Lançamento criado com sucesso",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        })
+      )
+      .catch((erro) =>
+        toast({
+          title: "Erro ao realizar lançamento",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        })
+      );
   };
-
-
-  // const newSpendAll = allSpends.filter((item) => item.type === false);
-  // const newSpendedAll = allSpends.filter((item) => item.type === true);
 
   const newSpend = allSpends
     .filter(
@@ -145,26 +144,33 @@ export const SpendProvider = ({ children }) => {
   const arrayNameSpend = Object.keys(arraySpendValue);
 
   const deleteSpend = (idSpend, token) => {
-    api.delete(`/spend/${idSpend}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((resp) => toast({
-        title: "Lançamento deletado com sucesso",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-      }))
-      .catch((erro) => toast({
-        title: "Erro ao deletar lançamento",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      }));
-  }
-
-
+    const userId = localStorage.getItem("idfinan");
+    api
+      .delete(`/spend/${idSpend}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(async (_) => {
+        await loadSpends(userId, token);
+      })
+      .then((resp) =>
+        toast({
+          title: "Lançamento deletado com sucesso",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        })
+      )
+      .catch((erro) =>
+        toast({
+          title: "Erro ao deletar lançamento",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        })
+      );
+  };
 
   return (
     <SpendContext.Provider
@@ -182,7 +188,7 @@ export const SpendProvider = ({ children }) => {
         spendTotal,
         arraySpend,
         arrayNameSpend,
-        deleteSpend
+        deleteSpend,
       }}
     >
       {children}

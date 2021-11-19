@@ -40,23 +40,22 @@ export const AccountProvider = ({ children }) => {
   };
 
   const editAccountSaldo = (idAccount) => {
-    api
-      .patch(`/wallet${idAccount}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((resp) => console.log(resp))
-      .catch((error) => console.log(error));
+    api.patch(`/wallet${idAccount}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   };
 
   const deleteAccount = (idAccount, token) => {
+    const userId = Number(localStorage.getItem("idfinan"));
     api
-      .delete(`/wallet${idAccount}`, {
+      .delete(`/wallet/${idAccount}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
+      .then((_) => getAccount(userId, token))
       .then((resp) =>
         toast({
           title: "Conta editada com sucesso",
