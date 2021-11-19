@@ -21,7 +21,7 @@ export const UserProvider = ({ children }) => {
   const [username, setUserName] = useState(
     localStorage.getItem("usernamefinan") || ""
   );
-
+  // eslint-disable-next-line
   const [limits, setLimits] = useState(
     JSON.parse(localStorage.getItem("limits")) || ""
   );

@@ -27,6 +27,7 @@ export const WalletDashboard = () => {
   useEffect(() => {
     const userId = id || localStorage.getItem("idfinan");
     getAccount(userId, token);
+    // eslint-disable-next-line
   }, []);
 
   return (

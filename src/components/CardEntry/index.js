@@ -3,8 +3,6 @@ import { Box, Center, Flex, Text } from "@chakra-ui/layout";
 import { Checkbox } from "@chakra-ui/react";
 import {
   FaFileInvoiceDollar,
-  FaCheckCircle,
-  FaTimesCircle,
   FaReceipt,
 } from "react-icons/fa";
 import { ModalEntry } from "../ModalEntry";
@@ -29,7 +27,7 @@ export const CardEntry = ({ item }) => {
       // loadSpends(item.id, token)
     }
   };
-
+  // eslint-disable-next-line
   const handleDelete = (type) => {
     if (type === true) {
       deleteReceive(item.id, token);

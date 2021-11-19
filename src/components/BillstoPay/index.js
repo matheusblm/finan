@@ -23,6 +23,7 @@ import { useEffect, useState } from "react";
 export const BillsToPay = () => {
   const { token, id } = Users();
   const { loadSpends, newSpend } = useSpend();
+  // eslint-disable-next-line
   const [loading, setLoading] = useState(true);
   const { editSpend } = useSpend();
 
@@ -31,6 +32,7 @@ export const BillsToPay = () => {
     loadSpends(userId, token).then((res) => {
       setLoading(false);
     });
+    // eslint-disable-next-line
   }, []);
 
   return (

@@ -1,5 +1,4 @@
 import {
-  Box,
   Center,
   Flex,
   Heading,
@@ -8,13 +7,9 @@ import {
   ModalBody,
   ModalContent,
   ModalHeader,
-  ModalOverlay,
   Text,
-  Checkbox,
 } from "@chakra-ui/react";
 import {
-  FaCheckCircle,
-  FaFunnelDollar,
   FaLandmark,
   FaTimes,
   FaTrash,

@@ -30,6 +30,7 @@ export const ModalWallet = (onClose) => {
   const { openModalWallet, handleModalWallet } = useReceive();
 
   const {
+    // eslint-disable-next-line
     formState: { errors },
     register,
     handleSubmit,

@@ -23,7 +23,7 @@ export const AccountProvider = ({ children }) => {
       .then((resp) => resp.data.length > 0 && setAccount(resp.data))
       .catch((erro) => console.log(erro));
   };
-
+  // eslint-disable-next-line
   useEffect(() => getAccount(userId, token), []);
 
   //const wallet = account.reduce((acc,elem)=>acc+elem.saldo,0)

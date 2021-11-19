@@ -90,6 +90,7 @@ export const LimitsProvider = ({ children }) => {
       getTotalValueLimit();
     } else {
     }
+    // eslint-disable-next-line
   }, []);
 
   return (

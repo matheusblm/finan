@@ -13,7 +13,6 @@ import {
   Checkbox,
 } from "@chakra-ui/react";
 import {
-  FaCheckCircle,
   FaFunnelDollar,
   FaTimes,
   FaTrash,
