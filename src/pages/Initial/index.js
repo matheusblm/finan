@@ -9,35 +9,39 @@ import Wave from "react-wavify";
 import ChakraCarousel from "../../components/ChakraCarrousel";
 import { StarIcon } from "@chakra-ui/icons";
 import { useHistory } from "react-router-dom";
-
+import victorImg from "../../assets/victorImg.jpeg";
+import matheusImg from "../../assets/1622549941138.jpeg";
+import felipeImg from "../../assets/1637016651484.jpeg";
+import joaoImg from "../../assets/1630896288365.jpeg";
+import rafaImg from "../../assets/1609942514853.jpeg";
 const Initial = () => {
   const history = useHistory();
   const team = [
     {
       nome: "Matheus Bueno",
       linkedin: "https://www.linkedin.com/in/matheus-b-648aaa111/",
-      img: "https://media-exp1.licdn.com/dms/image/C4D03AQHVj5Ys3ni2MA/profile-displayphoto-shrink_800_800/0/1622549941138?e=1642636800&v=beta&t=Z8zSXuU7894zw65NCgBg5krmuRhNahhLWxhkbfb_3ow",
+      img: matheusImg,
     },
     {
       nome: "Felipe Larson",
       linkedin: "https://www.linkedin.com/in/felipe-larson-da-silveira/",
-      img: "https://media-exp1.licdn.com/dms/image/C4E03AQG8oUBueY7oug/profile-displayphoto-shrink_800_800/0/1637016651484?e=1642636800&v=beta&t=oUJ6aLOEwwkqOtpgC67efWWH6FHV8c5Hur3ibPxS7hs",
+      img: felipeImg,
     },
     {
       nome: "Joao Pedro Nonato",
       linkedin:
         "https://www.linkedin.com/in/joao-pedro-nonato-santos-2b8aa851/",
-      img: "https://media-exp1.licdn.com/dms/image/C4E03AQFxiM18dNj_1w/profile-displayphoto-shrink_800_800/0/1630896288365?e=1642636800&v=beta&t=vMF6nVSYW1sRnu5G7iwo1Btyx3c1330foRF9wDsE5-A",
+      img: joaoImg,
     },
     {
       nome: "Victor Scherer",
       linkedin: "https://www.linkedin.com/in/victorscherer/",
-      img: "https://media-exp1.licdn.com/dms/image/C4E03AQExwt2v9tzooA/profile-displayphoto-shrink_800_800/0/1616803614659?e=1642636800&v=beta&t=fnSI2PZOcaz1zkGdvlIop_o5ZitB6b8744RLp3dGIMg",
+      img: victorImg,
     },
     {
       nome: "Rafael Sousa",
       linkedin: "https://www.linkedin.com/in/rafael-sousa-61b654112/",
-      img: "https://media-exp1.licdn.com/dms/image/C4E03AQHv5UolgU4ZyA/profile-displayphoto-shrink_800_800/0/1609942514853?e=1642636800&v=beta&t=z1uOyMc5GDJYMtQIrLS-jF_Tp2Q63gNit8AEL9WJXVA",
+      img: rafaImg,
     },
   ];
 
