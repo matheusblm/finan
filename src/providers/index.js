@@ -10,14 +10,16 @@ import { LimitsProvider } from "./Limits";
 const AppProvider = ({ children }) => (
   <ChakraProvider theme={theme}>
     <ReceiveProvider>
-  <AccountProvider>
+      <AccountProvider>
+          <SpendProvider>
       <UserProvider>
         <DashboardProvider>
           <LimitsProvider>
-            <SpendProvider>{children}</SpendProvider>
+          {children}
           </LimitsProvider>
         </DashboardProvider>
       </UserProvider>
+      </SpendProvider>
    </AccountProvider>
     </ReceiveProvider>
   </ChakraProvider>

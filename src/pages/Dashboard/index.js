@@ -299,10 +299,14 @@ const WalletDashboard = () => {
 
   const {id,token} = Users()
 
-  const {account,getAccount,editAccountSaldo} = Account()
+  const {account,getAccount} = Account()
 
-  useEffect(()=>getAccount(),[])
+  useEffect(() => {
+    const userId = id || localStorage.getItem("idfinan");
+    getAccount(userId, token);
+  }, []);
 
+  console.log(account)
   return (
     <Stack w="100%" p={4} spacing={2}>
       <Flex justify="space-between" w="100%" color="gray.600" fontWeight="bold">
@@ -394,7 +398,7 @@ const ModalWallet = () => {
 
   const {getAccount,letAccount} = Account()
 
-  const {id:userId,token} = Users()
+  const {id,token} = Users()
 
   const {
     formState: { errors },
@@ -406,6 +410,7 @@ const ModalWallet = () => {
 
   const handleWallet = ({bank,value}) => {
       const over = Number(value)
+      const userId = id || localStorage.getItem("idfinan");
       const newData = {bank,over,userId}
       letAccount(newData,token)
       getAccount(token)

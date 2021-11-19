@@ -10,29 +10,27 @@ export const AccountProvider = ({children})=>{
     const userId = Number(localStorage.getItem("idfinan")) || ""
 
     const token = localStorage.getItem("@tokenfinan") || ""
+    
+    const getAccount = (userId,token) => {
 
-    const getAccount = () => {
-
-      console.log("id",userId)
-      console.log("token",token)
         api
-        .get(`/account?userId=${userId}`, {
+        .get(`/wallet?userId=${userId}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           })
-          .then(resp=> resp.data.length !== 0 && setAccount(resp.data))
+          .then(resp=> resp.data.length > 0 && setAccount(resp.data))
           .catch(erro=>console.log(erro))
     }
 
-    // useEffect(()=>
-    //      getAccount()
-    //  ,[])
-
+    useEffect(()=>
+           getAccount(userId,token)
+       ,[])
+    
     //const wallet = account.reduce((acc,elem)=>acc+elem.saldo,0)
 
     const letAccount = (data,token)=>{
-        api.post("/account",data, {
+        api.post("/wallet",data, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -42,7 +40,7 @@ export const AccountProvider = ({children})=>{
     }
 
     const editAccountSaldo = (idAccount)=>{
-        api.patch(`/account${idAccount}`, {
+        api.patch(`/wallet${idAccount}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -52,7 +50,7 @@ export const AccountProvider = ({children})=>{
     }
 
     const deleteAccount = (idAccount,token)=>{
-      api.delete(`/account${idAccount}`,{
+      api.delete(`/wallet${idAccount}`,{
         headers: {
           Authorization: `Bearer ${token}`,
         },
