@@ -111,16 +111,16 @@ const SpendLimit = () => {
           spacing={5}
           margin="20px"
           p={5}
-          w="360px"
+          w={["100%", "100%", "40%", "40%"]}
           h="800px"
-          shadow="md"
-          borderWidth="1px"
-          borderRadius="2px"
+          border="3px solid"
+          borderColor="gray.100"
+          boxShadow="lg"
           justifyContent="flex-start"
           alignItems="center"
         >
           {/* Despesas */}
-          <Box w="272px" justifyContent="center">
+          <Box w="70%" justifyContent="center">
             <Flex
               alignItems="center"
               flexDirection="column"
@@ -130,7 +130,7 @@ const SpendLimit = () => {
               <Text fontSize="20px" fontWeight="extrabold">
                 Despesas
               </Text>
-              <Text alignSelf="flex-end">
+              <Text alignSelf="flex-end" fontSize="sm">
                 {formatValue(totalSpends)} - {formatValue(totalLimit)}
               </Text>
             </Flex>
@@ -143,10 +143,10 @@ const SpendLimit = () => {
           </Box>
           {/* Alimentação */}
           <Flex
-            justifyContent="space-between"
+            justifyContent="space-evenly"
             alignItems="center"
             h="38px"
-            w="310px"
+            w="100%"
           >
             <Flex
               backgroundColor="white"
@@ -158,7 +158,7 @@ const SpendLimit = () => {
             >
               <FaPizzaSlice color="blue" />
             </Flex>
-            <Flex w="252px" flexDirection="column">
+            <Flex w="85%" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Alimentação</Text>
                 <Text fontSize="13px">
@@ -175,12 +175,18 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus
-              onClick={() => {
-                handleDrawer(setDrawerFood);
-              }}
-              w="12px"
-            />
+            <Box
+              alignSelf="end"
+              transition="0.5s"
+              _hover={{ color: "gray.500", cursor: "pointer" }}
+            >
+              <FaPlus
+                onClick={() => {
+                  handleDrawer(setDrawerFood);
+                }}
+                w="12px"
+              />
+            </Box>
             {drawerFood ? (
               <Menu
                 isOpen={isOpen}
@@ -194,10 +200,10 @@ const SpendLimit = () => {
           </Flex>
           {/* Assinaturas */}
           <Flex
-            justifyContent="space-between"
+            justifyContent="space-evenly"
             alignItems="center"
             h="38px"
-            w="310px"
+            w="100%"
           >
             <Flex
               backgroundColor="white"
@@ -209,7 +215,7 @@ const SpendLimit = () => {
             >
               <FaTv color="blue" />
             </Flex>
-            <Flex w="252px" flexDirection="column">
+            <Flex w="85%" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Assinaturas</Text>
                 <Text fontSize="13px">
@@ -226,12 +232,18 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus
-              onClick={() => {
-                handleDrawer(setDrawerAssinaturas);
-              }}
-              w="12px"
-            />
+            <Box
+              alignSelf="end"
+              transition="0.5s"
+              _hover={{ color: "gray.500", cursor: "pointer" }}
+            >
+              <FaPlus
+                onClick={() => {
+                  handleDrawer(setDrawerAssinaturas);
+                }}
+                w="12px"
+              />
+            </Box>
             {drawerAssinaturas ? (
               <Menu
                 isOpen={isOpen}
@@ -245,10 +257,10 @@ const SpendLimit = () => {
           </Flex>
           {/* Bares */}
           <Flex
-            justifyContent="space-between"
+            justifyContent="space-evenly"
             alignItems="center"
             h="38px"
-            w="310px"
+            w="100%"
           >
             <Flex
               backgroundColor="white"
@@ -260,7 +272,7 @@ const SpendLimit = () => {
             >
               <FaGlassCheers color="blue" />
             </Flex>
-            <Flex w="252px" flexDirection="column">
+            <Flex w="85%" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Bares</Text>
                 <Text fontSize="13px">
@@ -277,12 +289,18 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus
-              onClick={() => {
-                handleDrawer(setDrawerBares);
-              }}
-              w="12px"
-            />
+            <Box
+              alignSelf="end"
+              transition="0.5s"
+              _hover={{ color: "gray.500", cursor: "pointer" }}
+            >
+              <FaPlus
+                onClick={() => {
+                  handleDrawer(setDrawerBares);
+                }}
+                w="12px"
+              />
+            </Box>
             {drawerBares ? (
               <Menu
                 isOpen={isOpen}
@@ -296,10 +314,10 @@ const SpendLimit = () => {
           </Flex>
           {/* Casa */}
           <Flex
-            justifyContent="space-between"
+            justifyContent="space-evenly"
             alignItems="center"
             h="38px"
-            w="310px"
+            w="100%"
           >
             <Flex
               backgroundColor="white"
@@ -311,7 +329,7 @@ const SpendLimit = () => {
             >
               <FaHouseDamage color="blue" />
             </Flex>
-            <Flex w="252px" flexDirection="column">
+            <Flex w="85%" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Casa</Text>
                 <Text fontSize="13px">
@@ -328,12 +346,18 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus
-              onClick={() => {
-                handleDrawer(setDrawerCasa);
-              }}
-              w="12px"
-            />
+            <Box
+              alignSelf="end"
+              transition="0.5s"
+              _hover={{ color: "gray.500", cursor: "pointer" }}
+            >
+              <FaPlus
+                onClick={() => {
+                  handleDrawer(setDrawerCasa);
+                }}
+                w="12px"
+              />
+            </Box>
             {drawerCasa ? (
               <Menu
                 isOpen={isOpen}
@@ -347,10 +371,10 @@ const SpendLimit = () => {
           </Flex>
           {/* Educação */}
           <Flex
-            justifyContent="space-between"
+            justifyContent="space-evenly"
             alignItems="center"
             h="38px"
-            w="310px"
+            w="100%"
           >
             <Flex
               backgroundColor="white"
@@ -362,7 +386,7 @@ const SpendLimit = () => {
             >
               <FaUniversity color="blue" />
             </Flex>
-            <Flex w="252px" flexDirection="column">
+            <Flex w="85%" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Educação</Text>
                 <Text fontSize="13px">
@@ -379,12 +403,18 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus
-              onClick={() => {
-                handleDrawer(setDrawerEducacao);
-              }}
-              w="12px"
-            />
+            <Box
+              alignSelf="end"
+              transition="0.5s"
+              _hover={{ color: "gray.500", cursor: "pointer" }}
+            >
+              <FaPlus
+                onClick={() => {
+                  handleDrawer(setDrawerEducacao);
+                }}
+                w="12px"
+              />
+            </Box>
             {drawerEducacao ? (
               <Menu
                 isOpen={isOpen}
@@ -398,10 +428,10 @@ const SpendLimit = () => {
           </Flex>
           {/* Familia */}
           <Flex
-            justifyContent="space-between"
+            justifyContent="space-evenly"
             alignItems="center"
             h="38px"
-            w="310px"
+            w="100%"
           >
             <Flex
               backgroundColor="white"
@@ -413,7 +443,7 @@ const SpendLimit = () => {
             >
               <FaUserFriends color="blue" />
             </Flex>
-            <Flex w="252px" flexDirection="column">
+            <Flex w="85%" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Familia</Text>
                 <Text fontSize="13px">
@@ -430,12 +460,18 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus
-              onClick={() => {
-                handleDrawer(setDrawerFamilia);
-              }}
-              w="12px"
-            />
+            <Box
+              alignSelf="end"
+              transition="0.5s"
+              _hover={{ color: "gray.500", cursor: "pointer" }}
+            >
+              <FaPlus
+                onClick={() => {
+                  handleDrawer(setDrawerFamilia);
+                }}
+                w="12px"
+              />
+            </Box>
             {drawerFamilia ? (
               <Menu
                 isOpen={isOpen}
@@ -449,10 +485,10 @@ const SpendLimit = () => {
           </Flex>
           {/* Impostos */}
           <Flex
-            justifyContent="space-between"
+            justifyContent="space-evenly"
             alignItems="center"
             h="38px"
-            w="310px"
+            w="100%"
           >
             <Flex
               backgroundColor="white"
@@ -464,7 +500,7 @@ const SpendLimit = () => {
             >
               <FaReceipt color="blue" />
             </Flex>
-            <Flex w="252px" flexDirection="column">
+            <Flex w="85%" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Impostos</Text>
                 <Text fontSize="13px">
@@ -481,12 +517,18 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus
-              onClick={() => {
-                handleDrawer(setDrawerImpostos);
-              }}
-              w="12px"
-            />
+            <Box
+              alignSelf="end"
+              transition="0.5s"
+              _hover={{ color: "gray.500", cursor: "pointer" }}
+            >
+              <FaPlus
+                onClick={() => {
+                  handleDrawer(setDrawerImpostos);
+                }}
+                w="12px"
+              />
+            </Box>
             {drawerImpostos ? (
               <Menu
                 isOpen={isOpen}
@@ -500,10 +542,10 @@ const SpendLimit = () => {
           </Flex>
           {/* Lazer */}
           <Flex
-            justifyContent="space-between"
+            justifyContent="space-evenly"
             alignItems="center"
             h="38px"
-            w="310px"
+            w="100%"
           >
             <Flex
               backgroundColor="white"
@@ -515,7 +557,7 @@ const SpendLimit = () => {
             >
               <FaSnowboarding color="blue" />
             </Flex>
-            <Flex w="252px" flexDirection="column">
+            <Flex w="85%" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Lazer</Text>
                 <Text fontSize="13px">
@@ -532,12 +574,18 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus
-              onClick={() => {
-                handleDrawer(setDrawerLazer);
-              }}
-              w="12px"
-            />
+            <Box
+              alignSelf="end"
+              transition="0.5s"
+              _hover={{ color: "gray.500", cursor: "pointer" }}
+            >
+              <FaPlus
+                onClick={() => {
+                  handleDrawer(setDrawerLazer);
+                }}
+                w="12px"
+              />
+            </Box>
             {drawerLazer ? (
               <Menu
                 isOpen={isOpen}
@@ -551,10 +599,10 @@ const SpendLimit = () => {
           </Flex>
           {/* Roupas */}
           <Flex
-            justifyContent="space-between"
+            justifyContent="space-evenly"
             alignItems="center"
             h="38px"
-            w="310px"
+            w="100%"
           >
             <Flex
               backgroundColor="white"
@@ -566,7 +614,7 @@ const SpendLimit = () => {
             >
               <FaTshirt color="blue" />
             </Flex>
-            <Flex w="252px" flexDirection="column">
+            <Flex w="85%" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Roupas</Text>
                 <Text fontSize="13px">
@@ -583,12 +631,18 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus
-              onClick={() => {
-                handleDrawer(setDrawerRoupas);
-              }}
-              w="12px"
-            />
+            <Box
+              alignSelf="end"
+              transition="0.5s"
+              _hover={{ color: "gray.500", cursor: "pointer" }}
+            >
+              <FaPlus
+                onClick={() => {
+                  handleDrawer(setDrawerRoupas);
+                }}
+                w="12px"
+              />
+            </Box>
             {drawerRoupas ? (
               <Menu
                 isOpen={isOpen}
@@ -602,10 +656,10 @@ const SpendLimit = () => {
           </Flex>
           {/* Transportes */}
           <Flex
-            justifyContent="space-between"
+            justifyContent="space-evenly"
             alignItems="center"
             h="38px"
-            w="310px"
+            w="100%"
           >
             <Flex
               backgroundColor="white"
@@ -617,7 +671,7 @@ const SpendLimit = () => {
             >
               <FaBus color="blue" />
             </Flex>
-            <Flex w="252px" flexDirection="column">
+            <Flex w="85%" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Transportes</Text>
                 <Text fontSize="13px">
@@ -634,12 +688,18 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus
-              onClick={() => {
-                handleDrawer(setDrawerTransportes);
-              }}
-              w="12px"
-            />
+            <Box
+              alignSelf="end"
+              transition="0.5s"
+              _hover={{ color: "gray.500", cursor: "pointer" }}
+            >
+              <FaPlus
+                onClick={() => {
+                  handleDrawer(setDrawerTransportes);
+                }}
+                w="12px"
+              />
+            </Box>
             {drawerTransportes ? (
               <Menu
                 isOpen={isOpen}
@@ -653,10 +713,10 @@ const SpendLimit = () => {
           </Flex>
           {/* Outros */}
           <Flex
-            justifyContent="space-between"
+            justifyContent="space-evenly"
             alignItems="center"
             h="38px"
-            w="310px"
+            w="100%"
           >
             <Flex
               backgroundColor="white"
@@ -668,7 +728,7 @@ const SpendLimit = () => {
             >
               <FaNetworkWired color="blue" />
             </Flex>
-            <Flex w="252px" flexDirection="column">
+            <Flex w="85%" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Outros</Text>
                 <Text fontSize="13px">
@@ -685,12 +745,18 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus
-              onClick={() => {
-                handleDrawer(setDrawerOutros);
-              }}
-              w="12px"
-            />
+            <Box
+              alignSelf="end"
+              transition="0.5s"
+              _hover={{ color: "gray.500", cursor: "pointer" }}
+            >
+              <FaPlus
+                onClick={() => {
+                  handleDrawer(setDrawerOutros);
+                }}
+                w="12px"
+              />
+            </Box>
             {drawerOutros ? (
               <Menu
                 isOpen={isOpen}

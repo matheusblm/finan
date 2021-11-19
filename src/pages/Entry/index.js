@@ -59,17 +59,17 @@ export const Entry = () => {
   const totalReceive =
     allReceives.length > 0
       ? allReceives.reduce(
-        (acumulador, valorAtual) => acumulador + valorAtual.value,
-        0
-      )
+          (acumulador, valorAtual) => acumulador + valorAtual.value,
+          0
+        )
       : 0;
 
   const totalSpend =
     allSpends.length > 0
       ? allSpends.reduce(
-        (acumulador, valorAtual) => acumulador + valorAtual.value,
-        0
-      )
+          (acumulador, valorAtual) => acumulador + valorAtual.value,
+          0
+        )
       : 0;
 
   useEffect(() => {
