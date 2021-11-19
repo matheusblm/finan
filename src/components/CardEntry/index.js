@@ -2,7 +2,6 @@ import { useDisclosure } from "@chakra-ui/hooks";
 import { Box, Center, Flex, Text } from "@chakra-ui/layout";
 import {
   FaFileInvoiceDollar,
-  FaFileArchive,
   FaCheckCircle,
   FaTimesCircle,
   FaReceipt,

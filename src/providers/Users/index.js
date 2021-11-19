@@ -5,12 +5,10 @@ import { api } from "../../service/api";
 import { useToast } from "@chakra-ui/react";
 import { useReceive } from "../ContextReceives";
 import { useSpend } from "../ContextSpend";
-import { useToast, Box } from "@chakra-ui/react"
 
 const UsersContext = createContext();
 
 export const UserProvider = ({ children }) => {
-
   const history = useHistory();
 
   const toast = useToast();
@@ -23,9 +21,7 @@ export const UserProvider = ({ children }) => {
     localStorage.getItem("usernamefinan") || ""
   );
 
-  const [limits, setLimits] = useState(
-    JSON.parse(localStorage.getItem("limits")) || ""
-  );
+  const [limits] = useState(JSON.parse(localStorage.getItem("limits")) || "");
 
   const [errorSign, setErrorSign] = useState("");
 
@@ -138,5 +134,4 @@ export const UserProvider = ({ children }) => {
     </UsersContext.Provider>
   );
 };
-
-
+export const Users = () => useContext(UsersContext);

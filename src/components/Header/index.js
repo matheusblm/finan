@@ -1,15 +1,8 @@
-import {
-  Flex,
-  Img,
-  useMediaQuery,
-  useDisclosure,
-  Grid,
-} from "@chakra-ui/react";
+import { Flex, Img, useMediaQuery, useDisclosure } from "@chakra-ui/react";
 import Logo from "../../assets/logo1.svg";
 import { FaUserCircle } from "react-icons/fa";
 import { LinkDesktop, SuspenseMenu } from "../LinksHeader";
 import { LogoutDrawer } from "../LogoutDrawer";
-import { Users } from "../../providers/Users";
 
 const Header = () => {
   const [isMobile] = useMediaQuery([
@@ -18,8 +11,6 @@ const Header = () => {
   ]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const { Logout } = Users();
 
   const callLinks = () => {
     if (!isMobile) {

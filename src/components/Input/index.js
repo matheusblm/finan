@@ -4,7 +4,7 @@ import {
   FormLabel,
 } from "@chakra-ui/form-control";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Input as ChakraInput,
   InputLeftElement,

@@ -12,7 +12,6 @@ import {
   Textarea,
   Input,
   Select,
-  Stack,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
