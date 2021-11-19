@@ -56,7 +56,7 @@ export const BillsToReceive = () => {
                   display={["none", "none", "none", "block"]}
                   fontSize={{ md: "sm", lg: "md" }}
                 >
-                  {item.date}
+                  {item.data}
                 </Text>
               </Stack>
             </HStack>

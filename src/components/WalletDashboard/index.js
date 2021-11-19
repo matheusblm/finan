@@ -46,7 +46,7 @@ export const WalletDashboard = () => {
           <Icon as={FaWallet} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
         </HStack>
       </Flex>
-      {account ? (
+      {account.length > 0 ? (
         account.map((acc, index) => <CardBank acc={acc} index={index} />)
       ) : (
         <Center h="100%">
@@ -57,7 +57,7 @@ export const WalletDashboard = () => {
             color="gray.300"
             w="100%"
           >
-            <Text>Você não tem contas cadastradas ainda</Text>
+            <Text>Você não tem contas cadastradas</Text>
             <Icon as={FaExclamationCircle} my={2} fontSize="xl" />
           </Flex>
         </Center>
