@@ -99,13 +99,11 @@ export const ReceiveProvider = ({ children }) => {
   const newReceive = allReceives
     .filter(
       (item) =>
-        Number(item.data.split("-")[0]) === new Date().getFullYear() &&
-        item.type === false
+        Number(item.data.split("-")[0]) === new Date().getFullYear()
     )
     .filter(
       (item) =>
-        Number(item.data.split("-")[1]) === new Date().getMonth() + 1 &&
-        item.type === false
+        Number(item.data.split("-")[1]) === new Date().getMonth() + 1
     );
 
   const newReceived = allReceives

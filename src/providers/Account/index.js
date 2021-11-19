@@ -26,8 +26,6 @@ export const AccountProvider = ({ children }) => {
 
   useEffect(() => getAccount(userId, token), []);
 
-  //const wallet = account.reduce((acc,elem)=>acc+elem.saldo,0)
-
   const letAccount = (data, token, userId) => {
     api
       .post("/wallet", data, {
