@@ -10,14 +10,17 @@ const AppProvider = ({ children }) => (
   <ChakraProvider theme={theme}>
     <ReceiveProvider>
       <AccountProvider>
-        <SpendProvider>
-          <UserProvider>
-            <LimitsProvider>{children} </LimitsProvider>
-          </UserProvider>
-        </SpendProvider>
-      </AccountProvider>
-    </ReceiveProvider>
+          <SpendProvider>
+      <UserProvider>
+          <LimitsProvider>
+          {children}
+          </LimitsProvider>
+      </UserProvider>
+      </SpendProvider>
+   </AccountProvider>
+</ReceiveProvider>
   </ChakraProvider>
+ 
 );
 
 export default AppProvider;
