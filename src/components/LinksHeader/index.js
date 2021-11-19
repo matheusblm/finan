@@ -1,18 +1,25 @@
-import { Flex, Button, Menu, MenuButton, MenuList, MenuItem, IconButton } from "@chakra-ui/react";
-import { FaBars } from 'react-icons/fa';
-import { useHistory } from 'react-router-dom';
-import { Users } from '../../providers/Users';
+import {
+  Flex,
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  IconButton,
+} from "@chakra-ui/react";
+import { FaBars } from "react-icons/fa";
+import { useHistory } from "react-router-dom";
+import { Users } from "../../providers/Users";
 
 export const LinkDesktop = () => {
   const history = useHistory();
   const local = history.location.pathname;
-  // console.log(local);
+
   return (
     <Flex
       justifyContent="space-evenly"
-      alignItems="center"
-      w="350px"
       alignItems="flex-end"
+      w="350px"
       height="70px"
     >
       <Button
@@ -66,11 +73,41 @@ export const SuspenseMenu = () => {
         variant="outline"
       />
       <MenuList backgroundColor="gray.50">
-        <MenuItem onClick={() => { history.push("/dashboard") }} color="purple.800" _hover={{ color: "gray.50", bg: "purple.800" }} >Dashboard</MenuItem>
-        <MenuItem onClick={() => { history.push("/lancamentos") }} color="purple.800" _hover={{ color: "gray.50", bg: "purple.800" }} >Lançamentos</MenuItem>
-        <MenuItem onClick={() => { history.push("/limites") }} color="purple.800" _hover={{ color: "gray.50", bg: "purple.800" }}  >Limites</MenuItem>
-        <MenuItem onClick={() => Logout()} color="purple.800" _hover={{ color: "gray.50", bg: "purple.800" }}  >Sair</MenuItem>
+        <MenuItem
+          onClick={() => {
+            history.push("/dashboard");
+          }}
+          color="purple.800"
+          _hover={{ color: "gray.50", bg: "purple.800" }}
+        >
+          Dashboard
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            history.push("/lancamentos");
+          }}
+          color="purple.800"
+          _hover={{ color: "gray.50", bg: "purple.800" }}
+        >
+          Lançamentos
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            history.push("/limites");
+          }}
+          color="purple.800"
+          _hover={{ color: "gray.50", bg: "purple.800" }}
+        >
+          Limites
+        </MenuItem>
+        <MenuItem
+          onClick={() => Logout()}
+          color="purple.800"
+          _hover={{ color: "gray.50", bg: "purple.800" }}
+        >
+          Sair
+        </MenuItem>
       </MenuList>
     </Menu>
-  )
-}
+  );
+};

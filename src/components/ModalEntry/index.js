@@ -1,26 +1,19 @@
 import {
   Box,
-  Button,
   Center,
   Flex,
   Heading,
   HStack,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Progress,
   Text,
   Checkbox
 } from "@chakra-ui/react";
 import {
-  FaCheck,
   FaCheckCircle,
-  FaCube,
-  FaExclamation,
   FaFunnelDollar,
   FaTimes,
   FaTrash,

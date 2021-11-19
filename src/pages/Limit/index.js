@@ -19,11 +19,10 @@ import {
   FaBus,
   FaNetworkWired,
   FaPlus,
-  FaEdit,
 } from "react-icons/fa";
 import { Menu } from "../../components/LimitDrawer";
 import Header from "../../components/Header";
-import { useLimits } from '../../providers/Limits';
+import { useLimits } from "../../providers/Limits";
 import { Users } from "../../providers/Users";
 import { formatValue } from "../../utils/formatValue";
 import { useState } from "react";
@@ -31,43 +30,61 @@ import { useState } from "react";
 const SpendLimit = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { totalSpends, userSpends, totalLimit } = useLimits();
+  const { userSpends, totalLimit } = useLimits();
 
-  const { limits } = Users()
+  const { limits } = Users();
 
   const progressValue = (spend, limit) => {
-    return spend / limit * 100
-  }
+    return (spend / limit) * 100;
+  };
 
-  const { alimentacao, assinaturas, bares, casa, educacao, familia, impostos, lazer, outros, roupas, transportes } = limits;
+  const {
+    alimentacao,
+    assinaturas,
+    bares,
+    casa,
+    educacao,
+    familia,
+    impostos,
+    lazer,
+    outros,
+    roupas,
+    transportes,
+  } = limits;
 
-  const filterLimits = (category) => userSpends.filter((spend) => spend.category === category)
+  const filterLimits = (category) =>
+    userSpends.filter((spend) => spend.category === category);
 
-  const spendReduce = (spend) => spend.reduce((acc, value) => { return acc + value.value }, 0);
+  const spendReduce = (spend) =>
+    spend.reduce((acc, value) => {
+      return acc + value.value;
+    }, 0);
 
-  const filteredFood = filterLimits("alimentacao")
-  const filtroAssinaturas = filterLimits("assinatura")
-  const filteredBares = filterLimits("bares")
-  const filteredEducacao = filterLimits("educacao")
-  const filteredFamilia = filterLimits("familia")
-  const filteredImpostos = filterLimits("impostos")
-  const filteredCasa = filterLimits("casa")
-  const filteredLazer = filterLimits("lazer")
-  const filteredOutros = filterLimits("outros")
-  const filteredRoupas = filterLimits("roupas")
-  const filteredTransportes = filterLimits("transportes")
+  const totalSpends = spendReduce(userSpends);
 
-  const reduceFood = spendReduce(filteredFood)
-  const reduceAssinaturas = spendReduce(filtroAssinaturas)
-  const reduceBares = spendReduce(filteredBares)
-  const reduceEducacao = spendReduce(filteredEducacao)
-  const reduceFamilia = spendReduce(filteredFamilia)
-  const reduceImpostos = spendReduce(filteredImpostos)
-  const reduceCasa = spendReduce(filteredCasa)
-  const reduceLazer = spendReduce(filteredLazer)
-  const reduceOutros = spendReduce(filteredOutros)
-  const reduceRoupas = spendReduce(filteredRoupas)
-  const reduceTransportes = spendReduce(filteredTransportes)
+  const filteredFood = filterLimits("alimentacao");
+  const filtroAssinaturas = filterLimits("assinatura");
+  const filteredBares = filterLimits("bares");
+  const filteredEducacao = filterLimits("educacao");
+  const filteredFamilia = filterLimits("familia");
+  const filteredImpostos = filterLimits("impostos");
+  const filteredCasa = filterLimits("casa");
+  const filteredLazer = filterLimits("lazer");
+  const filteredOutros = filterLimits("outros");
+  const filteredRoupas = filterLimits("roupas");
+  const filteredTransportes = filterLimits("transportes");
+
+  const reduceFood = spendReduce(filteredFood);
+  const reduceAssinaturas = spendReduce(filtroAssinaturas);
+  const reduceBares = spendReduce(filteredBares);
+  const reduceEducacao = spendReduce(filteredEducacao);
+  const reduceFamilia = spendReduce(filteredFamilia);
+  const reduceImpostos = spendReduce(filteredImpostos);
+  const reduceCasa = spendReduce(filteredCasa);
+  const reduceLazer = spendReduce(filteredLazer);
+  const reduceOutros = spendReduce(filteredOutros);
+  const reduceRoupas = spendReduce(filteredRoupas);
+  const reduceTransportes = spendReduce(filteredTransportes);
 
   const [drawerFood, setDrawerFood] = useState(false);
   const [drawerAssinaturas, setDrawerAssinaturas] = useState(false);
@@ -81,21 +98,15 @@ const SpendLimit = () => {
   const [drawerRoupas, setDrawerRoupas] = useState(false);
   const [drawerTransportes, setDrawerTransportes] = useState(false);
 
-
   const handleDrawer = (setDrawer) => {
     setDrawer(true);
-    onOpen()
-  }
+    onOpen();
+  };
 
   return (
     <>
       <Header />
-      <Flex
-        w="100%"
-        h="100%"
-        justifyContent="space-evenly"
-        alignItems="center"
-      >
+      <Flex w="100%" h="100%" justifyContent="space-evenly" alignItems="center">
         <Stack
           spacing={5}
           margin="20px"
@@ -116,8 +127,12 @@ const SpendLimit = () => {
               justifyContent="center"
               w="100%"
             >
-              <Text fontSize="20px" fontWeight="extrabold" >Despesas</Text>
-              <Text alignSelf="flex-end">{formatValue(totalSpends)} - {formatValue(totalLimit)}</Text>
+              <Text fontSize="20px" fontWeight="extrabold">
+                Despesas
+              </Text>
+              <Text alignSelf="flex-end">
+                {formatValue(totalSpends)} - {formatValue(totalLimit)}
+              </Text>
             </Flex>
             <Progress
               value={progressValue(totalSpends, totalLimit) || 0}
@@ -146,7 +161,10 @@ const SpendLimit = () => {
             <Flex w="252px" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Alimentação</Text>
-                <Text fontSize="13px">{formatValue(reduceFood)} - {formatValue(alimentacao) || formatValue(0)}</Text>
+                <Text fontSize="13px">
+                  {formatValue(reduceFood)} -{" "}
+                  {formatValue(alimentacao) || formatValue(0)}
+                </Text>
               </Flex>
               <Box w="100%">
                 <Progress
@@ -157,11 +175,22 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={() => { handleDrawer(setDrawerFood) }} w="12px" />
-            {drawerFood ?
-              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerFood} categoryName="alimentacao" />
-              : ""}
-
+            <FaPlus
+              onClick={() => {
+                handleDrawer(setDrawerFood);
+              }}
+              w="12px"
+            />
+            {drawerFood ? (
+              <Menu
+                isOpen={isOpen}
+                onClose={onClose}
+                setDrawer={setDrawerFood}
+                categoryName="alimentacao"
+              />
+            ) : (
+              ""
+            )}
           </Flex>
           {/* Assinaturas */}
           <Flex
@@ -183,7 +212,10 @@ const SpendLimit = () => {
             <Flex w="252px" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Assinaturas</Text>
-                <Text fontSize="13px">{formatValue(reduceAssinaturas)} - {formatValue(assinaturas) || formatValue(0)}</Text>
+                <Text fontSize="13px">
+                  {formatValue(reduceAssinaturas)} -{" "}
+                  {formatValue(assinaturas) || formatValue(0)}
+                </Text>
               </Flex>
               <Box w="100%">
                 <Progress
@@ -194,10 +226,22 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={() => { handleDrawer(setDrawerAssinaturas) }} w="12px" />
-            {drawerAssinaturas ?
-              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerAssinaturas} categoryName="assinaturas" />
-              : ""}
+            <FaPlus
+              onClick={() => {
+                handleDrawer(setDrawerAssinaturas);
+              }}
+              w="12px"
+            />
+            {drawerAssinaturas ? (
+              <Menu
+                isOpen={isOpen}
+                onClose={onClose}
+                setDrawer={setDrawerAssinaturas}
+                categoryName="assinaturas"
+              />
+            ) : (
+              ""
+            )}
           </Flex>
           {/* Bares */}
           <Flex
@@ -219,7 +263,10 @@ const SpendLimit = () => {
             <Flex w="252px" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Bares</Text>
-                <Text fontSize="13px">{formatValue(reduceBares)} - {formatValue(bares) || formatValue(0)}</Text>
+                <Text fontSize="13px">
+                  {formatValue(reduceBares)} -{" "}
+                  {formatValue(bares) || formatValue(0)}
+                </Text>
               </Flex>
               <Box w="100%">
                 <Progress
@@ -230,10 +277,22 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={() => { handleDrawer(setDrawerBares) }} w="12px" />
-            {drawerBares ?
-              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerBares} categoryName="bares" />
-              : ""}
+            <FaPlus
+              onClick={() => {
+                handleDrawer(setDrawerBares);
+              }}
+              w="12px"
+            />
+            {drawerBares ? (
+              <Menu
+                isOpen={isOpen}
+                onClose={onClose}
+                setDrawer={setDrawerBares}
+                categoryName="bares"
+              />
+            ) : (
+              ""
+            )}
           </Flex>
           {/* Casa */}
           <Flex
@@ -255,7 +314,10 @@ const SpendLimit = () => {
             <Flex w="252px" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Casa</Text>
-                <Text fontSize="13px">{formatValue(reduceCasa)} - {formatValue(casa) || formatValue(0)}</Text>
+                <Text fontSize="13px">
+                  {formatValue(reduceCasa)} -{" "}
+                  {formatValue(casa) || formatValue(0)}
+                </Text>
               </Flex>
               <Box w="100%">
                 <Progress
@@ -266,10 +328,22 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={() => { handleDrawer(setDrawerCasa) }} w="12px" />
-            {drawerCasa ?
-              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerCasa} categoryName="casa" />
-              : ""}
+            <FaPlus
+              onClick={() => {
+                handleDrawer(setDrawerCasa);
+              }}
+              w="12px"
+            />
+            {drawerCasa ? (
+              <Menu
+                isOpen={isOpen}
+                onClose={onClose}
+                setDrawer={setDrawerCasa}
+                categoryName="casa"
+              />
+            ) : (
+              ""
+            )}
           </Flex>
           {/* Educação */}
           <Flex
@@ -291,7 +365,10 @@ const SpendLimit = () => {
             <Flex w="252px" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Educação</Text>
-                <Text fontSize="13px">{formatValue(reduceEducacao)} - {formatValue(educacao) || formatValue(0)}</Text>
+                <Text fontSize="13px">
+                  {formatValue(reduceEducacao)} -{" "}
+                  {formatValue(educacao) || formatValue(0)}
+                </Text>
               </Flex>
               <Box w="100%">
                 <Progress
@@ -302,10 +379,22 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={() => { handleDrawer(setDrawerEducacao) }} w="12px" />
-            {drawerEducacao ?
-              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerEducacao} categoryName="educacao" />
-              : ""}
+            <FaPlus
+              onClick={() => {
+                handleDrawer(setDrawerEducacao);
+              }}
+              w="12px"
+            />
+            {drawerEducacao ? (
+              <Menu
+                isOpen={isOpen}
+                onClose={onClose}
+                setDrawer={setDrawerEducacao}
+                categoryName="educacao"
+              />
+            ) : (
+              ""
+            )}
           </Flex>
           {/* Familia */}
           <Flex
@@ -327,7 +416,10 @@ const SpendLimit = () => {
             <Flex w="252px" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Familia</Text>
-                <Text fontSize="13px">{formatValue(reduceFamilia)} - {formatValue(familia) || formatValue(0)}</Text>
+                <Text fontSize="13px">
+                  {formatValue(reduceFamilia)} -{" "}
+                  {formatValue(familia) || formatValue(0)}
+                </Text>
               </Flex>
               <Box w="100%">
                 <Progress
@@ -338,10 +430,22 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={() => { handleDrawer(setDrawerFamilia) }} w="12px" />
-            {drawerFamilia ?
-              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerFamilia} categoryName="familia" />
-              : ""}
+            <FaPlus
+              onClick={() => {
+                handleDrawer(setDrawerFamilia);
+              }}
+              w="12px"
+            />
+            {drawerFamilia ? (
+              <Menu
+                isOpen={isOpen}
+                onClose={onClose}
+                setDrawer={setDrawerFamilia}
+                categoryName="familia"
+              />
+            ) : (
+              ""
+            )}
           </Flex>
           {/* Impostos */}
           <Flex
@@ -363,7 +467,10 @@ const SpendLimit = () => {
             <Flex w="252px" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Impostos</Text>
-                <Text fontSize="13px">{formatValue(reduceImpostos)} - {formatValue(impostos) || formatValue(0)}</Text>
+                <Text fontSize="13px">
+                  {formatValue(reduceImpostos)} -{" "}
+                  {formatValue(impostos) || formatValue(0)}
+                </Text>
               </Flex>
               <Box w="100%">
                 <Progress
@@ -374,10 +481,22 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={() => { handleDrawer(setDrawerImpostos) }} w="12px" />
-            {drawerImpostos ?
-              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerImpostos} categoryName="impostos" />
-              : ""}
+            <FaPlus
+              onClick={() => {
+                handleDrawer(setDrawerImpostos);
+              }}
+              w="12px"
+            />
+            {drawerImpostos ? (
+              <Menu
+                isOpen={isOpen}
+                onClose={onClose}
+                setDrawer={setDrawerImpostos}
+                categoryName="impostos"
+              />
+            ) : (
+              ""
+            )}
           </Flex>
           {/* Lazer */}
           <Flex
@@ -399,7 +518,10 @@ const SpendLimit = () => {
             <Flex w="252px" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Lazer</Text>
-                <Text fontSize="13px">{formatValue(reduceLazer)} - {formatValue(lazer) || formatValue(0)}</Text>
+                <Text fontSize="13px">
+                  {formatValue(reduceLazer)} -{" "}
+                  {formatValue(lazer) || formatValue(0)}
+                </Text>
               </Flex>
               <Box w="100%">
                 <Progress
@@ -410,10 +532,22 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={() => { handleDrawer(setDrawerLazer) }} w="12px" />
-            {drawerLazer ?
-              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerLazer} categoryName="lazer" />
-              : ""}
+            <FaPlus
+              onClick={() => {
+                handleDrawer(setDrawerLazer);
+              }}
+              w="12px"
+            />
+            {drawerLazer ? (
+              <Menu
+                isOpen={isOpen}
+                onClose={onClose}
+                setDrawer={setDrawerLazer}
+                categoryName="lazer"
+              />
+            ) : (
+              ""
+            )}
           </Flex>
           {/* Roupas */}
           <Flex
@@ -435,7 +569,10 @@ const SpendLimit = () => {
             <Flex w="252px" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Roupas</Text>
-                <Text fontSize="13px">{formatValue(reduceRoupas)} - {formatValue(roupas) || formatValue(0)}</Text>
+                <Text fontSize="13px">
+                  {formatValue(reduceRoupas)} -{" "}
+                  {formatValue(roupas) || formatValue(0)}
+                </Text>
               </Flex>
               <Box w="100%">
                 <Progress
@@ -446,10 +583,22 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={() => { handleDrawer(setDrawerRoupas) }} w="12px" />
-            {drawerRoupas ?
-              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerRoupas} categoryName="roupas" />
-              : ""}
+            <FaPlus
+              onClick={() => {
+                handleDrawer(setDrawerRoupas);
+              }}
+              w="12px"
+            />
+            {drawerRoupas ? (
+              <Menu
+                isOpen={isOpen}
+                onClose={onClose}
+                setDrawer={setDrawerRoupas}
+                categoryName="roupas"
+              />
+            ) : (
+              ""
+            )}
           </Flex>
           {/* Transportes */}
           <Flex
@@ -471,7 +620,10 @@ const SpendLimit = () => {
             <Flex w="252px" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Transportes</Text>
-                <Text fontSize="13px">{formatValue(reduceTransportes)} - {formatValue(transportes) || formatValue(0)}</Text>
+                <Text fontSize="13px">
+                  {formatValue(reduceTransportes)} -{" "}
+                  {formatValue(transportes) || formatValue(0)}
+                </Text>
               </Flex>
               <Box w="100%">
                 <Progress
@@ -482,10 +634,22 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={() => { handleDrawer(setDrawerTransportes) }} w="12px" />
-            {drawerTransportes ?
-              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerTransportes} categoryName="transportes" />
-              : ""}
+            <FaPlus
+              onClick={() => {
+                handleDrawer(setDrawerTransportes);
+              }}
+              w="12px"
+            />
+            {drawerTransportes ? (
+              <Menu
+                isOpen={isOpen}
+                onClose={onClose}
+                setDrawer={setDrawerTransportes}
+                categoryName="transportes"
+              />
+            ) : (
+              ""
+            )}
           </Flex>
           {/* Outros */}
           <Flex
@@ -507,7 +671,10 @@ const SpendLimit = () => {
             <Flex w="252px" flexDirection="column">
               <Flex justifyContent="space-between">
                 <Text fontSize="15px">Outros</Text>
-                <Text fontSize="13px">{formatValue(reduceOutros)} - {formatValue(outros) || formatValue(0)}</Text>
+                <Text fontSize="13px">
+                  {formatValue(reduceOutros)} -{" "}
+                  {formatValue(outros) || formatValue(0)}
+                </Text>
               </Flex>
               <Box w="100%">
                 <Progress
@@ -518,12 +685,23 @@ const SpendLimit = () => {
                 />
               </Box>
             </Flex>
-            <FaPlus onClick={() => { handleDrawer(setDrawerOutros) }} w="12px" />
-            {drawerOutros ?
-              <Menu isOpen={isOpen} onClose={onClose} setDrawer={setDrawerOutros} categoryName="outros" />
-              : ""}
+            <FaPlus
+              onClick={() => {
+                handleDrawer(setDrawerOutros);
+              }}
+              w="12px"
+            />
+            {drawerOutros ? (
+              <Menu
+                isOpen={isOpen}
+                onClose={onClose}
+                setDrawer={setDrawerOutros}
+                categoryName="outros"
+              />
+            ) : (
+              ""
+            )}
           </Flex>
-
         </Stack>
       </Flex>
     </>

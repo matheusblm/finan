@@ -3,7 +3,6 @@ import { Box, Center, Flex, Text } from "@chakra-ui/layout";
 import { Checkbox } from '@chakra-ui/react'
 import {
   FaFileInvoiceDollar,
-  FaFileArchive,
   FaCheckCircle,
   FaTimesCircle,
   FaReceipt,

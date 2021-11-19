@@ -102,6 +102,7 @@ const Initial = () => {
       note: 5,
     },
   ];
+
   return (
     <>
       <Flex h={["300px", "400px", "500px"]} padding="30px">
@@ -292,6 +293,7 @@ const Initial = () => {
         >
           Time de desenvolvimento
         </Heading>
+
         <Flex
           flexWrap="wrap"
           justifyContent="center"
@@ -328,6 +330,7 @@ const Initial = () => {
           ))}
         </Flex>
       </Flex>
+
       <Flex
         h="500px"
         bgGradient="linear(to-l, blue.500, gray.50)"

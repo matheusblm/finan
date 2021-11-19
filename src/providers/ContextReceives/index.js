@@ -1,30 +1,14 @@
-import {
-  useContext,
-  createContext,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import { useContext, createContext, useState, useCallback } from "react";
 import { api } from "../../service/api";
 
 const ReceivesContext = createContext();
 
 export const ReceiveProvider = ({ children }) => {
   const [received, setReceived] = useState([]);
-
   const [noReceived, setNoReceived] = useState([]);
-
   const [allReceives, setAllReceives] = useState([]);
 
-  const [filterPorMesReceive, setFilterPorMesReceive] = useState();
-
-  const [filterPorMesReceiveAtual, setFilterPorMesReceiveAtual] = useState();
-
-  const data = new Date();
-
-  const mes = data.getMonth() + 1;
-
-  //Pega todos os receber.
+  const [openModalWallet, setOpenModalWallet] = useState(false);
 
   const loadReceives = useCallback(async (userId, token) => {
     try {
@@ -33,9 +17,10 @@ export const ReceiveProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setAllReceives(response.data);
+
+      response.data.length > 0 && setAllReceives(response.data);
     } catch (err) {
-      console.log("err");
+      console.log(err);
     }
   }, []);
 
@@ -50,34 +35,6 @@ export const ReceiveProvider = ({ children }) => {
     const received = allReceives.filter((item) => item.type === false);
     setNoReceived(received);
   };
-
-  //Filtro de receitas do mês atual
-
-  const filterActualMonthReceive = () => {
-    if (received) {
-      const filterPorMesReceive = received.filter(
-        (item) => item.data.split("-")[1] === mes && item.type === true
-      );
-      setFilterPorMesReceiveAtual(filterPorMesReceive);
-    }
-  };
-
-  useEffect(() => {
-    filterActualMonthReceive();
-  }, []);
-
-  //Filtrar por mes escolhido pelo usuário
-  const filterMonthReceived = (mes, ano) => {
-    const filterPorAnoReceive = received.filter(
-      (item) => item.data.split("-")[0] === new Date().getFullYear() && item.type === true
-    );
-    const filterPorMesReceive = filterPorAnoReceive.filter(
-      (item) => item.data.split("-")[0] === new Date().getMonth() +1 && item.type === true
-    );
-    setFilterPorMesReceive(filterPorMesReceive);
-  };
-
-  //Transforma receives não recebidas em recebidas.
 
   const editReceive = (id, token) => {
     api
@@ -95,18 +52,47 @@ export const ReceiveProvider = ({ children }) => {
       .catch((resp) => console.log(resp));
   };
 
-
-
-  const lancReceive = (data, token) => {
-    console.log(data)
-    api
+  const lancReceive = async (data, token) => {
+    const userId = localStorage.getItem("idfinan");
+    await api
       .post(`/receive`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
+      .then(async (_) => await loadReceives(userId, token))
       .catch((resp) => console.log(resp));
   };
+
+  // const newReceiveAll = allReceives.filter((item) => item.type === false);
+  // const newReceivedAll = allReceives.filter((item) => item.type === true);
+  const newReceive = allReceives
+    .filter(
+      (item) =>
+        Number(item.data.split("-")[0]) === new Date().getFullYear() &&
+        item.type === false
+    )
+    .filter(
+      (item) =>
+        Number(item.data.split("-")[1]) === new Date().getMonth() + 1 &&
+        item.type === false
+    );
+
+  const newReceived = allReceives
+    .filter(
+      (item) =>
+        Number(item.data.split("-")[0]) === new Date().getFullYear() &&
+        item.type === true
+    )
+    .filter(
+      (item) =>
+        Number(item.data.split("-")[1]) === new Date().getMonth() + 1 &&
+        item.type === true
+    );
+
+  const receiveTotal = newReceive.reduce((acc, bill) => acc + bill.value, 0);
+  const receivedTotal = newReceived.reduce((acc, bill) => acc + bill.value, 0);
+  const handleModalWallet = () => setOpenModalWallet(!openModalWallet);
 
   const deleteReceive = (idReceive,token)=>{
     api.delete(`/receive/${idReceive}`,{
@@ -118,21 +104,23 @@ export const ReceiveProvider = ({ children }) => {
     .catch(err=>console.log(err))
   }
 
+
   return (
     <ReceivesContext.Provider
       value={{
         received,
         noReceived,
         allReceives,
-        filterPorMesReceive,
-        filterPorMesReceiveAtual,
         filterReceived,
         filterNoReceived,
-        filterActualMonthReceive,
-        filterMonthReceived,
         editReceive,
         lancReceive,
         loadReceives,
+        newReceive,
+        receivedTotal,
+        receiveTotal,
+        openModalWallet,
+        handleModalWallet,
         deleteReceive
       }}
     >
