@@ -24,10 +24,10 @@ export const CardEntry = ({ item }) => {
   const handleEdit = (type) => {
     if (type === true) {
       editReceive(item.id, token)
-      loadReceives(item.id, token)
+      // loadReceives(item.id, token)
     } else if (type === false) {
       editSpend(item.id, token)
-      loadSpends(item.id, token)
+      // loadSpends(item.id, token)
     }
   }
 
@@ -54,9 +54,9 @@ export const CardEntry = ({ item }) => {
           _hover={{ bg: "#DAFBDA", cursor: "pointer" }}
 
         >
-          <Flex justifyContent="space-between">
+          <Flex onClick={onOpen} justifyContent="space-between">
             <Flex
-              onClick={onOpen}>
+            >
               <Center
                 w="40px"
                 h="40px"
