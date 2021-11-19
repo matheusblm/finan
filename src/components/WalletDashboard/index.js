@@ -8,17 +8,14 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
-import {
-  FaWallet,
-  FaLandmark,
-  FaExclamationCircle,
-  FaPlusSquare,
-} from "react-icons/fa";
+import { FaWallet, FaExclamationCircle, FaPlusSquare } from "react-icons/fa";
 import { Account } from "../../providers/Account";
 import { useReceive } from "../../providers/ContextReceives";
 import { Users } from "../../providers/Users";
 
 import { ModalWallet } from "../ModalWallet";
+
+import { CardBank } from "../CardBank";
 
 export const WalletDashboard = () => {
   const { openModalWallet, handleModalWallet } = useReceive();
@@ -49,22 +46,7 @@ export const WalletDashboard = () => {
         </HStack>
       </Flex>
       {account ? (
-        account.map((acc, index) => (
-          <Flex justify="space-between" color="gray.300" key={index}>
-            <HStack spacing={2}>
-              <Icon as={FaLandmark} />
-              <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
-                {acc.bank}
-              </Text>
-            </HStack>
-            <HStack spacing={2}>
-              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>
-                {acc.over}
-              </Text>
-            </HStack>
-          </Flex>
-        ))
+        account.map((acc, index) => <CardBank acc={acc} index={index} />)
       ) : (
         <Center h="100%">
           <Flex

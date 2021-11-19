@@ -1,6 +1,6 @@
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Box, Center, Flex, Text } from "@chakra-ui/layout";
-import { Checkbox } from '@chakra-ui/react'
+import { Checkbox } from "@chakra-ui/react";
 import {
   FaFileInvoiceDollar,
   FaCheckCircle,
@@ -22,24 +22,24 @@ export const CardEntry = ({ item }) => {
 
   const handleEdit = (type) => {
     if (type === true) {
-      editReceive(item.id, token)
+      editReceive(item.id, token);
       // loadReceives(item.id, token)
     } else if (type === false) {
-      editSpend(item.id, token)
+      editSpend(item.id, token);
       // loadSpends(item.id, token)
     }
-  }
+  };
 
   const handleDelete = (type) => {
     if (type === true) {
-      deleteReceive(item.id, token)
-      loadReceives(item.id, token)
+      deleteReceive(item.id, token);
+      loadReceives(item.id, token);
     } else if (type === false) {
-      deleteSpend(item.id, token)
-      loadSpends(item.id, token)
+      deleteSpend(item.id, token);
+      loadSpends(item.id, token);
     }
-    onClose()
-  }
+    onClose();
+  };
 
   return (
     <>
@@ -51,11 +51,9 @@ export const CardEntry = ({ item }) => {
           borderRadius="md"
           transition="0.8s"
           _hover={{ bg: "#DAFBDA", cursor: "pointer" }}
-
         >
           <Flex onClick={onOpen} justifyContent="space-between">
-            <Flex
-            >
+            <Flex>
               <Center
                 w="40px"
                 h="40px"
@@ -79,7 +77,10 @@ export const CardEntry = ({ item }) => {
                 transition="0.5s"
                 _hover={{ color: "gray.300", cursor: "pointer" }}
               >
-                <Checkbox isChecked={item.type} onChange={() => handleEdit(item.entry)} />
+                <Checkbox
+                  isChecked={item.type}
+                  onChange={() => handleEdit(item.entry)}
+                />
               </Center>
             </Flex>
           </Flex>
@@ -91,7 +92,6 @@ export const CardEntry = ({ item }) => {
           borderRadius="md"
           transition="0.8s"
           _hover={{ bg: "#F0E4E3", cursor: "pointer" }}
-
         >
           <Flex justifyContent="space-between">
             <Flex onClick={onOpen}>
@@ -119,7 +119,10 @@ export const CardEntry = ({ item }) => {
                 transition="0.5s"
                 _hover={{ color: "gray.300" }}
               >
-                <Checkbox isChecked={item.type} onChange={() => handleEdit(item.entry)} />
+                <Checkbox
+                  isChecked={item.type}
+                  onChange={() => handleEdit(item.entry)}
+                />
               </Center>
             </Flex>
           </Flex>
