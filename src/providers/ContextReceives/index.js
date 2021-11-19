@@ -1,9 +1,11 @@
 import { useContext, createContext, useState, useCallback } from "react";
 import { api } from "../../service/api";
+import { useToast } from '@chakra-ui/react';
 
 const ReceivesContext = createContext();
 
 export const ReceiveProvider = ({ children }) => {
+  const toast = useToast();
   const [received, setReceived] = useState([]);
   const [noReceived, setNoReceived] = useState([]);
   const [allReceives, setAllReceives] = useState([]);
@@ -20,7 +22,12 @@ export const ReceiveProvider = ({ children }) => {
 
       response.data.length > 0 && setAllReceives(response.data);
     } catch (err) {
-      console.log(err);
+      toast({
+        title: "Erro ao buscar lançamento",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
     }
   }, []);
 
@@ -49,7 +56,18 @@ export const ReceiveProvider = ({ children }) => {
           },
         }
       )
-      .catch((resp) => console.log(resp));
+      .then((resp) => toast({
+        title: "Lançamento editado com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      }))
+      .catch((erro) => toast({
+        title: "Erro ao editar lançamento",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
   };
 
   const lancReceive = async (data, token) => {
@@ -61,7 +79,18 @@ export const ReceiveProvider = ({ children }) => {
         },
       })
       .then(async (_) => await loadReceives(userId, token))
-      .catch((resp) => console.log(resp));
+      .then((resp) => toast({
+        title: "Lançamento criado com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      }))
+      .catch((erro) => toast({
+        title: "Erro ao realizar lançamento",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
   };
 
   // const newReceiveAll = allReceives.filter((item) => item.type === false);
@@ -94,14 +123,24 @@ export const ReceiveProvider = ({ children }) => {
   const receivedTotal = newReceived.reduce((acc, bill) => acc + bill.value, 0);
   const handleModalWallet = () => setOpenModalWallet(!openModalWallet);
 
-  const deleteReceive = (idReceive,token)=>{
-    api.delete(`/receive/${idReceive}`,{
+  const deleteReceive = (idReceive, token) => {
+    api.delete(`/receive/${idReceive}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-    .then(resp=>console.log(resp))
-    .catch(err=>console.log(err))
+      .then((resp) => toast({
+        title: "Lançamento deletado com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      }))
+      .catch((erro) => toast({
+        title: "Erro ao deletar lançamento",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
   }
 
 
