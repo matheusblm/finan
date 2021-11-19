@@ -51,7 +51,7 @@ export const SpendingOfTheMonth = () => {
           {arraySpend.length !== 0 ? (
             <Doughnut data={dataGrafico} />
           ) : (
-            <Center h="100%">
+            <Center h="100%" w="100%">
               <Flex
                 direction="column"
                 align="center"

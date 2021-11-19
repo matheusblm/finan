@@ -43,7 +43,7 @@ export const Entry = () => {
     onOpen: onOpenCreateSpend,
     onClose: onCloseCreateSpend,
   } = useDisclosure();
-
+  // eslint-disable-next-line
   const [animationState, setAnimationState] = useState({
     isStopped: false,
     isPaused: false,
@@ -59,17 +59,17 @@ export const Entry = () => {
   const totalReceive =
     allReceives.length > 0
       ? allReceives.reduce(
-          (acumulador, valorAtual) => acumulador + valorAtual.value,
-          0
-        )
+        (acumulador, valorAtual) => acumulador + valorAtual.value,
+        0
+      )
       : 0;
 
   const totalSpend =
     allSpends.length > 0
       ? allSpends.reduce(
-          (acumulador, valorAtual) => acumulador + valorAtual.value,
-          0
-        )
+        (acumulador, valorAtual) => acumulador + valorAtual.value,
+        0
+      )
       : 0;
 
   useEffect(() => {
@@ -77,12 +77,14 @@ export const Entry = () => {
     loadReceives(userId, token).then((res) => {
       setLoading(false);
     });
+    // eslint-disable-next-line
   }, []);
   useEffect(() => {
     const userId = id | localStorage.getItem("idfinan");
     loadSpends(userId, token).then((res) => {
       setLoading(false);
     });
+    // eslint-disable-next-line
   }, []);
 
   return (

@@ -13,7 +13,6 @@ import {
   Checkbox,
 } from "@chakra-ui/react";
 import {
-  FaCheckCircle,
   FaFunnelDollar,
   FaTimes,
   FaTrash,
@@ -123,7 +122,7 @@ export const ModalEntry = ({ isOpen, onClose, item }) => {
 
         <Box padding="6">
           <Text color="gray.300" mt="3">
-            {item.date}
+            {item.data}
           </Text>
         </Box>
       </ModalContent>

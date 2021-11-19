@@ -23,6 +23,7 @@ import { useEffect, useState } from "react";
 export const BillsToReceive = () => {
   const { token, id } = Users();
   const { loadReceives, editReceive, newReceive } = useReceive();
+  // eslint-disable-next-line
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,6 +31,7 @@ export const BillsToReceive = () => {
     loadReceives(userId, token).then((res) => {
       setLoading(false);
     });
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -54,7 +56,7 @@ export const BillsToReceive = () => {
                   display={["none", "none", "none", "block"]}
                   fontSize={{ md: "sm", lg: "md" }}
                 >
-                  {item.date}
+                  {item.data}
                 </Text>
               </Stack>
             </HStack>

@@ -37,6 +37,7 @@ export const ModalCreateRecive = ({ isOpen, onClose }) => {
   const { id: userId, token } = Users();
 
   const {
+    // eslint-disable-next-line
     formState: { errors },
     register,
     handleSubmit,
