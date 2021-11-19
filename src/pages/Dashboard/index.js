@@ -297,11 +297,11 @@ const WalletDashboard = () => {
 
   const { openModalWallet, handleModalWallet } = useListDashboard()
 
-  const {id,token} = Users()
+  const { id, token } = Users()
 
-  const {account,getAccount,editAccountSaldo} = Account()
+  const { account, getAccount, editAccountSaldo } = Account()
 
-  useEffect(()=>getAccount(),[])
+  useEffect(() => getAccount(), [])
 
   return (
     <Stack w="100%" p={4} spacing={2}>
@@ -314,36 +314,36 @@ const WalletDashboard = () => {
           <Icon as={FaWallet} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
         </HStack>
       </Flex>
-      { account ? 
-       account.map((acc,index)=>
-              <Flex justify="space-between" color="gray.300" key={index} >
-                <HStack spacing={2}>
-                  <Icon as={FaLandmark} />
-                  <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
-                    {acc.bank}
-                  </Text>
-                </HStack>
-                <HStack spacing={2}>
-                  <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-                  <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>
-                    {acc.over}
-                  </Text>
-                </HStack>
-              </Flex>)
+      {account ?
+        account.map((acc, index) =>
+          <Flex justify="space-between" color="gray.300" key={index} >
+            <HStack spacing={2}>
+              <Icon as={FaLandmark} />
+              <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
+                {acc.bank}
+              </Text>
+            </HStack>
+            <HStack spacing={2}>
+              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
+              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>
+                {acc.over}
+              </Text>
+            </HStack>
+          </Flex>)
         :
         <Center h="100%">
-             <Flex
-               direction="column"
-               align="center"
-               alignContent="center"
-               color="gray.300"
-               w="100%"
-             >
-               <Text>Você não tem contas cadastradas ainda</Text>
-               <Icon as={FaExclamationCircle} my={2} fontSize="xl" />
-             </Flex>
-           </Center>
-      
+          <Flex
+            direction="column"
+            align="center"
+            alignContent="center"
+            color="gray.300"
+            w="100%"
+          >
+            <Text>Você não tem contas cadastradas ainda</Text>
+            <Icon as={FaExclamationCircle} my={2} fontSize="xl" />
+          </Flex>
+        </Center>
+
         // false ? (
         //   <Flex justify="space-between" color="gray.300">
         //     <HStack spacing={2}>
@@ -392,9 +392,9 @@ const ModalWallet = () => {
 
   const { openModalWallet, handleModalWallet } = useListDashboard()
 
-  const {getAccount,letAccount} = Account()
+  const { getAccount, letAccount } = Account()
 
-  const {id:userId,token} = Users()
+  const { id: userId, token } = Users()
 
   const {
     formState: { errors },
@@ -404,11 +404,11 @@ const ModalWallet = () => {
     resolver: yupResolver(createTaskSchema),
   });
 
-  const handleWallet = ({bank,value}) => {
-      const over = Number(value)
-      const newData = {bank,over,userId}
-      letAccount(newData,token)
-      getAccount(token)
+  const handleWallet = ({ bank, value }) => {
+    const over = Number(value)
+    const newData = { bank, over, userId }
+    letAccount(newData, token)
+    getAccount(token)
   }
 
   return (
@@ -636,7 +636,7 @@ const BillsToPay = () => {
                 editSpend(item.id, token)
                 getAllSpend()
               }} />
-              <Icon onClick={()=> {
+              <Icon onClick={() => {
                 deleteSpend(item.id, token)
                 getAllSpend()
               }} as={FaTimes} my={2} fontSize={{ lg: "md", md: "sm", base: "xs" }} color="red" />
@@ -656,7 +656,7 @@ const BillsToPay = () => {
 };
 
 const BillsToReceive = () => {
-  const { editReceive,deleteReceive } = useReceive();
+  const { editReceive, deleteReceive } = useReceive();
 
   const { token } = Users();
 
@@ -699,8 +699,8 @@ const BillsToReceive = () => {
                 editReceive(item.id, token)
                 getAllReceive()
               }} />
-              <Icon onClick={()=>{
-                deleteReceive(item.id,token)
+              <Icon onClick={() => {
+                deleteReceive(item.id, token)
                 getAllReceive()
               }} as={FaTimes} my={2} fontSize={{ lg: "md", md: "sm", base: "xs" }} color="red" />
             </HStack>
