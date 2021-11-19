@@ -10,6 +10,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
+  Checkbox
 } from "@chakra-ui/react";
 import {
   FaCheckCircle,
@@ -17,8 +18,38 @@ import {
   FaTimes,
   FaTrash,
 } from "react-icons/fa";
+import { formatValue } from "../../utils/formatValue";
+import { useSpend } from "../../providers/ContextSpend";
+import { useReceive } from "../../providers/ContextReceives";
+import { Users } from "../../providers/Users";
 
 export const ModalEntry = ({ isOpen, onClose, item }) => {
+  console.log(item);
+  const { token } = Users();
+  const { editSpend, deleteSpend, loadSpends } = useSpend();
+  const { editReceive, deleteReceive, loadReceives } = useReceive();
+
+  const handleEdit = (type) => {
+    if (type === true) {
+      editReceive(item.id, token)
+      loadReceives(item.id, token)
+    } else if (type === false) {
+      editSpend(item.id, token)
+      loadSpends(item.id, token)
+    }
+  }
+
+  const handleDelete = (type) => {
+    if (type === true) {
+      deleteReceive(item.id, token)
+      loadReceives(item.id, token)
+    } else if (type === false) {
+      deleteSpend(item.id, token)
+      loadSpends(item.id, token)
+    }
+    onClose()
+  }
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -49,7 +80,7 @@ export const ModalEntry = ({ isOpen, onClose, item }) => {
               bg="transparent"
               color="gray.600"
             >
-              <FaCheckCircle />
+              <Checkbox isChecked={item.type} onChange={() => handleEdit(item.entry)} />
             </Center>
             <Center
               as="button"
@@ -58,7 +89,7 @@ export const ModalEntry = ({ isOpen, onClose, item }) => {
               bg="transparent"
               color="gray.600"
             >
-              <FaTrash />
+              <FaTrash onClick={() => handleDelete(item.entry)} />
             </Center>
             <Center
               onClick={onClose}
@@ -83,7 +114,7 @@ export const ModalEntry = ({ isOpen, onClose, item }) => {
             Descricao:
             {item.description}
           </Text>
-          <Text color="gray.400"> R$ {item.value} </Text>
+          <Text color="gray.400"> {formatValue(item.value)} </Text>
         </ModalBody>
 
         <Box padding="6">
