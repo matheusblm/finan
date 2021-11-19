@@ -1,10 +1,12 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import { api } from "../../service/api";
 import { Users } from "../Users";
+import { useToast } from '@chakra-ui/react';
 
 export const LimitsContext = createContext();
 
 export const LimitsProvider = ({ children }) => {
+    const toast = useToast();
     const [totalSpends, setTotalSpends] = useState(0);
 
     const [userSpends, setUserSpends] = useState([]);
@@ -27,7 +29,12 @@ export const LimitsProvider = ({ children }) => {
             .then((resp) => {
                 resp.data.length > 0 && setUserSpends(resp.data);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => toast({
+                title: "Erro ao buscar limites",
+                status: "error",
+                duration: 2000,
+                isClosable: true,
+            }));
     }
 
     const spendsReduce = () => {
@@ -56,6 +63,18 @@ export const LimitsProvider = ({ children }) => {
                 Authorization: `Bearer ${token}`,
             }
         })
+            .then((resp) => toast({
+                title: "Limite editado com sucesso",
+                status: "success",
+                duration: 2000,
+                isClosable: true,
+            }))
+            .catch((erro) => toast({
+                title: "Erro ao editar limite",
+                status: "error",
+                duration: 2000,
+                isClosable: true,
+            }));
     }
 
 

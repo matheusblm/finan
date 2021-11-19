@@ -1,9 +1,12 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import { api } from "../../service/api";
+import { useToast } from '@chakra-ui/react';
 
 const AccountContext = createContext();
 
 export const AccountProvider = ({ children }) => {
+  const toast = useToast();
+
   const [account, setAccount] = useState([]);
 
   const userId = Number(localStorage.getItem("idfinan")) || "";
@@ -18,7 +21,12 @@ export const AccountProvider = ({ children }) => {
         },
       })
       .then((resp) => resp.data.length !== 0 && setAccount(resp.data))
-      .catch((erro) => console.log(erro));
+      .catch((erro) => toast({
+        title: "Erro ao buscar conta",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
   };
 
   const letAccount = (data, token) => {
@@ -28,8 +36,18 @@ export const AccountProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((resp) => console.log(resp.data))
-      .catch((error) => console.log(error));
+      .then((resp) => toast({
+        title: "Conta criada com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      }))
+      .catch((error) => toast({
+        title: "Erro ao criar conta",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
   };
 
   const editAccountSaldo = (idAccount) => {
@@ -39,8 +57,18 @@ export const AccountProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((resp) => console.log(resp))
-      .catch((error) => console.log(error));
+      .then((resp) => toast({
+        title: "Conta editada com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      }))
+      .catch((error) => toast({
+        title: "Erro ao editar conta",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
   };
 
   const deleteAccount = (idAccount, token) => {
@@ -50,8 +78,18 @@ export const AccountProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((resp) => console.log(resp))
-      .catch((err) => console.log(err));
+      .then((resp) => toast({
+        title: "Conta deletada com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      }))
+      .catch((error) => toast({
+        title: "Erro ao deletar conta",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
   };
 
   return (

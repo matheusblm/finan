@@ -1,9 +1,11 @@
 import { useContext, createContext, useState, useCallback } from "react";
 import { api } from "../../service/api";
+import { useToast } from '@chakra-ui/react';
 
 const SpendContext = createContext();
 
 export const SpendProvider = ({ children }) => {
+  const toast = useToast();
   const [spended, setSpended] = useState([]);
   const [noSpend, setNoSpend] = useState([]);
   const [allSpends, setAllSpends] = useState([]);
@@ -18,7 +20,12 @@ export const SpendProvider = ({ children }) => {
 
       response.data.length > 0 && setAllSpends(response.data);
     } catch (err) {
-      console.log(err);
+      toast({
+        title: "Erro ao buscar lançamento",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
     }
   }, []);
 
@@ -46,7 +53,18 @@ export const SpendProvider = ({ children }) => {
           },
         }
       )
-      .catch((resp) => console.log(resp));
+      .then((resp) => toast({
+        title: "Lançamento editado com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      }))
+      .catch((erro) => toast({
+        title: "Erro ao editar lançamento",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
   };
 
   const lancSpend = async (data, token) => {
@@ -58,7 +76,18 @@ export const SpendProvider = ({ children }) => {
         },
       })
       .then(async (_) => await loadSpends(userId, token))
-      .catch((resp) => console.log(resp));
+      .then((resp) => toast({
+        title: "Lançamento criado com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      }))
+      .catch((erro) => toast({
+        title: "Erro ao realizar lançamento",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
   };
 
 
@@ -115,14 +144,24 @@ export const SpendProvider = ({ children }) => {
 
   const arrayNameSpend = Object.keys(arraySpendValue);
 
-  const deleteSpend = (idSpend,token)=>{
-    api.delete(`/spend/${idSpend}`,{
+  const deleteSpend = (idSpend, token) => {
+    api.delete(`/spend/${idSpend}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-    .then(resp=>console.log(resp))
-    .catch(err=>console.log(err))
+      .then((resp) => toast({
+        title: "Lançamento deletado com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      }))
+      .catch((erro) => toast({
+        title: "Erro ao deletar lançamento",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
   }
 
 
