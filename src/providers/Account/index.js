@@ -1,13 +1,16 @@
-import { useContext,createContext,useState, useEffect } from "react";
+import { useContext, createContext, useState, useEffect } from "react";
 import { api } from "../../service/api";
+import { useToast } from '@chakra-ui/react';
 
-const AccountContext = createContext()
+const AccountContext = createContext();
 
-export const AccountProvider = ({children})=>{
+export const AccountProvider = ({ children }) => {
+  const toast = useToast();
 
-    const [account,setAccount] = useState([])
+  const [account, setAccount] = useState([]);
 
-    const userId = Number(localStorage.getItem("idfinan")) || ""
+  const userId = Number(localStorage.getItem("idfinan")) || "";
+
 
     const token = localStorage.getItem("@tokenfinan") || ""
     
@@ -55,17 +58,54 @@ export const AccountProvider = ({children})=>{
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(resp=>console.log(resp))
-      .catch(err=>console.log(err))
-    }
-    
+      .then((resp) => toast({
+        title: "Conta editada com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      }))
+      .catch((error) => toast({
+        title: "Erro ao editar conta",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
+  };
 
+  const deleteAccount = (idAccount, token) => {
+    api
+      .delete(`/account${idAccount}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((resp) => toast({
+        title: "Conta deletada com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      }))
+      .catch((error) => toast({
+        title: "Erro ao deletar conta",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
+  };
 
-    return (
-        <AccountContext.Provider value={{account,getAccount,letAccount,editAccountSaldo,deleteAccount}}>
-            {children}
-        </AccountContext.Provider>
-    )
-}
+  return (
+    <AccountContext.Provider
+      value={{
+        account,
+        getAccount,
+        letAccount,
+        editAccountSaldo,
+        deleteAccount,
+      }}
+    >
+      {children}
+    </AccountContext.Provider>
+  );
+};
 
-export const Account = ()=> useContext(AccountContext)
+export const Account = () => useContext(AccountContext);

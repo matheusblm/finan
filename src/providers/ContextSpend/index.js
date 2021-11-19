@@ -1,30 +1,14 @@
-import {
-  useContext,
-  createContext,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import { useContext, createContext, useState, useCallback } from "react";
 import { api } from "../../service/api";
+import { useToast } from '@chakra-ui/react';
 
 const SpendContext = createContext();
 
 export const SpendProvider = ({ children }) => {
+  const toast = useToast();
   const [spended, setSpended] = useState([]);
-
   const [noSpend, setNoSpend] = useState([]);
-
   const [allSpends, setAllSpends] = useState([]);
-
-  const [filterPorMesSpend, setFilterPorMesSpend] = useState();
-
-  const [filterPorMesSpendAtual, setFilterPorMesSpendAtual] = useState();
-
-  const data = new Date();
-
-  const mes = data.getMonth() + 1;
-
-  //Pegar todos os spend
 
   const loadSpends = useCallback(async (userId, token) => {
     try {
@@ -33,9 +17,15 @@ export const SpendProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setAllSpends(response.data);
+
+      response.data.length > 0 && setAllSpends(response.data);
     } catch (err) {
-      console.log(err);
+      toast({
+        title: "Erro ao buscar lançamento",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
     }
   }, []);
 
@@ -44,36 +34,11 @@ export const SpendProvider = ({ children }) => {
     const received = allSpends.filter((item) => item.type === true);
     setSpended(received);
   };
-
   //Todos os não pagos.
   const filterNoReceived = () => {
     const received = allSpends.filter((item) => item.type === false);
     setNoSpend(received);
   };
-
-  //Filtro de receitas do mês atual
-
-  const filterActualMonthSpend = () => {
-    if (spended) {
-      const filterPorMesSpend = spended.filter(
-        (item) => item.data.split("-")[1] === mes && item.type === true
-      );
-      setFilterPorMesSpendAtual(filterPorMesSpend);
-    }
-  };
-
-  //Filtrar por mes escolhido pelo usuário
-  const filterMonthSpend = (mes, ano) => {
-    const filterPorAnoSpend = spended.filter(
-      (item) => item.data.split("-")[0] === ano && item.type === true
-    );
-    const filterPorMesSpend = filterPorAnoSpend.filter(
-      (item) => item.data.split("-")[1] === mes && item.type === true
-    );
-    setFilterPorMesSpend(filterPorMesSpend);
-  };
-
-  //Transformar spends não pago em pagos
 
   const editSpend = (id, token) => {
     api
@@ -88,32 +53,117 @@ export const SpendProvider = ({ children }) => {
           },
         }
       )
-      .catch((resp) => console.log(resp));
+      .then((resp) => toast({
+        title: "Lançamento editado com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      }))
+      .catch((erro) => toast({
+        title: "Erro ao editar lançamento",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
   };
 
-
-
-
-  const lancSpend = (data, token) => {
-
-    api
+  const lancSpend = async (data, token) => {
+    const userId = localStorage.getItem("idfinan");
+    await api
       .post(`spend`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .catch((resp) => console.log(resp));
+      .then(async (_) => await loadSpends(userId, token))
+      .then((resp) => toast({
+        title: "Lançamento criado com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      }))
+      .catch((erro) => toast({
+        title: "Erro ao realizar lançamento",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
   };
 
-  const deleteSpend = (idSpend,token)=>{
-    api.delete(`/spend/${idSpend}`,{
+
+  // const newSpendAll = allSpends.filter((item) => item.type === false);
+  // const newSpendedAll = allSpends.filter((item) => item.type === true);
+
+  const newSpend = allSpends
+    .filter(
+      (item) =>
+        Number(item.data.split("-")[0]) === new Date().getFullYear() &&
+        item.type === false
+    )
+    .filter(
+      (item) =>
+        Number(item.data.split("-")[1]) === new Date().getMonth() + 1 &&
+        item.type === false
+    );
+  const newSpended = allSpends
+    .filter(
+      (item) =>
+        Number(item.data.split("-")[0]) === new Date().getFullYear() &&
+        item.type === true
+    )
+    .filter(
+      (item) =>
+        Number(item.data.split("-")[1]) === new Date().getMonth() + 1 &&
+        item.type === true
+    );
+
+  const spendTotal = newSpend.reduce((acc, bill) => acc + bill.value, 0);
+  const spendedTotal = newSpended.reduce((acc, bill) => acc + bill.value, 0);
+
+  const groupBy = (objetoArray, propriedade) => {
+    return objetoArray.reduce((acc, obj) => {
+      let key = obj[propriedade];
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(obj.value);
+      return acc;
+    }, {});
+  };
+
+  const arraySpendValue = groupBy(newSpend, "category");
+
+  for (let value in arraySpendValue) {
+    arraySpendValue[value] = arraySpendValue[value].reduce(
+      (acc, val) => acc + val,
+      0
+    );
+  }
+
+  const arraySpend = Object.values(arraySpendValue);
+
+  const arrayNameSpend = Object.keys(arraySpendValue);
+
+  const deleteSpend = (idSpend, token) => {
+    api.delete(`/spend/${idSpend}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-    .then(resp=>console.log(resp))
-    .catch(err=>console.log(err))
+      .then((resp) => toast({
+        title: "Lançamento deletado com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      }))
+      .catch((erro) => toast({
+        title: "Erro ao deletar lançamento",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
   }
+
 
 
   return (
@@ -122,15 +172,16 @@ export const SpendProvider = ({ children }) => {
         spended,
         noSpend,
         allSpends,
-        filterPorMesSpend,
-        filterPorMesSpendAtual,
         filterReceived,
         filterNoReceived,
-        filterActualMonthSpend,
-        filterMonthSpend,
         editSpend,
         lancSpend,
         loadSpends,
+        spendedTotal,
+        newSpend,
+        spendTotal,
+        arraySpend,
+        arrayNameSpend,
         deleteSpend
       }}
     >

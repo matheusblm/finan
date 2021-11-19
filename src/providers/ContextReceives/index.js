@@ -1,30 +1,16 @@
-import {
-  useContext,
-  createContext,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import { useContext, createContext, useState, useCallback } from "react";
 import { api } from "../../service/api";
+import { useToast } from '@chakra-ui/react';
 
 const ReceivesContext = createContext();
 
 export const ReceiveProvider = ({ children }) => {
+  const toast = useToast();
   const [received, setReceived] = useState([]);
-
   const [noReceived, setNoReceived] = useState([]);
-
   const [allReceives, setAllReceives] = useState([]);
 
-  const [filterPorMesReceive, setFilterPorMesReceive] = useState();
-
-  const [filterPorMesReceiveAtual, setFilterPorMesReceiveAtual] = useState();
-
-  const data = new Date();
-
-  const mes = data.getMonth() + 1;
-
-  //Pega todos os receber.
+  const [openModalWallet, setOpenModalWallet] = useState(false);
 
   const loadReceives = useCallback(async (userId, token) => {
     try {
@@ -33,9 +19,15 @@ export const ReceiveProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setAllReceives(response.data);
+
+      response.data.length > 0 && setAllReceives(response.data);
     } catch (err) {
-      console.log("err");
+      toast({
+        title: "Erro ao buscar lançamento",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
     }
   }, []);
 
@@ -51,34 +43,6 @@ export const ReceiveProvider = ({ children }) => {
     setNoReceived(received);
   };
 
-  //Filtro de receitas do mês atual
-
-  const filterActualMonthReceive = () => {
-    if (received) {
-      const filterPorMesReceive = received.filter(
-        (item) => item.data.split("-")[1] === mes && item.type === true
-      );
-      setFilterPorMesReceiveAtual(filterPorMesReceive);
-    }
-  };
-
-  useEffect(() => {
-    filterActualMonthReceive();
-  }, []);
-
-  //Filtrar por mes escolhido pelo usuário
-  const filterMonthReceived = (mes, ano) => {
-    const filterPorAnoReceive = received.filter(
-      (item) => item.data.split("-")[0] === new Date().getFullYear() && item.type === true
-    );
-    const filterPorMesReceive = filterPorAnoReceive.filter(
-      (item) => item.data.split("-")[0] === new Date().getMonth() +1 && item.type === true
-    );
-    setFilterPorMesReceive(filterPorMesReceive);
-  };
-
-  //Transforma receives não recebidas em recebidas.
-
   const editReceive = (id, token) => {
     api
       .patch(
@@ -92,31 +56,93 @@ export const ReceiveProvider = ({ children }) => {
           },
         }
       )
-      .catch((resp) => console.log(resp));
+      .then((resp) => toast({
+        title: "Lançamento editado com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      }))
+      .catch((erro) => toast({
+        title: "Erro ao editar lançamento",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
   };
 
-
-
-  const lancReceive = (data, token) => {
-    console.log(data)
-    api
+  const lancReceive = async (data, token) => {
+    const userId = localStorage.getItem("idfinan");
+    await api
       .post(`/receive`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .catch((resp) => console.log(resp));
+      .then(async (_) => await loadReceives(userId, token))
+      .then((resp) => toast({
+        title: "Lançamento criado com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      }))
+      .catch((erro) => toast({
+        title: "Erro ao realizar lançamento",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
   };
 
-  const deleteReceive = (idReceive,token)=>{
-    api.delete(`/receive/${idReceive}`,{
+  // const newReceiveAll = allReceives.filter((item) => item.type === false);
+  // const newReceivedAll = allReceives.filter((item) => item.type === true);
+  const newReceive = allReceives
+    .filter(
+      (item) =>
+        Number(item.data.split("-")[0]) === new Date().getFullYear() &&
+        item.type === false
+    )
+    .filter(
+      (item) =>
+        Number(item.data.split("-")[1]) === new Date().getMonth() + 1 &&
+        item.type === false
+    );
+
+  const newReceived = allReceives
+    .filter(
+      (item) =>
+        Number(item.data.split("-")[0]) === new Date().getFullYear() &&
+        item.type === true
+    )
+    .filter(
+      (item) =>
+        Number(item.data.split("-")[1]) === new Date().getMonth() + 1 &&
+        item.type === true
+    );
+
+  const receiveTotal = newReceive.reduce((acc, bill) => acc + bill.value, 0);
+  const receivedTotal = newReceived.reduce((acc, bill) => acc + bill.value, 0);
+  const handleModalWallet = () => setOpenModalWallet(!openModalWallet);
+
+  const deleteReceive = (idReceive, token) => {
+    api.delete(`/receive/${idReceive}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-    .then(resp=>console.log(resp))
-    .catch(err=>console.log(err))
+      .then((resp) => toast({
+        title: "Lançamento deletado com sucesso",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      }))
+      .catch((erro) => toast({
+        title: "Erro ao deletar lançamento",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      }));
   }
+
 
   return (
     <ReceivesContext.Provider
@@ -124,15 +150,16 @@ export const ReceiveProvider = ({ children }) => {
         received,
         noReceived,
         allReceives,
-        filterPorMesReceive,
-        filterPorMesReceiveAtual,
         filterReceived,
         filterNoReceived,
-        filterActualMonthReceive,
-        filterMonthReceived,
         editReceive,
         lancReceive,
         loadReceives,
+        newReceive,
+        receivedTotal,
+        receiveTotal,
+        openModalWallet,
+        handleModalWallet,
         deleteReceive
       }}
     >

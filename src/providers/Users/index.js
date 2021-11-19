@@ -1,14 +1,15 @@
 import { useContext, createContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { api } from "../../service/api";
-import { useToast,Box } from "@chakra-ui/react";
-import {useReceive} from "../ContextReceives";
-import {useSpend} from "../ContextSpend";
+
+
 import {Account} from "../Account";
+import { useToast } from "@chakra-ui/react";
+import { useReceive } from "../ContextReceives";
+import { useSpend } from "../ContextSpend";
 
-const UsersContext = createContext()
+const UsersContext = createContext();
 
-export const UserProvider = ({ children }) => {
 
     const history = useHistory()
 

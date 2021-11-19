@@ -1,7 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { UserProvider } from "./Users";
 import { theme } from "../style/theme";
-import { DashboardProvider } from "./Dashboard";
 import { ReceiveProvider } from "./ContextReceives";
 import { SpendProvider } from "./ContextSpend";
 import { AccountProvider } from "./Account";
@@ -13,16 +12,15 @@ const AppProvider = ({ children }) => (
       <AccountProvider>
           <SpendProvider>
       <UserProvider>
-        <DashboardProvider>
           <LimitsProvider>
           {children}
           </LimitsProvider>
-        </DashboardProvider>
       </UserProvider>
       </SpendProvider>
    </AccountProvider>
-    </ReceiveProvider>
+</ReceiveProvider>
   </ChakraProvider>
+ 
 );
 
 export default AppProvider;

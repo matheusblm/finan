@@ -1,19 +1,4 @@
-import {
-  Flex,
-  Button,
-  FormControl,
-  Input,
-  FormLabel,
-  FormErrorMessage,
-  ChakraInputProps,
-  InputLeftElement,
-  InputGroup,
-  Box,
-  Image,
-  Text,
-  Img,
-  Grid,
-} from "@chakra-ui/react";
+import { Flex, Button, Box, Image, Text, Img, Grid } from "@chakra-ui/react";
 
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -21,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router-dom";
 
 import { BsPerson } from "react-icons/bs";
-import { FaLock, FaRegEyeSlash } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
 import { FaArrowLeft, FaEnvelope } from "react-icons/fa";
 
 import { Users } from "../../providers/Users";
@@ -48,7 +33,6 @@ export const Signup = () => {
       .string()
       .required("Item obrigatório")
       .oneOf([yup.ref("password")], "As senhas nao combinam!"),
-
   });
 
   const {
@@ -58,10 +42,9 @@ export const Signup = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSignup = (data) => {
-    console.log(data);
     SignUp(data);
   };
-  console.log(errors);
+
   return (
     <Flex
       justifyContent="center"

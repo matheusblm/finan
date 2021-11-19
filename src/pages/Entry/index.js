@@ -22,6 +22,7 @@ import Lottie from "react-lottie";
 import animationData from "../../animations/animate-loading.json";
 import Header from "../../components/Header";
 import { Users } from "../../providers/Users";
+import { formatValue } from "../../utils/formatValue";
 
 export const Entry = () => {
   const { allReceives, loadReceives } = useReceive();
@@ -187,7 +188,7 @@ export const Entry = () => {
                 <Text>Saldo</Text>
               </Flex>
               <Flex flexDirection="column" fontWeight="bold">
-                <Text>R$ {totalReceive - totalSpend}</Text>
+                <Text>{formatValue(totalReceive - totalSpend)}</Text>
               </Flex>
             </Flex>
           </VStack>
