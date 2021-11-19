@@ -10,7 +10,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-  Checkbox
+  Checkbox,
 } from "@chakra-ui/react";
 import {
   FaCheckCircle,
@@ -24,31 +24,30 @@ import { useReceive } from "../../providers/ContextReceives";
 import { Users } from "../../providers/Users";
 
 export const ModalEntry = ({ isOpen, onClose, item }) => {
-  console.log(item);
   const { token } = Users();
   const { editSpend, deleteSpend, loadSpends } = useSpend();
   const { editReceive, deleteReceive, loadReceives } = useReceive();
 
   const handleEdit = (type) => {
     if (type === true) {
-      editReceive(item.id, token)
-      loadReceives(item.id, token)
+      editReceive(item.id, token);
+      loadReceives(item.id, token);
     } else if (type === false) {
-      editSpend(item.id, token)
-      loadSpends(item.id, token)
+      editSpend(item.id, token);
+      loadSpends(item.id, token);
     }
-  }
+  };
 
   const handleDelete = (type) => {
     if (type === true) {
-      deleteReceive(item.id, token)
-      loadReceives(item.id, token)
+      deleteReceive(item.id, token);
+      loadReceives(item.id, token);
     } else if (type === false) {
-      deleteSpend(item.id, token)
-      loadSpends(item.id, token)
+      deleteSpend(item.id, token);
+      loadSpends(item.id, token);
     }
-    onClose()
-  }
+    onClose();
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -80,7 +79,10 @@ export const ModalEntry = ({ isOpen, onClose, item }) => {
               bg="transparent"
               color="gray.600"
             >
-              <Checkbox isChecked={item.type} onChange={() => handleEdit(item.entry)} />
+              <Checkbox
+                isChecked={item.type}
+                onChange={() => handleEdit(item.entry)}
+              />
             </Center>
             <Center
               as="button"

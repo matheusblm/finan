@@ -7,18 +7,30 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import {
   FaWallet,
   FaLandmark,
   FaExclamationCircle,
   FaPlusSquare,
 } from "react-icons/fa";
+import { Account } from "../../providers/Account";
 import { useReceive } from "../../providers/ContextReceives";
+import { Users } from "../../providers/Users";
 
 import { ModalWallet } from "../ModalWallet";
 
 export const WalletDashboard = () => {
   const { openModalWallet, handleModalWallet } = useReceive();
+
+  const { id, token } = Users();
+
+  const { account, getAccount } = Account();
+
+  useEffect(() => {
+    const userId = id || localStorage.getItem("idfinan");
+    getAccount(userId, token);
+  }, []);
 
   return (
     <Stack w="100%" p={4} spacing={2}>
@@ -36,19 +48,23 @@ export const WalletDashboard = () => {
           <Icon as={FaWallet} fontSize={{ lg: "4xl", md: "2xl", base: "md" }} />
         </HStack>
       </Flex>
-      {false ? (
-        <Flex justify="space-between" color="gray.300">
-          <HStack spacing={2}>
-            <Icon as={FaLandmark} />
-            <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
-              Conta Caixa
-            </Text>
-          </HStack>
-          <HStack spacing={2}>
-            <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
-            <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>3.000,00</Text>
-          </HStack>
-        </Flex>
+      {account ? (
+        account.map((acc, index) => (
+          <Flex justify="space-between" color="gray.300" key={index}>
+            <HStack spacing={2}>
+              <Icon as={FaLandmark} />
+              <Text fontSize={{ lg: "lg", md: "md", base: "sm" }}>
+                {acc.bank}
+              </Text>
+            </HStack>
+            <HStack spacing={2}>
+              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>R$</Text>
+              <Text fontSize={{ lg: "md", md: "sm", base: "xs" }}>
+                {acc.over}
+              </Text>
+            </HStack>
+          </Flex>
+        ))
       ) : (
         <Center h="100%">
           <Flex

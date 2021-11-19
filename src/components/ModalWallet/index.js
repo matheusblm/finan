@@ -18,13 +18,15 @@ import { useReceive } from "../../providers/ContextReceives";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { Account } from "../../providers/Account";
+import { Users } from "../../providers/Users";
 
 const createTaskSchema = yup.object().shape({
   bank: yup.string().required("Campo obrigatório"),
   value: yup.string().required("Campo obrigatório"),
 });
 
-export const ModalWallet = () => {
+export const ModalWallet = (onClose) => {
   const { openModalWallet, handleModalWallet } = useReceive();
 
   const {
@@ -34,8 +36,16 @@ export const ModalWallet = () => {
   } = useForm({
     resolver: yupResolver(createTaskSchema),
   });
-
-  const handleWallet = (data) => console.log(data);
+  const { letAccount, getAccount } = Account();
+  const { id, token } = Users();
+  const handleWallet = ({ bank, value }) => {
+    const over = Number(value);
+    const userId = id || localStorage.getItem("idfinan");
+    const newData = { bank, over, userId };
+    letAccount(newData, token, userId);
+    getAccount(token);
+    handleModalWallet();
+  };
 
   return (
     <Modal isOpen={openModalWallet}>
