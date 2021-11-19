@@ -29,12 +29,7 @@ export const LimitsProvider = ({ children }) => {
             .then((resp) => {
                 resp.data.length > 0 && setUserSpends(resp.data);
             })
-            .catch((err) => toast({
-                title: "Erro ao buscar limites",
-                status: "error",
-                duration: 2000,
-                isClosable: true,
-            }));
+            .catch((err) => console.log(err))
     }
 
     const spendsReduce = () => {
